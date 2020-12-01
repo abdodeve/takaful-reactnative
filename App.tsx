@@ -77,10 +77,6 @@ function TopTabStackScreen() {
     <TopTabStack.Navigator>
       <TopTabStack.Screen name="Home" component={TopTabNavigatorScreen} />
     </TopTabStack.Navigator>
-    // <TopTabNavigator.Navigator>
-    //   <TopTabNavigator.Screen name="TopTab" component={TopTabScreen} />
-    //   <TopTabNavigator.Screen name="Details" component={DetailsScreen} />
-    // </TopTabNavigator.Navigator>
   );
 }
 
