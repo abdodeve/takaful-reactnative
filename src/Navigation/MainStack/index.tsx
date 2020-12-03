@@ -1,26 +1,20 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from "react";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import Routes from "../Routes";
-import MainStack from "./MainStack";
-import DrawerScreen from "../../Screens/Drawer";
-import metrics from "../../Themes/Metrics";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 
-const Drawer = createDrawerNavigator();
+import HomeStack from "./HomeStack";
+import MyAnnouncementsStack from "./MyAnnouncementsStack";
 
-export default (props) => {
+const Tab = createBottomTabNavigator();
+
+export default () => {
   return (
-    <Drawer.Navigator
-      drawerPosition={"left"}
-      drawerType="slide"
-      edgeWidth={10}
-      drawerStyle={{
-        backgroundColor: "#fafafa",
-        width: metrics.drawerWidth,
-      }}
-      drawerContent={DrawerScreen}
-    >
-      <Drawer.Screen name={Routes.HOME_STACK} component={MainStack} />
-    </Drawer.Navigator>
+    <Tab.Navigator>
+      <Tab.Screen name="Home" component={HomeStack} />
+      <Tab.Screen name="Settings" component={MyAnnouncementsStack} />
+      <Tab.Screen name="TopTab" component={MyAnnouncementsStack} />
+    </Tab.Navigator>
   );
 };
