@@ -28,7 +28,7 @@ const MyAnnouncementsStackScreen = () => {
   return (
     <MyAnnouncementsStack.Navigator>
       <MyAnnouncementsStack.Screen
-        name={Routes.MY_ANNOUNCEMENTS_SCREEN}
+        name="MyAnnouncementsNavigatorScreen"
         component={MyAnnouncementsNavigatorScreen}
       />
     </MyAnnouncementsStack.Navigator>

@@ -1,10 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 
+import { Routes } from "./Routes";
 import MainStack from "./MainStack";
 import LaunchScreen from "./../Screens/LaunchScreen";
 
@@ -16,9 +15,9 @@ export default function RootNavigation() {
     <NavigationContainer>
       <Stack.Navigator headerMode="none">
         {APP_STATE === true ? (
-          <Stack.Screen name="HOME_SCREEN" component={MainStack} />
+          <Stack.Screen name={Routes.HOME_SCREEN} component={MainStack} />
         ) : (
-          <Stack.Screen name="HOME_SCREEN" component={LaunchScreen} />
+          <Stack.Screen name="LAUNCH_SCREEN" component={LaunchScreen} />
         )}
       </Stack.Navigator>
     </NavigationContainer>
