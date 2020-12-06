@@ -1,4 +1,5 @@
 import React from "react";
+import { Button, StyleSheet, Text, View } from "react-native";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Entypo from "react-native-vector-icons/Entypo";
@@ -11,8 +12,8 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-export const ICON_TYPE = {
-  ICONICONS: "ionicons",
+const ICON_TYPE = {
+  IONICONS: "ionicons",
   ANT_ICON: "ant",
   EVIL_ICONS: "EVIL",
   FONT_AWESOME: "FONTAWESOME",
@@ -24,17 +25,32 @@ export const ICON_TYPE = {
   MATERIAL_COMMUNITY: "MATERIALCOMMUNITY",
 };
 
-export const IconX = ({ origin, name, color, size, paddingLeft, style }) => {
-  let colorx = color || "#aaaaaa";
-  let sizex = size || 24;
-  let namex = name || "right";
-  let paddingx = paddingLeft || null;
+interface IconXProps {
+  origin?: string;
+  name?: string;
+  color?: string;
+  size?: number;
+  style?: object;
+}
 
-  let Element = Ionicons;
+const defaultProps: IconXProps = {
+  origin: "ant",
+  name: "right",
+  color: "#aaaaaa",
+  size: 24,
+  style: {},
+};
 
-  switch (origin) {
+const IconX: React.FC<IconXProps> = (props: IconXProps) => {
+  let Element = AntDesign;
+
+  switch (props.origin) {
     case ICON_TYPE.ANT_ICON:
       Element = AntDesign;
+      break;
+
+    case ICON_TYPE.IONICONS:
+      Element = Ionicons;
       break;
 
     case ICON_TYPE.ENTYPO:
@@ -69,16 +85,20 @@ export const IconX = ({ origin, name, color, size, paddingLeft, style }) => {
       break;
 
     default:
-      Element = Ionicons;
+      Element = AntDesign;
       break;
   }
 
   return (
     <Element
-      name={namex}
-      size={sizex}
-      color={colorx}
-      style={[{ paddingLeft: paddingx }, style]}
+      name={props.name}
+      size={props.size}
+      color={props.color}
+      style={[props.style]}
     />
   );
 };
+
+IconX.defaultProps = defaultProps as Partial<IconXProps>;
+
+export { IconX, ICON_TYPE };
