@@ -12,6 +12,7 @@ const HomeScreen = () => (
 
 export default () => (
   <ApplicationProvider {...eva} theme={eva.light}>
+    {/* <HomeScreen /> */}
     <RootNavigation />
   </ApplicationProvider>
 );

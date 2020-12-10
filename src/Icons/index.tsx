@@ -25,13 +25,13 @@ const ICON_TYPE = {
   MATERIAL_COMMUNITY: "MATERIALCOMMUNITY",
 };
 
-interface IconXProps {
+type IconXProps = {
   origin?: string;
   name?: string;
   color?: string;
   size?: number;
   style?: object;
-}
+};
 
 const defaultProps: IconXProps = {
   origin: "ant",

@@ -11,12 +11,29 @@ const Tab = createBottomTabNavigator();
 export default () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name={Routes.HOME_STACK} component={HomeStack} />
+      <Tab.Screen
+        name={Routes.HOME_STACK}
+        options={{
+          title: "Dons",
+        }}
+        component={HomeStack}
+      />
+      <Tab.Screen
+        name="Demandes"
+        options={{
+          title: "Demandes",
+        }}
+        component={HomeStack}
+      />
+      <Tab.Screen name="Créer" component={MyAnnouncementsStack} />
       <Tab.Screen
         name={Routes.MY_ANNOUNCEMENTS_STACK}
+        options={{
+          title: "Mes annonces",
+        }}
         component={MyAnnouncementsStack}
       />
-      <Tab.Screen name="TempTestStack" component={MyAnnouncementsStack} />
+      <Tab.Screen name="Compte" component={MyAnnouncementsStack} />
     </Tab.Navigator>
   );
 };
