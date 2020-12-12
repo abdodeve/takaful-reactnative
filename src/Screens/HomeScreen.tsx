@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   StyleSheet,
@@ -6,47 +6,137 @@ import {
   View,
   TouchableHighlight,
   TouchableOpacity,
+  FlatList,
+  SafeAreaView,
+  Image,
+  Dimensions,
 } from "react-native";
 
 import { Routes, ScreenProps } from "../Navigation/Routes";
 import { IconX, ICON_TYPE } from "../Icons";
 
+const deviceWidth = Dimensions.get("window").width;
+const deviceHeight = Dimensions.get("window").height;
+const DATA = [
+  {
+    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    title: "First Item",
+  },
+  {
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+    title: "Second Item",
+  },
+  {
+    id: "58694a0f-3da1-471f-bd96-145571e29d72",
+    title: "Third Item",
+  },
+  {
+    id: "7",
+    title: "Third Item 7",
+  },
+  {
+    id: "6",
+    title: "Third Item 6",
+  },
+  {
+    id: "5",
+    title: "Third Item 5",
+  },
+  {
+    id: "4",
+    title: "Third Item 4",
+  },
+  {
+    id: "3",
+    title: "Third Item 3",
+  },
+  {
+    id: "2",
+    title: "Third Item 2",
+  },
+];
+
+const Item = ({ item, onPress }) => (
+  <View style={[styles.item]}>
+    <TouchableOpacity onPress={onPress} style={[styles.touchableItem]}>
+      <View style={styles.itemLeft}>
+        <Image
+          style={styles.imgLeft}
+          source={require("../../assets/announcements/1/baby-buggy.jpg")}
+        />
+        <View style={styles.imgNumberView}>
+          <Text style={styles.imgNumberTxt}>Centered text</Text>
+        </View>
+      </View>
+      <View style={styles.itemRight}>
+        <Text style={styles.title}>{item.title}</Text>
+      </View>
+    </TouchableOpacity>
+  </View>
+);
+
 const HomeScreen: React.FC<ScreenProps> = ({
   route,
   navigation,
 }: ScreenProps) => {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home screen</Text>
-      <TouchableOpacity onPress={() => {}}>
-        <View>
-          <IconX
-            name="right"
-            origin={ICON_TYPE.ANT_ICON}
-            color="#aaaaaa"
-            style={{ color: "black" }}
-          />
-          <Text>Search</Text>
-        </View>
-      </TouchableOpacity>
+  const [selectedId, setSelectedId] = useState(null);
 
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate(Routes.DETAILS_SCREEN)}
+  const renderItem = ({ item }) => {
+    return <Item item={item} onPress={() => setSelectedId(item.id)} />;
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        extraData={selectedId}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 20,
-    marginVertical: 10,
-    color: "white",
+  container: {
+    flex: 1,
   },
-  text: {
-    fontSize: 16,
-    color: "white",
+  item: {
+    marginVertical: 8,
+    marginHorizontal: 16,
+    flex: 1,
+    flexDirection: "row",
+  },
+  title: {
+    fontSize: 32,
+  },
+  touchableItem: {
+    flex: 1,
+    flexDirection: "row",
+    backgroundColor: "#6e3b6e",
+    height: deviceHeight * 0.18,
+  },
+  imgNumberView: {
+    position: "absolute",
+    right: 0,
+    bottom: 0,
+  },
+  imgNumberTxt: {
+    fontSize: 15,
+    color: "#fff",
+  },
+  itemLeft: {
+    backgroundColor: "red",
+    width: "40%",
+  },
+  itemRight: {
+    width: "60%",
+    backgroundColor: "skyblue",
+  },
+  imgLeft: {
+    flex: 1,
+    height: undefined,
+    width: undefined,
   },
 });
 

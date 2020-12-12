@@ -34,7 +34,6 @@ const HomeStackScreen = () => {
     <HomeStack.Navigator
       screenOptions={{
         headerTitleAlign: "center",
-        headerTintColor: "#fff",
       }}
     >
       <HomeStack.Screen
