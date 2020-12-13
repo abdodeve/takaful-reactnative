@@ -1,0 +1,9 @@
+{
+    "$schema": "./node_modules/@eva-design/dss/schema/schema.json",
+    "version": 1.0,
+    "strict": {
+        "text-font-family": "OpenSans-Regular"
+    },
+    "components": {
+    }
+}

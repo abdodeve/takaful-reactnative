@@ -17,6 +17,7 @@
     "@react-navigation/stack": "^5.12.8",
     "@ui-kitten/components": "^5.0.0",
     "expo": "~39.0.2",
+    "expo-app-loading": "^1.0.1",
     "expo-status-bar": "~1.0.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import {
-  Button,
   StyleSheet,
-  Text,
   View,
   TouchableHighlight,
   TouchableOpacity,
@@ -11,6 +9,13 @@ import {
   Image,
   Dimensions,
 } from "react-native";
+import {
+  ApplicationProvider,
+  Layout,
+  Button,
+  Text,
+  useTheme,
+} from "@ui-kitten/components";
 
 import { Routes, ScreenProps } from "../Navigation/Routes";
 import { IconX, ICON_TYPE } from "../Icons";
@@ -57,9 +62,12 @@ const DATA = [
 ];
 
 const Item = ({ item, onPress }) => (
-  <View style={[styles.item]}>
-    <TouchableOpacity onPress={onPress} style={[styles.touchableItem]}>
-      <View style={styles.itemLeft}>
+  <Layout style={[styles.item]}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.touchableItem, { borderRadius: 15, overflow: "hidden" }]}
+    >
+      <Layout style={styles.itemLeft}>
         <Image
           style={styles.imgLeft}
           source={require("../../assets/announcements/1/baby-buggy.jpg")}
@@ -67,12 +75,12 @@ const Item = ({ item, onPress }) => (
         <View style={styles.imgNumberView}>
           <Text style={styles.imgNumberTxt}>Centered text</Text>
         </View>
-      </View>
-      <View style={styles.itemRight}>
+      </Layout>
+      <Layout style={[styles.itemRight]}>
         <Text style={styles.title}>{item.title}</Text>
-      </View>
+      </Layout>
     </TouchableOpacity>
-  </View>
+  </Layout>
 );
 
 const HomeScreen: React.FC<ScreenProps> = ({
@@ -102,7 +110,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   item: {
-    marginVertical: 8,
+    marginVertical: 6,
     marginHorizontal: 16,
     flex: 1,
     flexDirection: "row",
