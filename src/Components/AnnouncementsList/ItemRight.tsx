@@ -5,10 +5,6 @@ import { Layout, Text } from "@ui-kitten/components";
 import { IconX, ICON_TYPE } from "../../Icons";
 import { Announcement } from "../../Models";
 
-type item = {
-  title: string;
-};
-
 type Props = {
   item: Announcement;
 };
@@ -56,10 +52,9 @@ const styles = StyleSheet.create({
   },
   viewTitle: {
     height: "80%",
-
     justifyContent: "center",
     alignItems: "center",
-    // flex: 1,
+    marginHorizontal: 1,
   },
   bottomItem: {
     flexDirection: "row",
