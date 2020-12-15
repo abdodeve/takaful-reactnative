@@ -63,21 +63,71 @@ const DATA = [
 
 const Item = ({ item, onPress }) => (
   <Layout style={[styles.item]}>
-    <TouchableOpacity
-      onPress={onPress}
-      style={[styles.touchableItem, { borderRadius: 15, overflow: "hidden" }]}
-    >
+    <TouchableOpacity onPress={onPress} style={[styles.touchableItem]}>
       <Layout style={styles.itemLeft}>
         <Image
           style={styles.imgLeft}
           source={require("../../assets/announcements/1/baby-buggy.jpg")}
         />
         <View style={styles.imgNumberView}>
-          <Text style={styles.imgNumberTxt}>Centered text</Text>
+          <IconX
+            name="camera"
+            color="#fff"
+            size={20}
+            origin={ICON_TYPE.FONT_AWESOME}
+            style={styles.iconImg}
+          />
+          <Text style={styles.imgNumberTxt}>6</Text>
         </View>
       </Layout>
       <Layout style={[styles.itemRight]}>
-        <Text style={styles.title}>{item.title}</Text>
+        <View style={{ marginHorizontal: 8, marginVertical: 25 }}>
+          <Text style={[styles.title, { textAlign: "center" }]}>
+            {item.title}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            marginBottom: 5,
+            marginLeft: 6,
+            position: "absolute",
+            bottom: 0,
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              marginRight: 8,
+              alignItems: "center",
+            }}
+          >
+            <IconX
+              name="md-pin"
+              color="#000"
+              size={18}
+              origin={ICON_TYPE.IONICONS}
+              style={{ marginRight: 4 }}
+            />
+            <Text style={{ fontSize: 11 }}>Casablanca</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              marginRight: 8,
+              alignItems: "center",
+            }}
+          >
+            <IconX
+              name="clockcircle"
+              color="#000"
+              size={14}
+              origin={ICON_TYPE.ANT_ICON}
+              style={{ marginRight: 4 }}
+            />
+            <Text style={{ fontSize: 11 }}>12 déc, 09:45</Text>
+          </View>
+        </View>
       </Layout>
     </TouchableOpacity>
   </Layout>
@@ -116,36 +166,42 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   title: {
-    fontSize: 32,
+    fontSize: 21,
   },
   touchableItem: {
     flex: 1,
     flexDirection: "row",
-    backgroundColor: "#6e3b6e",
     height: deviceHeight * 0.18,
+    borderRadius: 15,
+    overflow: "hidden",
   },
   imgNumberView: {
     position: "absolute",
     right: 0,
     bottom: 0,
+    padding: 4,
+    borderRadius: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "rgba(127, 140, 141,0.4)",
   },
   imgNumberTxt: {
-    fontSize: 15,
+    fontSize: 18,
+    fontWeight: "bold",
     color: "#fff",
   },
   itemLeft: {
-    backgroundColor: "red",
     width: "40%",
   },
   itemRight: {
     width: "60%",
-    backgroundColor: "skyblue",
   },
   imgLeft: {
     flex: 1,
     height: undefined,
     width: undefined,
   },
+  iconImg: { marginRight: 8 },
 });
 
 export default HomeScreen;

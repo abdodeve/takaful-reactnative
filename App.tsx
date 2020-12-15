@@ -94,6 +94,7 @@ export default () => {
   let [fontsLoaded] = useFonts({
     "OpenSans-Regular": require("./assets/fonts/OpenSans-Regular.ttf"),
   });
+  // let fontsLoaded = true;
   console.log("fontsLoaded===>", fontsLoaded);
   if (!fontsLoaded) {
     return <AppLoading />;
