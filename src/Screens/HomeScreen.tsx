@@ -25,7 +25,7 @@ const deviceHeight = Dimensions.get("window").height;
 const DATA = [
   {
     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
+    title: "First Item pousette baby double twin",
   },
   {
     id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
@@ -81,51 +81,29 @@ const Item = ({ item, onPress }) => (
         </View>
       </Layout>
       <Layout style={[styles.itemRight]}>
-        <View style={{ marginHorizontal: 8, marginVertical: 25 }}>
-          <Text style={[styles.title, { textAlign: "center" }]}>
-            {item.title}
-          </Text>
+        <View style={styles.viewTitle}>
+          <Text style={[styles.title]}>{item.title}</Text>
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            marginBottom: 5,
-            marginLeft: 6,
-            position: "absolute",
-            bottom: 0,
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              marginRight: 8,
-              alignItems: "center",
-            }}
-          >
+        <View style={styles.bottomItem}>
+          <View style={styles.locationBlock}>
             <IconX
               name="md-pin"
-              color="#000"
+              color="#7f8c8d"
               size={18}
               origin={ICON_TYPE.IONICONS}
               style={{ marginRight: 4 }}
             />
-            <Text style={{ fontSize: 11 }}>Casablanca</Text>
+            <Text style={styles.textLocation}>Casablanca</Text>
           </View>
-          <View
-            style={{
-              flexDirection: "row",
-              marginRight: 8,
-              alignItems: "center",
-            }}
-          >
+          <View style={styles.locationBlock}>
             <IconX
               name="clockcircle"
-              color="#000"
+              color="#7f8c8d"
               size={14}
               origin={ICON_TYPE.ANT_ICON}
               style={{ marginRight: 4 }}
             />
-            <Text style={{ fontSize: 11 }}>12 déc, 09:45</Text>
+            <Text style={styles.textLocation}>12 déc, 09:45</Text>
           </View>
         </View>
       </Layout>
@@ -167,6 +145,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 21,
+    textAlign: "center",
   },
   touchableItem: {
     flex: 1,
@@ -202,6 +181,24 @@ const styles = StyleSheet.create({
     width: undefined,
   },
   iconImg: { marginRight: 8 },
+  viewTitle: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+  },
+  bottomItem: {
+    flexDirection: "row",
+    marginBottom: 5,
+    marginLeft: 6,
+    position: "absolute",
+    bottom: 0,
+  },
+  locationBlock: {
+    flexDirection: "row",
+    marginRight: 8,
+    alignItems: "center",
+  },
+  textLocation: { fontSize: 11, color: "#7f8c8d" },
 });
 
 export default HomeScreen;
