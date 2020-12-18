@@ -1,5 +1,6 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from "react";
+import { StyleSheet } from "react-native";
+
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Layout, Text, useTheme } from "@ui-kitten/components";
 
@@ -12,19 +13,27 @@ const Tab = createBottomTabNavigator();
 
 export default () => {
   const theme = useTheme();
+  const activeTintColor = theme["color-primary-500"];
+  const inactiveTintColor = theme["color-basic-600"];
 
   return (
     <Tab.Navigator
       initialRouteName="Main"
       tabBarOptions={{
-        activeTintColor: theme["color-primary-500"],
-        inactiveTintColor: theme["color-basic-600"],
+        activeTintColor: activeTintColor,
+        inactiveTintColor: inactiveTintColor,
       }}
     >
       <Tab.Screen
         name={Routes.HOME_STACK}
         options={{
-          tabBarLabel: "Dons",
+          tabBarLabel: (props) => {
+            return (
+              <Text style={[styles.tabBarLabel, { color: props.color }]}>
+                Dons
+              </Text>
+            );
+          },
           tabBarIcon: ({ color, size }) => (
             <IconX
               name="gift"
@@ -40,7 +49,13 @@ export default () => {
       <Tab.Screen
         name="Demandes"
         options={{
-          tabBarLabel: "Demandes",
+          tabBarLabel: (props) => {
+            return (
+              <Text style={[styles.tabBarLabel, { color: props.color }]}>
+                Demandes
+              </Text>
+            );
+          },
           tabBarIcon: ({ color, size }) => (
             <IconX
               name="hand-point-up"
@@ -56,7 +71,13 @@ export default () => {
       <Tab.Screen
         name="Créer"
         options={{
-          tabBarLabel: "Créer",
+          tabBarLabel: (props) => {
+            return (
+              <Text style={[styles.tabBarLabel, { color: props.color }]}>
+                Créer
+              </Text>
+            );
+          },
           tabBarIcon: ({ color, size }) => (
             <IconX
               name="add-box"
@@ -72,7 +93,13 @@ export default () => {
       <Tab.Screen
         name={Routes.MY_ANNOUNCEMENTS_STACK}
         options={{
-          tabBarLabel: "Mes annonces",
+          tabBarLabel: (props) => {
+            return (
+              <Text style={[styles.tabBarLabel, { color: props.color }]}>
+                Mes annonces
+              </Text>
+            );
+          },
           tabBarIcon: ({ color, size }) => (
             <IconX
               name="bullhorn"
@@ -88,7 +115,13 @@ export default () => {
       <Tab.Screen
         name="Compte"
         options={{
-          tabBarLabel: "Compte",
+          tabBarLabel: (props) => {
+            return (
+              <Text style={[styles.tabBarLabel, { color: props.color }]}>
+                Compte
+              </Text>
+            );
+          },
           tabBarIcon: ({ color, size }) => (
             <IconX
               name="user"
@@ -104,3 +137,10 @@ export default () => {
     </Tab.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  tabBarLabel: {
+    fontSize: 12,
+    fontWeight: "bold",
+  },
+});

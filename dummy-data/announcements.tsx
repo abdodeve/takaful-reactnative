@@ -55,7 +55,7 @@ const DATA = [
   },
   {
     id: "7",
-    title: "CoiffeurRelooking homme -Conseil en image 15 euros à domicile",
+    title: "Coiffeur homme à domicile",
     content: "Hello content",
     nbImg: 2,
     mainImg: require("../assets/announcements/7/1.jpg"),
