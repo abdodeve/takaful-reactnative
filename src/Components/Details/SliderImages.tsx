@@ -9,18 +9,13 @@ import {
 } from "react-native";
 import { Layout, Text, Button } from "@ui-kitten/components";
 
-import { IconX, ICON_TYPE } from "../Icons";
-import { ScreenProps } from "../Navigation/Routes";
-import Details from "../Components/Details";
+import { IconX, ICON_TYPE } from "../../Icons";
 
 export const PhoneIcon = () => (
   <IconX name="phone" color="#fff" origin={ICON_TYPE.FEATHER_ICONS} />
 );
 
-const DetailsScreen: React.FC<ScreenProps> = ({
-  route,
-  navigation,
-}: ScreenProps) => {
+const SliderImages: React.FC = () => {
   const width = useWindowDimensions().width;
   const height = width * 0.6;
 
@@ -34,6 +29,10 @@ const DetailsScreen: React.FC<ScreenProps> = ({
     "https://i.pinimg.com/236x/0d/a7/3b/0da73b6592ba04b63385c12280d1bf6a.jpg",
   ];
 
+  /**
+   * OnSlide Image
+   * @param param0 nativeEvent
+   */
   const change = ({ nativeEvent }) => {
     const slide = Math.ceil(
       nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
@@ -43,12 +42,49 @@ const DetailsScreen: React.FC<ScreenProps> = ({
     }
   };
   return (
-    <View style={{ flex: 1 }}>
-      <Details route={route} navigation={navigation} />
+    <View>
+      <View>
+        <ScrollView
+          pagingEnabled
+          horizontal
+          onScroll={change}
+          style={{ width, height }}
+        >
+          {images.map((image, index) => (
+            <Image
+              key={index}
+              source={{ uri: image }}
+              style={{ width, height, resizeMode: "cover" }}
+            />
+          ))}
+        </ScrollView>
+        <View style={styles.pagination}>
+          {images.map((i, k) => (
+            <Text key={k} style={k == active ? styles.activeDot : styles.dot}>
+              •
+            </Text>
+          ))}
+        </View>
+      </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  pagination: {
+    flexDirection: "row",
+    position: "absolute",
+    bottom: -15,
+    alignSelf: "center",
+  },
+  dot: {
+    color: "#888",
+    fontSize: 50,
+  },
+  activeDot: {
+    color: "#FFF",
+    fontSize: 50,
+  },
+});
 
-export default DetailsScreen;
+export default SliderImages;

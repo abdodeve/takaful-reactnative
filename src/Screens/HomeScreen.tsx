@@ -9,7 +9,7 @@ const HomeScreen: React.FC<ScreenProps> = ({
   route,
   navigation,
 }: ScreenProps) => {
-  return <AnnouncementsList />;
+  return <AnnouncementsList navigation={navigation} route={route} />;
 };
 
 const styles = StyleSheet.create({});

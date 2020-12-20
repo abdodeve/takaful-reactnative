@@ -11,6 +11,8 @@ import { Layout } from "@ui-kitten/components";
 import AnnouncementsData from "./../../../dummy-data/announcements";
 import ItemLeft from "./ItemLeft";
 import ItemRight from "./ItemRight";
+import { Announcement } from "../../Models";
+import { Routes, ScreenProps } from "../../Navigation/Routes";
 
 const deviceHeight = Dimensions.get("window").height;
 
@@ -23,11 +25,19 @@ const Item = ({ item, onPress }) => (
   </Layout>
 );
 
-const AnnouncementsList: React.FC = () => {
-  const [selectedId, setSelectedId] = useState(null);
-
-  const renderItem = ({ item }) => {
-    return <Item item={item} onPress={() => setSelectedId(item.id)} />;
+const AnnouncementsList: React.FC<ScreenProps> = ({
+  route,
+  navigation,
+}: ScreenProps) => {
+  const renderItem = ({ item }: { item: Announcement }) => {
+    return (
+      <Item
+        item={item}
+        onPress={() => {
+          navigation.navigate(Routes.DETAILS_SCREEN);
+        }}
+      />
+    );
   };
 
   return (
@@ -36,7 +46,6 @@ const AnnouncementsList: React.FC = () => {
         data={AnnouncementsData}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        extraData={selectedId}
       />
     </SafeAreaView>
   );

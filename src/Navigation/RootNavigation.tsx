@@ -6,6 +6,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { Routes } from "./Routes";
 import MainStack from "./MainStack";
 import LaunchScreen from "./../Screens/LaunchScreen";
+import DetailsScreen from "../Screens/DetailsScreen";
 
 const Stack = createStackNavigator();
 
@@ -14,11 +15,14 @@ export default function RootNavigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator headerMode="none">
-        {APP_STATE === true ? (
+        <Stack.Screen name={Routes.HOME_SCREEN} component={MainStack} />
+        <Stack.Screen name={Routes.DETAILS_SCREEN} component={DetailsScreen} />
+        {/* {APP_STATE === true ? (
           <Stack.Screen name={Routes.HOME_SCREEN} component={MainStack} />
+          <Stack.Screen name={Routes.DETAILS_SCREEN} component={DetailsScreen} />
         ) : (
           <Stack.Screen name="LAUNCH_SCREEN" component={LaunchScreen} />
-        )}
+        )} */}
       </Stack.Navigator>
     </NavigationContainer>
   );

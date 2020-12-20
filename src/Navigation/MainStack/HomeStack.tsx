@@ -19,12 +19,8 @@ const HomeStack = createStackNavigator();
 
 function LogoTitle() {
   return (
-    // <View style={{ backgroundColor: "yellow" }}>
     <View>
-      <Image
-        // style={{ width: 150, height: 30 }}
-        source={require("./../../../assets/logos/logo-takaful-2.png")}
-      />
+      <Image source={require("./../../../assets/logos/logo-takaful-2.png")} />
     </View>
   );
 }
@@ -54,10 +50,10 @@ const HomeStackScreen = () => {
           ),
         }}
       />
-      <HomeStack.Screen
+      {/* <HomeStack.Screen
         name={Routes.DETAILS_SCREEN}
         component={DetailsScreen}
-      />
+      /> */}
       <HomeStack.Screen
         name={Routes.MY_ANNOUNCEMENTS_SCREEN}
         component={MyAnnouncementsScreen}
