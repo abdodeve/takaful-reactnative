@@ -1,13 +1,6 @@
 import React, { useState } from "react";
-import {
-  View,
-  Image,
-  ScrollView,
-  useWindowDimensions,
-  Linking,
-  StyleSheet,
-} from "react-native";
-import { Layout, Text, Button } from "@ui-kitten/components";
+import { View, useWindowDimensions, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { IconX, ICON_TYPE } from "../Icons";
 import { ScreenProps } from "../Navigation/Routes";
@@ -21,34 +14,20 @@ const DetailsScreen: React.FC<ScreenProps> = ({
   route,
   navigation,
 }: ScreenProps) => {
-  const width = useWindowDimensions().width;
-  const height = width * 0.6;
-
-  const [active, setActive] = useState(0);
-
-  const images = [
-    "https://i.pinimg.com/236x/09/66/4f/09664f3441de659f26bf604a2f1f8f43.jpg",
-    "https://i.pinimg.com/236x/1f/9a/44/1f9a4405c1db5d23a13d8608dfba6850.jpg",
-    "https://i.pinimg.com/236x/28/b9/43/28b94382c8bea2d56afbabe1369d3b68.jpg",
-    "https://i.pinimg.com/564x/9c/40/ac/9c40acb5931b72b8ace4cb446ee0d068.jpg",
-    "https://i.pinimg.com/236x/0d/a7/3b/0da73b6592ba04b63385c12280d1bf6a.jpg",
-  ];
-
-  const change = ({ nativeEvent }) => {
-    const slide = Math.ceil(
-      nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width
-    );
-    if (slide !== active) {
-      setActive(slide);
-    }
-  };
   return (
-    <View style={{ flex: 1 }}>
-      <Details route={route} navigation={navigation} />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View style={{ flex: 1 }}>
+        <Details route={route} navigation={navigation} />
+      </View>
+    </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+});
 
 export default DetailsScreen;

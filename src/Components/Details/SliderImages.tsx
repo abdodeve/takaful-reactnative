@@ -5,18 +5,23 @@ import {
   ScrollView,
   useWindowDimensions,
   Linking,
+  Dimensions,
   StyleSheet,
 } from "react-native";
-import { Layout, Text, Button } from "@ui-kitten/components";
+import { Text, Button } from "@ui-kitten/components";
 
+import { ScreenProps } from "../../Navigation/Routes";
 import { IconX, ICON_TYPE } from "../../Icons";
 
 export const PhoneIcon = () => (
   <IconX name="phone" color="#fff" origin={ICON_TYPE.FEATHER_ICONS} />
 );
 
-const SliderImages: React.FC = () => {
-  const width = useWindowDimensions().width;
+const SliderImages: React.FC<ScreenProps> = ({
+  route,
+  navigation,
+}: ScreenProps) => {
+  const width = Dimensions.get("window").width;
   const height = width * 0.6;
 
   const [active, setActive] = useState(0);
@@ -42,29 +47,27 @@ const SliderImages: React.FC = () => {
     }
   };
   return (
-    <View>
-      <View>
-        <ScrollView
-          pagingEnabled
-          horizontal
-          onScroll={change}
-          style={{ width, height }}
-        >
-          {images.map((image, index) => (
-            <Image
-              key={index}
-              source={{ uri: image }}
-              style={{ width, height, resizeMode: "cover" }}
-            />
-          ))}
-        </ScrollView>
-        <View style={styles.pagination}>
-          {images.map((i, k) => (
-            <Text key={k} style={k == active ? styles.activeDot : styles.dot}>
-              •
-            </Text>
-          ))}
-        </View>
+    <View style={{ flexDirection: "column", flex: 1 }}>
+      <ScrollView
+        pagingEnabled
+        horizontal
+        onScroll={change}
+        style={{ width, height }}
+      >
+        {images.map((image, index) => (
+          <Image
+            key={index}
+            source={{ uri: image }}
+            style={{ width, height, resizeMode: "cover" }}
+          />
+        ))}
+      </ScrollView>
+      <View style={styles.pagination}>
+        {images.map((i, k) => (
+          <Text key={k} style={k == active ? styles.activeDot : styles.dot}>
+            •
+          </Text>
+        ))}
       </View>
     </View>
   );
