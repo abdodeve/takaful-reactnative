@@ -7,10 +7,11 @@ import {
   Linking,
   Dimensions,
   StyleSheet,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { Text, Button } from "@ui-kitten/components";
 
-import { ScreenProps } from "../../Navigation/Routes";
+import { ScreenProps, Routes } from "../../Navigation/Routes";
 import { IconX, ICON_TYPE } from "../../Icons";
 
 export const PhoneIcon = () => (
@@ -48,26 +49,37 @@ const SliderImages: React.FC<ScreenProps> = ({
   };
   return (
     <View style={{ flexDirection: "column", flex: 1 }}>
-      <ScrollView
-        pagingEnabled
-        horizontal
-        onScroll={change}
-        style={{ width, height }}
-      >
-        {images.map((image, index) => (
-          <Image
-            key={index}
-            source={{ uri: image }}
-            style={{ width, height, resizeMode: "cover" }}
-          />
-        ))}
-      </ScrollView>
-      <View style={styles.pagination}>
-        {images.map((i, k) => (
-          <Text key={k} style={k == active ? styles.activeDot : styles.dot}>
-            •
-          </Text>
-        ))}
+      <View>
+        <ScrollView
+          pagingEnabled
+          horizontal
+          onScroll={change}
+          style={{ width, height }}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+        >
+          {images.map((image, index) => (
+            <TouchableWithoutFeedback
+              key={index}
+              onPress={() => {
+                navigation.navigate(Routes.SLIDER_FULL_SCREEN);
+              }}
+            >
+              <Image
+                key={index}
+                source={{ uri: image }}
+                style={{ width, height, resizeMode: "cover" }}
+              />
+            </TouchableWithoutFeedback>
+          ))}
+        </ScrollView>
+        <View style={styles.pagination}>
+          {images.map((i, k) => (
+            <Text key={k} style={k == active ? styles.activeDot : styles.dot}>
+              •
+            </Text>
+          ))}
+        </View>
       </View>
     </View>
   );

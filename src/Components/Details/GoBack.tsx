@@ -14,7 +14,6 @@ const GoBack: React.FC<ScreenProps> = ({ route, navigation }: ScreenProps) => {
       <TouchableOpacity
         style={styles.touchableCall}
         onPress={() => {
-          console.log("Go Back CLICKED");
           navigation.goBack();
         }}
       >
@@ -29,7 +28,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 4,
     left: 4,
-    zIndex: 1,
+    zIndex: 200,
   },
   touchableCall: {
     alignItems: "center",

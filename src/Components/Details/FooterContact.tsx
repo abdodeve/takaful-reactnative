@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: "#ecf0f1",
     alignItems: "center",
-    marginHorizontal: 10,
+    paddingHorizontal: 10,
   },
   nameText: {
     fontWeight: "bold",

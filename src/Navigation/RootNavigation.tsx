@@ -8,6 +8,7 @@ import { Routes } from "./Routes";
 import MainStack from "./MainStack";
 import LaunchScreen from "./../Screens/LaunchScreen";
 import DetailsScreen from "../Screens/DetailsScreen";
+import SliderFullScreen from "../Screens/SliderFullScreen";
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,10 @@ export default function RootNavigation() {
               <Stack.Screen
                 name={Routes.DETAILS_SCREEN}
                 component={DetailsScreen}
+              />
+              <Stack.Screen
+                name={Routes.SLIDER_FULL_SCREEN}
+                component={SliderFullScreen}
               />
             </>
           ) : (
