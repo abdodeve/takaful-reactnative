@@ -25,7 +25,7 @@ function LogoTitle() {
   );
 }
 
-const HomeStackScreen = () => {
+const HomeStackScreen = ({ navigation }) => {
   return (
     <HomeStack.Navigator
       screenOptions={{
@@ -38,7 +38,12 @@ const HomeStackScreen = () => {
         options={{
           headerTitle: (props: any) => <LogoTitle {...props} />,
           headerRight: () => (
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity
+              onPress={() => {
+                console.log(navigation);
+                navigation.openDrawer();
+              }}
+            >
               <View>
                 <IconX
                   name="search"
@@ -50,10 +55,6 @@ const HomeStackScreen = () => {
           ),
         }}
       />
-      {/* <HomeStack.Screen
-        name={Routes.DETAILS_SCREEN}
-        component={DetailsScreen}
-      /> */}
       <HomeStack.Screen
         name={Routes.MY_ANNOUNCEMENTS_SCREEN}
         component={MyAnnouncementsScreen}

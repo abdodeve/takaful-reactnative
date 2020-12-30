@@ -11,7 +11,7 @@ import { Routes } from "./../Routes";
 
 const Tab = createBottomTabNavigator();
 
-export default () => {
+export default ({ navigation }) => {
   const theme = useTheme();
   const activeTintColor = theme["color-primary-500"];
   const inactiveTintColor = theme["color-basic-600"];
@@ -45,6 +45,7 @@ export default () => {
           ),
         }}
         component={HomeStack}
+        initialParams={navigation}
       />
       <Tab.Screen
         name="Demandes"
