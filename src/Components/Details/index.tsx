@@ -3,7 +3,7 @@ import { View, ScrollView, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, Button } from "@ui-kitten/components";
 
 import { ScreenProps } from "../../Navigation/Routes";
-import GoBack from "./GoBack";
+import GoBack from "./../Shared/GoBack";
 import SliderImages from "./SliderImages";
 import MainContent from "./MainContent";
 import FooterContact from "./FooterContact";

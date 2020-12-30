@@ -1,6 +1,6 @@
 import React from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { Text, View, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { ScreenProps } from "../Navigation/Routes";
 
@@ -10,11 +10,15 @@ const LaunchScreen: React.FC<ScreenProps> = ({
 }: ScreenProps) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View style={styles.container}>
         <Text>Launch Screen</Text>
       </View>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: { flex: 1, justifyContent: "center", alignItems: "center" },
+});
 
 export default LaunchScreen;

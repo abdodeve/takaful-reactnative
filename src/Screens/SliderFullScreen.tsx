@@ -1,34 +1,24 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  View,
-  Image,
-  ScrollView,
-  useWindowDimensions,
-  Linking,
-  Dimensions,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  Animated,
-  TouchableOpacity,
-  Modal,
-} from "react-native";
-import { Text, Button } from "@ui-kitten/components";
+import { View, Dimensions, StyleSheet } from "react-native";
 import * as ScreenOrientation from "expo-screen-orientation";
-import ImageZoom from "react-native-image-pan-zoom";
 import ImageViewer from "react-native-image-zoom-viewer";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { ScreenProps, Routes } from "../Navigation/Routes";
-import GoBack from "./../Components/Details/GoBack";
+import GoBack from "./../Components/Shared/GoBack";
 
 const SliderFullScreen: React.FC<ScreenProps> = ({
   route,
   navigation,
 }: ScreenProps) => {
+  type imagesType = {
+    url: string;
+  };
+
   const [width, setWidth] = useState(Dimensions.get("window").width);
   const [height, setHeight] = useState("100%");
 
-  const images: any = [
+  const images: imagesType[] = [
     {
       url: "https://images3.alphacoders.com/246/thumb-1920-246147.jpg",
     },
@@ -56,16 +46,8 @@ const SliderFullScreen: React.FC<ScreenProps> = ({
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View
-        style={{
-          flexDirection: "column",
-          flex: 1,
-          width,
-          height,
-        }}
-      >
+      <View style={[styles.container, { width, height }]}>
         <GoBack route={route} navigation={navigation} />
-
         <ImageViewer imageUrls={images} saveToLocalByLongPress={false} />
       </View>
     </SafeAreaView>
@@ -73,6 +55,10 @@ const SliderFullScreen: React.FC<ScreenProps> = ({
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: "column",
+    flex: 1,
+  },
   pagination: {
     flexDirection: "row",
     position: "absolute",
