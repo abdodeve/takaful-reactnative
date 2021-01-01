@@ -1,14 +1,6 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import {
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
-} from "@react-navigation/drawer";
+import { Dimensions } from "react-native";
 
 import MainStack from "../MainStack";
 import SearchScreen from "../../Screens/SearchScreen";
@@ -19,6 +11,9 @@ const SearchDrawerNavigator = () => {
     <Drawer.Navigator
       initialRouteName="Home"
       drawerContent={(props) => <SearchScreen {...props} />}
+      drawerStyle={{
+        width: Dimensions.get("window").width,
+      }}
     >
       <Drawer.Screen name="Home" component={MainStack} />
     </Drawer.Navigator>

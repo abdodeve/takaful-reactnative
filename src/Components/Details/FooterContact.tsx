@@ -3,6 +3,7 @@ import { View, Linking, StyleSheet, Dimensions } from "react-native";
 import { Text, Button } from "@ui-kitten/components";
 
 import { IconX, ICON_TYPE } from "../../Icons";
+import { Colors } from "./../../Constants";
 
 export const PhoneIcon = () => (
   <IconX name="phone" color="#fff" origin={ICON_TYPE.FEATHER_ICONS} />
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     height: windowHeight * 0.06,
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#ecf0f1",
+    backgroundColor: Colors.tintColor,
     alignItems: "center",
     paddingHorizontal: 10,
   },
