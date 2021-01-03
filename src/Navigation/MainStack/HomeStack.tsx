@@ -3,18 +3,18 @@ import { createStackNavigator } from "@react-navigation/stack";
 import {
   Button,
   StyleSheet,
-  Text,
   View,
   Image,
   TouchableOpacity,
 } from "react-native";
+import { Layout, Text, useTheme } from "@ui-kitten/components";
 
 import { Routes } from "../Routes";
 import HomeScreen from "../../Screens/HomeScreen";
 import MyAnnouncementsScreen from "../../Screens/MyAnnouncementsScreen";
 import { IconX, ICON_TYPE } from "../../Icons";
 
-const HomeStack = createStackNavigator();
+const HomeStackNavigator = createStackNavigator();
 
 function LogoTitle() {
   return (
@@ -24,14 +24,14 @@ function LogoTitle() {
   );
 }
 
-const HomeStackScreen = ({ navigation }) => {
+const HomeStack = ({ navigation }) => {
   return (
-    <HomeStack.Navigator
+    <HomeStackNavigator.Navigator
       screenOptions={{
         headerTitleAlign: "center",
       }}
     >
-      <HomeStack.Screen
+      <HomeStackNavigator.Screen
         name={Routes.HOME_SCREEN}
         component={HomeScreen}
         options={{
@@ -53,12 +53,12 @@ const HomeStackScreen = ({ navigation }) => {
           ),
         }}
       />
-      <HomeStack.Screen
+      <HomeStackNavigator.Screen
         name={Routes.MY_ANNOUNCEMENTS_SCREEN}
         component={MyAnnouncementsScreen}
       />
-    </HomeStack.Navigator>
+    </HomeStackNavigator.Navigator>
   );
 };
 
-export default HomeStackScreen;
+export default HomeStack;

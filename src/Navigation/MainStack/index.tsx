@@ -47,7 +47,6 @@ export default ({ navigation }) => {
           ),
         }}
         component={HomeStack}
-        initialParams={navigation}
       />
       <Tab.Screen
         name={Routes.REQUESTS_STACK}
@@ -72,7 +71,7 @@ export default ({ navigation }) => {
         component={HomeStack}
       />
       <Tab.Screen
-        name="Créer"
+        name={Routes.CREATE_ANNOUNCEMENT_SCREEN}
         options={{
           tabBarLabel: (props) => {
             return (
@@ -94,7 +93,7 @@ export default ({ navigation }) => {
         component={CreateAnnouncementScreen}
       />
       <Tab.Screen
-        name={Routes.ACCOUNT_SCREEN}
+        name={Routes.MY_ANNOUNCEMENTS_STACK}
         options={{
           tabBarLabel: (props) => {
             return (
@@ -116,7 +115,7 @@ export default ({ navigation }) => {
         component={MyAnnouncementsStack}
       />
       <Tab.Screen
-        name="Compte"
+        name={Routes.ACCOUNT_SCREEN}
         options={{
           tabBarLabel: (props) => {
             return (

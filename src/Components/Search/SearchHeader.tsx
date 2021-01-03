@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, Input } from "@ui-kitten/components";
 
+import TitleHeader from "./../Shared/TitleHeader";
+
 const useInputState = (initialValue = "") => {
   const [value, setValue] = React.useState(initialValue);
   return { value, onChangeText: setValue };
@@ -14,7 +16,7 @@ const SearchHeader = (props) => {
     <View style={styles.header}>
       <View style={styles.topRow}>
         <View style={styles.filter}>
-          <Text style={styles.title}>Filtrer</Text>
+          <TitleHeader title="Filtrer" />
         </View>
         <View>
           <TouchableOpacity
