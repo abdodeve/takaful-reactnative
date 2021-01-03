@@ -1,4 +1,4 @@
-const DATA = [
+const ANNOUNCEMENTS = [
   {
     id: "1",
     title: "Pousette single en trés bonne état",
@@ -127,4 +127,4 @@ const DATA = [
   },
 ];
 
-export default DATA;
+export default ANNOUNCEMENTS;

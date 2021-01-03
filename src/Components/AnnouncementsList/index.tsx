@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { Layout } from "@ui-kitten/components";
 
-import AnnouncementsData from "./../../../dummy-data/announcements";
+import ANNOUNCEMENTS from "./../../../dummy-data/announcements";
 import ItemLeft from "./ItemLeft";
 import ItemRight from "./ItemRight";
 import { Announcement } from "../../Models";
@@ -43,7 +43,7 @@ const AnnouncementsList: React.FC<ScreenProps> = ({
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={AnnouncementsData}
+        data={ANNOUNCEMENTS}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />

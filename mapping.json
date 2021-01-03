@@ -5,5 +5,14 @@
         "text-font-family": "OpenSans-Regular"
     },
     "components": {
+        "CheckBox": {
+           "appearances": {
+            "default": {
+                "mapping": {
+                }
+            }
+        }
+    }
+  
     }
 }

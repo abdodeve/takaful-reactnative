@@ -1,21 +1,6 @@
 import React, { useState } from "react";
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { Text, Input, Button, useTheme } from "@ui-kitten/components";
-
-import GoBack from "./../../Components/Shared/GoBack";
-import { IconX, ICON_TYPE } from "../../Icons";
-import { Colors } from "./../../Constants";
-
-export const PhoneIcon = () => (
-  <IconX name="phone" color="#fff" origin={ICON_TYPE.FEATHER_ICONS} />
-);
+import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, Input } from "@ui-kitten/components";
 
 const useInputState = (initialValue = "") => {
   const [value, setValue] = React.useState(initialValue);
@@ -24,16 +9,21 @@ const useInputState = (initialValue = "") => {
 
 const SearchHeader = (props) => {
   const primaryInputState = useInputState();
-  const theme = useTheme();
 
   return (
     <View style={styles.header}>
       <View style={styles.topRow}>
         <View style={styles.filter}>
-          <Text>Filtrer</Text>
+          <Text style={styles.title}>Filtrer</Text>
         </View>
         <View>
-          <Text>Réinitialiser</Text>
+          <TouchableOpacity
+            onPress={() => {
+              console.log("Réinitialiser");
+            }}
+          >
+            <Text>Réinitialiser</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.searchInputView}>
@@ -41,7 +31,7 @@ const SearchHeader = (props) => {
           <Input
             style={[styles.SearchInput]}
             status="primary"
-            placeholder="Primary"
+            placeholder="Rechercher"
             {...primaryInputState}
           />
         </View>
@@ -56,7 +46,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: "#fff",
-    height: "15%",
+    height: 100,
   },
   topRow: {
     flexDirection: "row",
@@ -65,9 +55,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   filter: {
-    marginTop: 8,
+    marginTop: 6,
     marginLeft: 60,
   },
+  title: { fontWeight: "bold", fontSize: 18 },
   searchInputView: {
     flex: 1,
     justifyContent: "center",

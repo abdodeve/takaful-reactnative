@@ -1,29 +1,9 @@
 import React, { useState } from "react";
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { View, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { Text, Input, Button, useTheme } from "@ui-kitten/components";
-
-import GoBack from "./../../Components/Shared/GoBack";
 import { IconX, ICON_TYPE } from "../../Icons";
-import { Colors } from "./../../Constants";
-
-export const PhoneIcon = () => (
-  <IconX name="phone" color="#fff" origin={ICON_TYPE.FEATHER_ICONS} />
-);
-
-const useInputState = (initialValue = "") => {
-  const [value, setValue] = React.useState(initialValue);
-  return { value, onChangeText: setValue };
-};
 
 const SearchScreen = (props) => {
-  const primaryInputState = useInputState();
   const theme = useTheme();
 
   return (
@@ -45,6 +25,7 @@ const SearchScreen = (props) => {
               name="search"
               origin={ICON_TYPE.OCTICONS}
               color="#fff"
+              size={17}
               style={{ marginRight: 10 }}
             />
             <Text style={styles.searchText}>RECHERCHER</Text>
@@ -58,13 +39,13 @@ const SearchScreen = (props) => {
 const styles = StyleSheet.create({
   searchBtnView: {
     backgroundColor: "#fff",
-    height: "10%",
+    height: 50,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
   },
   searchTouchable: {
-    padding: 10,
+    padding: 7,
     borderRadius: 6,
     width: Dimensions.get("window").width * 0.95,
   },
@@ -73,7 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  searchText: { color: "#fff", fontSize: 20 },
+  searchText: { color: "#fff", fontSize: 15 },
 });
 
 export default SearchScreen;

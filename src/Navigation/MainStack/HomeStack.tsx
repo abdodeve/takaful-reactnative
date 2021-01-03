@@ -40,7 +40,6 @@ const HomeStackScreen = ({ navigation }) => {
           headerRight: () => (
             <TouchableOpacity
               onPress={() => {
-                console.log(navigation);
                 navigation.openDrawer();
               }}
             >
