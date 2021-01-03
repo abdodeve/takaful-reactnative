@@ -8,7 +8,10 @@ export enum Routes {
   SLIDER_FULL_SCREEN = "SLIDER_FULL_SCREEN",
   // Stacks
   HOME_STACK = "HOME_STACK",
+  DONATIONS_STACK = "DONATIONS_STACK",
+  REQUESTS_STACK = "REQUESTS_STACK",
   MY_ANNOUNCEMENTS_STACK = "MY_ANNOUNCEMENTS_STACK",
+  ACCOUNT_SCREEN = "ACCOUNT_SCREEN",
 }
 
 type RootStackParamList = {
@@ -20,6 +23,9 @@ type RootStackParamList = {
 
   // Stacks
   HOME_STACK: undefined;
+  DONATIONS_STACK: undefined;
+  REQUESTS_STACK: undefined;
   MY_ANNOUNCEMENTS_STACK: undefined;
+  ACCOUNT_SCREEN: undefined;
 };
 export type ScreenProps = StackScreenProps<RootStackParamList>;

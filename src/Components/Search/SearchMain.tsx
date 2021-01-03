@@ -20,10 +20,6 @@ const SearchMain = (props) => {
           <InputCity />
         </View>
         <View style={styles.blockInput}>
-          <Text style={styles.label}>Type d'annonce</Text>
-          <RadioAnnouncementType />
-        </View>
-        <View style={styles.blockInput}>
           <Text style={styles.label}>Etat de l'objet</Text>
           <CheckboxObjectState />
         </View>

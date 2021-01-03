@@ -7,6 +7,8 @@ import { Layout, Text, useTheme } from "@ui-kitten/components";
 import { IconX, ICON_TYPE } from "../../Icons";
 import HomeStack from "./HomeStack";
 import MyAnnouncementsStack from "./MyAnnouncementsStack";
+import CreateAnnouncementScreen from "../../Screens/CreateAnnouncementScreen";
+import AccountScreen from "../../Screens/AccountScreen";
 import { Routes } from "./../Routes";
 
 const Tab = createBottomTabNavigator();
@@ -25,7 +27,7 @@ export default ({ navigation }) => {
       }}
     >
       <Tab.Screen
-        name={Routes.HOME_STACK}
+        name={Routes.DONATIONS_STACK}
         options={{
           tabBarLabel: (props) => {
             return (
@@ -48,7 +50,7 @@ export default ({ navigation }) => {
         initialParams={navigation}
       />
       <Tab.Screen
-        name="Demandes"
+        name={Routes.REQUESTS_STACK}
         options={{
           tabBarLabel: (props) => {
             return (
@@ -89,10 +91,10 @@ export default ({ navigation }) => {
             />
           ),
         }}
-        component={MyAnnouncementsStack}
+        component={CreateAnnouncementScreen}
       />
       <Tab.Screen
-        name={Routes.MY_ANNOUNCEMENTS_STACK}
+        name={Routes.ACCOUNT_SCREEN}
         options={{
           tabBarLabel: (props) => {
             return (
@@ -133,7 +135,7 @@ export default ({ navigation }) => {
             />
           ),
         }}
-        component={MyAnnouncementsStack}
+        component={AccountScreen}
       />
     </Tab.Navigator>
   );

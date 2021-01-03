@@ -11,7 +11,6 @@ import {
 
 import { Routes } from "../Routes";
 import HomeScreen from "../../Screens/HomeScreen";
-import DetailsScreen from "../../Screens/DetailsScreen";
 import MyAnnouncementsScreen from "../../Screens/MyAnnouncementsScreen";
 import { IconX, ICON_TYPE } from "../../Icons";
 
