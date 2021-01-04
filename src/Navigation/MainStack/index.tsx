@@ -60,7 +60,7 @@ export default ({ navigation }) => {
           },
           tabBarIcon: ({ color, size }) => (
             <IconX
-              name="hand-point-up"
+              name="hand-holding-heart"
               color={color}
               size={size}
               origin={ICON_TYPE.FONT_AWESOME5}

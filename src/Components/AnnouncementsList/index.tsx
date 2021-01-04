@@ -6,7 +6,7 @@ import {
   SafeAreaView,
   Dimensions,
 } from "react-native";
-import { Layout } from "@ui-kitten/components";
+import { Layout, Text } from "@ui-kitten/components";
 
 import ANNOUNCEMENTS from "./../../../dummy-data/announcements";
 import ItemLeft from "./ItemLeft";
@@ -41,13 +41,11 @@ const AnnouncementsList: React.FC<ScreenProps> = ({
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={ANNOUNCEMENTS}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
-    </SafeAreaView>
+    <FlatList
+      data={ANNOUNCEMENTS}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id}
+    />
   );
 };
 
@@ -62,6 +60,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderRadius: 15,
     overflow: "hidden",
+    elevation: 3,
   },
   touchableItem: {
     flex: 1,

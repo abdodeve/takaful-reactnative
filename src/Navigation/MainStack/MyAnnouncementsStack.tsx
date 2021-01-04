@@ -8,6 +8,7 @@ import { Routes } from "../Routes";
 import MyAnnouncementsScreen from "../../Screens/MyAnnouncementsScreen";
 import DetailsScreen from "../../Screens/DetailsScreen";
 import TitleHeader from "./../../Components/Shared/TitleHeader";
+import HomeScreen from "./../../Screens/HomeScreen";
 
 const MyAnnouncementsStack = createStackNavigator();
 const MyAnnouncementsTabNavigator = createMaterialTopTabNavigator();
@@ -17,7 +18,7 @@ const MyAnnouncementsNavigatorScreen = () => {
     <MyAnnouncementsTabNavigator.Navigator>
       <MyAnnouncementsTabNavigator.Screen
         name={Routes.MY_DONATIONS_SCREEN}
-        component={MyAnnouncementsScreen}
+        component={HomeScreen}
         options={{
           tabBarLabel: (props) => {
             return <Text style={[{ color: props.color }]}>Dons</Text>;
@@ -39,10 +40,13 @@ const MyAnnouncementsNavigatorScreen = () => {
 
 const MyAnnouncementsStackScreen = () => {
   return (
-    <MyAnnouncementsStack.Navigator>
+    <MyAnnouncementsStack.Navigator screenOptions={{}}>
       <MyAnnouncementsStack.Screen
         options={{
           headerTitle: (props: any) => <TitleHeader title="Mes annonces" />,
+          headerStyle: {
+            elevation: 1,
+          },
         }}
         name="MyAnnouncementsNavigatorScreen"
         component={MyAnnouncementsNavigatorScreen}
