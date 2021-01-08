@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   moreBtn: {
     alignItems: "center",
     justifyContent: "center",
-    width: 40,
+    width: 30,
     height: 32,
   },
   viewTitle: {
