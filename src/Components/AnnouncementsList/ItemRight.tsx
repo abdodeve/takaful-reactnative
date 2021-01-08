@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Image, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
 import { Layout, Text } from "@ui-kitten/components";
 
 import { IconX, ICON_TYPE } from "../../Icons";
@@ -12,7 +18,22 @@ type Props = {
 const ItemRight: React.FC<Props> = (props: Props) => {
   return (
     <Layout style={[styles.itemRight]}>
-      <View style={styles.viewTitle}>
+      <View style={styles.moreBtnView}>
+        <TouchableOpacity
+          style={styles.moreBtn}
+          onPress={() => {
+            console.log("more btn");
+          }}
+        >
+          <IconX
+            name="dots-vertical"
+            color="#000"
+            size={18}
+            origin={ICON_TYPE.MATERIAL_COMMUNITY}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={[styles.viewTitle]}>
         <Text style={[styles.title]}>{props.item.title}</Text>
       </View>
       <View style={styles.bottomItem}>
@@ -50,8 +71,20 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
   },
+  moreBtnView: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+  },
+  moreBtn: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 6,
+    marginRight: 6,
+    width: 20,
+    height: 20,
+  },
   viewTitle: {
-    height: "80%",
+    height: 75,
     justifyContent: "center",
     alignItems: "center",
     marginHorizontal: 1,

@@ -10,7 +10,7 @@ import {
 import { Layout, Text, useTheme } from "@ui-kitten/components";
 
 import { Routes } from "../Routes";
-import HomeScreen from "../../Screens/HomeScreen";
+import AnnouncementsListScreen from "../../Screens/AnnouncementsListScreen";
 import MyAnnouncementsScreen from "../../Screens/MyAnnouncementsScreen";
 import { IconX, ICON_TYPE } from "../../Icons";
 
@@ -33,7 +33,7 @@ const HomeStack = ({ navigation }) => {
     >
       <HomeStackNavigator.Screen
         name={Routes.HOME_SCREEN}
-        component={HomeScreen}
+        component={AnnouncementsListScreen}
         options={{
           headerTitle: (props: any) => <LogoTitle {...props} />,
           headerRight: () => (

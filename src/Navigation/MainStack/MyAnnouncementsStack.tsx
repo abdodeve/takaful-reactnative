@@ -8,7 +8,7 @@ import { Routes } from "../Routes";
 import MyAnnouncementsScreen from "../../Screens/MyAnnouncementsScreen";
 import DetailsScreen from "../../Screens/DetailsScreen";
 import TitleHeader from "./../../Components/Shared/TitleHeader";
-import HomeScreen from "./../../Screens/HomeScreen";
+import AnnouncementsListScreen from "../../Screens/AnnouncementsListScreen";
 
 const MyAnnouncementsStack = createStackNavigator();
 const MyAnnouncementsTabNavigator = createMaterialTopTabNavigator();
@@ -18,7 +18,7 @@ const MyAnnouncementsNavigatorScreen = () => {
     <MyAnnouncementsTabNavigator.Navigator>
       <MyAnnouncementsTabNavigator.Screen
         name={Routes.MY_DONATIONS_SCREEN}
-        component={HomeScreen}
+        component={AnnouncementsListScreen}
         options={{
           tabBarLabel: (props) => {
             return <Text style={[{ color: props.color }]}>Dons</Text>;
@@ -27,7 +27,7 @@ const MyAnnouncementsNavigatorScreen = () => {
       />
       <MyAnnouncementsTabNavigator.Screen
         name={Routes.MY_REQUESTS_SCREEN}
-        component={MyAnnouncementsScreen}
+        component={AnnouncementsListScreen}
         options={{
           tabBarLabel: (props) => {
             return <Text style={[{ color: props.color }]}>Demandes</Text>;

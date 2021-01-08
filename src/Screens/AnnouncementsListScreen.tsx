@@ -6,7 +6,7 @@ import AnnouncementsList from "../Components/AnnouncementsList";
 
 import { ScreenProps } from "../Navigation/Routes";
 
-const HomeScreen: React.FC<ScreenProps> = ({
+const AnnouncementsListScreen: React.FC<ScreenProps> = ({
   route,
   navigation,
 }: ScreenProps) => {
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default AnnouncementsListScreen;
