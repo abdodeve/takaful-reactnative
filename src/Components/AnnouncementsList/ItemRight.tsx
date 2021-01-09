@@ -26,6 +26,9 @@ type Props = {
 const EditIcon = (props) => (
   <IconX name="edit" color="#000" size={18} origin={ICON_TYPE.FEATHER_ICONS} />
 );
+const DeleteIcon = (props) => (
+  <IconX name="trash" color="#000" size={18} origin={ICON_TYPE.FEATHER_ICONS} />
+);
 
 const ItemRight: React.FC<ScreenProps & Props> = (
   props: Props & ScreenProps
@@ -37,11 +40,6 @@ const ItemRight: React.FC<ScreenProps & Props> = (
 
   const [visible, setVisible] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(undefined);
-
-  const onSelect = (index) => {
-    setSelectedIndex(index);
-    setVisible(false);
-  };
 
   const renderToggleButton = () => (
     <View style={styles.moreBtnView}>
@@ -76,6 +74,13 @@ const ItemRight: React.FC<ScreenProps & Props> = (
             accessoryLeft={EditIcon}
             onPress={() => {
               console.log("Modifier clicked");
+            }}
+          />
+          <MenuItem
+            title="Supprimer"
+            accessoryLeft={DeleteIcon}
+            onPress={() => {
+              console.log("Supprimer clicked");
             }}
           />
         </OverflowMenu>
