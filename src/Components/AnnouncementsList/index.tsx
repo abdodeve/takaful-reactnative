@@ -16,11 +16,11 @@ import { Routes, ScreenProps } from "../../Navigation/Routes";
 
 const deviceHeight = Dimensions.get("window").height;
 
-const Item = ({ item, onPress }) => (
+const Item = ({ item, onPress, route, navigation }) => (
   <Layout style={[styles.item]}>
     <TouchableOpacity onPress={onPress} style={[styles.touchableItem]}>
       <ItemLeft item={item} />
-      <ItemRight item={item} />
+      <ItemRight item={item} route={route} navigation={navigation} />
     </TouchableOpacity>
   </Layout>
 );
@@ -36,6 +36,8 @@ const AnnouncementsList: React.FC<ScreenProps> = ({
         onPress={() => {
           navigation.navigate(Routes.DETAILS_SCREEN);
         }}
+        route={route}
+        navigation={navigation}
       />
     );
   };

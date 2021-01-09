@@ -10,29 +10,39 @@ import { Layout, Text } from "@ui-kitten/components";
 
 import { IconX, ICON_TYPE } from "../../Icons";
 import { Announcement } from "../../Models";
+import { Routes, ScreenProps } from "../../Navigation/Routes";
 
 type Props = {
   item: Announcement;
 };
 
-const ItemRight: React.FC<Props> = (props: Props) => {
+const ItemRight: React.FC<ScreenProps & Props> = (
+  props: Props & ScreenProps
+) => {
+  const isMyannouncementScreen = [
+    "MY_DONATIONS_SCREEN",
+    "MY_REQUESTS_SCREEN",
+  ].includes(props.route.name);
+
   return (
     <Layout style={[styles.itemRight]}>
-      <View style={styles.moreBtnView}>
-        <TouchableOpacity
-          style={styles.moreBtn}
-          onPress={() => {
-            console.log("more btn");
-          }}
-        >
-          <IconX
-            name="dots-vertical"
-            color="#000"
-            size={18}
-            origin={ICON_TYPE.MATERIAL_COMMUNITY}
-          />
-        </TouchableOpacity>
-      </View>
+      {isMyannouncementScreen && (
+        <View style={styles.moreBtnView}>
+          <TouchableOpacity
+            style={styles.moreBtn}
+            onPress={() => {
+              console.log("more btn");
+            }}
+          >
+            <IconX
+              name="dots-vertical"
+              color="#000"
+              size={18}
+              origin={ICON_TYPE.MATERIAL_COMMUNITY}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
       <View style={[styles.viewTitle]}>
         <Text style={[styles.title]}>{props.item.title}</Text>
       </View>
