@@ -6,7 +6,14 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import { Layout, Text } from "@ui-kitten/components";
+import {
+  Layout,
+  Text,
+  Button,
+  Icon,
+  MenuItem,
+  OverflowMenu,
+} from "@ui-kitten/components";
 
 import { IconX, ICON_TYPE } from "../../Icons";
 import { Announcement } from "../../Models";
@@ -16,6 +23,10 @@ type Props = {
   item: Announcement;
 };
 
+const EditIcon = (props) => (
+  <IconX name="edit" color="#000" size={18} origin={ICON_TYPE.FEATHER_ICONS} />
+);
+
 const ItemRight: React.FC<ScreenProps & Props> = (
   props: Props & ScreenProps
 ) => {
@@ -24,25 +35,51 @@ const ItemRight: React.FC<ScreenProps & Props> = (
     "MY_REQUESTS_SCREEN",
   ].includes(props.route.name);
 
+  const [visible, setVisible] = React.useState(false);
+  const [selectedIndex, setSelectedIndex] = React.useState(undefined);
+
+  const onSelect = (index) => {
+    setSelectedIndex(index);
+    setVisible(false);
+  };
+
+  const renderToggleButton = () => (
+    <View style={styles.moreBtnView}>
+      {isMyannouncementScreen && (
+        <TouchableOpacity
+          style={styles.moreBtn}
+          onPress={() => {
+            setVisible(true);
+          }}
+        >
+          <IconX
+            name="dots-vertical"
+            color="#000"
+            size={18}
+            origin={ICON_TYPE.MATERIAL_COMMUNITY}
+          />
+        </TouchableOpacity>
+      )}
+    </View>
+  );
+
   return (
     <Layout style={[styles.itemRight]}>
-      {isMyannouncementScreen && (
-        <View style={styles.moreBtnView}>
-          <TouchableOpacity
-            style={styles.moreBtn}
+      <Layout style={styles.layoutOverflowMenu}>
+        <OverflowMenu
+          anchor={renderToggleButton}
+          visible={visible}
+          onBackdropPress={() => setVisible(false)}
+        >
+          <MenuItem
+            title="Modifier"
+            accessoryLeft={EditIcon}
             onPress={() => {
-              console.log("more btn");
+              console.log("Modifier clicked");
             }}
-          >
-            <IconX
-              name="dots-vertical"
-              color="#000"
-              size={18}
-              origin={ICON_TYPE.MATERIAL_COMMUNITY}
-            />
-          </TouchableOpacity>
-        </View>
-      )}
+          />
+        </OverflowMenu>
+      </Layout>
       <View style={[styles.viewTitle]}>
         <Text style={[styles.title]}>{props.item.title}</Text>
       </View>
@@ -81,10 +118,16 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
   },
+  layoutOverflowMenu: {
+    position: "absolute",
+    right: 0,
+    top: 3,
+    zIndex: 2,
+    minHeight: 30,
+  },
   moreBtnView: {
     flexDirection: "row",
     justifyContent: "flex-end",
-    position: "absolute",
     right: 0,
     top: 3,
     zIndex: 1,
