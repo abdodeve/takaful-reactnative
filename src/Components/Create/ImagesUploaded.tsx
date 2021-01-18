@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
   Button,
   Image,
@@ -21,27 +21,38 @@ const deviceWidth = Dimensions.get("window").width;
 const DATA = [
   {
     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    imageSrc: null,
-    // imageSrc:
+    uri: null,
+    // uri:
     //   "https://cdn.pixabay.com/photo/2015/06/19/21/24/the-road-815297__340.jpg",
   },
   {
     id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    // imageSrc: null,
-    imageSrc:
-      "https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823__340.jpg",
+    // uri: null,
+    uri: "https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823__340.jpg",
   },
   {
     id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    imageSrc: null,
-    // imageSrc:
+    uri: null,
+    // uri:
     //   "https://images.france.fr/zeaejvyq9bhj/4VGVbWT4kwsIyqaIuyiYs2/69b40a00fddb2b2c26ebd472fa6e4186/nature_dordogne.jpg",
   },
   {
     id: "58694a0f-3da1-471f-bd96-dfdjd997",
-    imageSrc: null, // "https://www.novethic.fr/fileadmin//biodiversite-nature-finance-iStock-sarayut.jpg",
+    uri: null, // "https://www.novethic.fr/fileadmin//biodiversite-nature-finance-iStock-sarayut.jpg",
   },
 ];
+
+let defaultImages: any = [
+  { index: 0 },
+  {
+    index: 1,
+    // uri:
+    //   "https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823__340.jpg",
+  },
+  { index: 2 },
+  { index: 3 },
+];
+const ThemeContext = React.createContext([defaultImages, null]);
 
 /**
  * Styling the first item of images
@@ -58,12 +69,32 @@ const styleFirstItem = (index, theme) => {
 };
 
 type ImageBlockType = {
-  imageSrc: string;
+  index: number;
+  uri: string;
+  setImages: Function;
 };
-const ImageBlock: React.FC<ImageBlockType> = ({ imageSrc }: ImageBlockType) => {
+/**
+ * If image uploaded
+ * @param uri
+ */
+const ImageBlock: React.FC<ImageBlockType> = ({
+  index,
+  uri,
+  setImages,
+}: ImageBlockType) => {
   return (
     <View>
-      <TouchableOpacity style={styles.clearImageBtn}>
+      <TouchableOpacity
+        style={styles.clearImageBtn}
+        onPress={() => {
+          console.log("123");
+          setImages((prevState) => {
+            // result["index"] = index;
+            prevState["uri"] = null;
+            return prevState;
+          });
+        }}
+      >
         <IconX
           name="md-close-circle"
           color="#fc5c65"
@@ -74,7 +105,7 @@ const ImageBlock: React.FC<ImageBlockType> = ({ imageSrc }: ImageBlockType) => {
       <Image
         style={styles.itemDimensions}
         source={{
-          uri: imageSrc,
+          uri: uri,
         }}
       />
     </View>
@@ -82,11 +113,69 @@ const ImageBlock: React.FC<ImageBlockType> = ({ imageSrc }: ImageBlockType) => {
 };
 
 type ItemType = {
-  imageSrc: string | null;
+  uri: string | null | undefined;
   index: number;
+  images: any;
+  setImages: any;
 };
-const Item: React.FC<ItemType> = ({ imageSrc, index }: ItemType) => {
+/**
+ * Item of image
+ * @param uri
+ * @param index
+ */
+const Item: React.FC<ItemType> = ({
+  uri,
+  index,
+  images,
+  setImages,
+}: ItemType) => {
   const theme = useTheme();
+  const setContext: any = React.useContext(ThemeContext)[1];
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
+      }
+    })();
+  }, []);
+
+  const changeImage = useCallback(
+    (result) => {
+      setImages((prevState) => {
+        prevState[index] = { index, uri: result["uri"] };
+        return prevState;
+      });
+    },
+    [images]
+  );
+
+  const [, updateState] = useState({});
+  const forceUpdate = useCallback(() => updateState({}), []);
+
+  const pickImage = async () => {
+    // setImages([]);
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      // changeImage(result);
+      setContext((prevState) => {
+        // result["index"] = index;
+        console.log("prevState==>", prevState);
+        prevState[index] = { index, uri: result["uri"] };
+        return prevState;
+      });
+      // setImages((prevState) => {
+      //   // result["index"] = index;
+      //   prevState[index] = { index, uri: result["uri"] };
+      //   return prevState;
+      // });
+    }
+  };
   return (
     <TouchableOpacity
       style={[
@@ -94,6 +183,7 @@ const Item: React.FC<ItemType> = ({ imageSrc, index }: ItemType) => {
         styles.itemDimensions,
         styleFirstItem(index, theme)?.container,
       ]}
+      onPress={pickImage}
     >
       <View
         style={{
@@ -102,9 +192,10 @@ const Item: React.FC<ItemType> = ({ imageSrc, index }: ItemType) => {
           justifyContent: "center",
         }}
       >
-        {imageSrc ? (
+        {console.log("uri===>", uri)}
+        {uri ? (
           // If image uploaded
-          <ImageBlock imageSrc={imageSrc} />
+          <ImageBlock index={index} uri={uri} setImages={setImages} />
         ) : (
           //  If NO image uploaded
           <IconX
@@ -119,13 +210,38 @@ const Item: React.FC<ItemType> = ({ imageSrc, index }: ItemType) => {
   );
 };
 
+/**
+ * ImagesUploaded
+ *
+ */
 const ImagesUploaded: React.FC = () => {
+  const [images, setImages] = useState<any[]>(defaultImages);
+  const ref = useRef(defaultImages);
+  const theme: any = React.useContext(ThemeContext)[0];
+
   return (
-    <View style={[styles.container]}>
-      {DATA.map((value, index) => {
-        return <Item key={value.id} imageSrc={value.imageSrc} index={index} />;
-      })}
-    </View>
+    <ThemeContext.Provider value={[theme, setImages]}>
+      <View style={[styles.container]}>
+        <Button
+          title="Test images"
+          onPress={() => {
+            console.log("theme===>", theme);
+          }}
+        />
+        {/* {DATA.map((value, index) => { */}
+        {theme.map((value, index) => {
+          return (
+            <Item
+              key={value.index}
+              uri={value.uri}
+              index={index}
+              images={images}
+              setImages={setImages}
+            />
+          );
+        })}
+      </View>
+    </ThemeContext.Provider>
   );
 };
 
