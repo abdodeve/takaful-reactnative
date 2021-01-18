@@ -3,15 +3,22 @@ import { View, useWindowDimensions, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import { Text, Input, Button, useTheme } from "@ui-kitten/components";
+import { connect } from "react-redux";
+import Actions from "./../Actions";
 
 import { ScreenProps } from "../Navigation/Routes";
 import StepOne from "../Components/Create/StepOne";
 import { Colors } from "./../Constants";
 
-const CreateAnnouncementScreen: React.FC<ScreenProps> = ({
+const CreateAnnouncementScreen: React.FC<any> = ({
   route,
   navigation,
-}: ScreenProps) => {
+  questions,
+  addQuestion,
+  addImage,
+  uploadedImage,
+  ownProps,
+}: any) => {
   const theme = useTheme();
 
   const ProgressStepCommonStyle = {
@@ -104,4 +111,27 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateAnnouncementScreen;
+const mapStateToProps = (state, ownProps) => ({
+  questions: state,
+  uploadedImage: state,
+  ownProps: ownProps,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addQuestion: (response) => {
+      dispatch(Actions.questions.addQuestions(response));
+    },
+    addImage: (uploadedImage) => {
+      console.log(1);
+      dispatch(Actions.UploadedImages.addImage(uploadedImage));
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CreateAnnouncementScreen);
+
+// export default CreateAnnouncementScreen;

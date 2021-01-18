@@ -10,11 +10,16 @@ import {
 import { View, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
 
+import rootReducer from "./src/Reducers";
 import { IconX, ICON_TYPE } from "./src/Icons";
 import RootNavigation from "./src/Navigation/RootNavigation";
 import { default as theme } from "./src/theme.json";
 import { default as mapping } from "./mapping.json";
+
+const store = createStore(rootReducer);
 
 export const HomeIcon = () => (
   <IconX
@@ -42,13 +47,10 @@ export default () => {
     return <AppLoading />;
   } else {
     return (
-      <ApplicationProvider
-        {...eva}
-        theme={eva.light}
-        // theme={{ ...eva.light, ...theme }}
-        customMapping={mapping}
-      >
-        <RootNavigation />
+      <ApplicationProvider {...eva} theme={eva.light} customMapping={mapping}>
+        <Provider store={store}>
+          <RootNavigation />
+        </Provider>
       </ApplicationProvider>
     );
   }
