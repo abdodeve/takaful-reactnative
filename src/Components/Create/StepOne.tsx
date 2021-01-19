@@ -10,21 +10,48 @@ import {
   SafeAreaView,
   Dimensions,
 } from "react-native";
+import { connect, ConnectedProps } from "react-redux";
+
 import * as ImagePicker from "expo-image-picker";
 import { Layout, Text } from "@ui-kitten/components";
-import { connect } from "react-redux";
 
-import Actions from "../../Store/Actions";
+import { UploadedImageType } from "./../../Store/UploadedImages/types";
+import { addImage } from "./../../Store/UploadedImages/actions";
 import Upload from "./Upload";
 
-const StepOne: React.FC<any> = ({ addImage, uploadedImage }) => {
-  const [image, setImage] = useState<ImagePicker.ImagePickerResult | null>(
-    null
-  );
+interface RootState {
+  UploadedImages: Array<UploadedImageType>;
+}
+const mapStateToProps = (state: RootState, ownProps) => ({
+  uploadedImages: state.UploadedImages,
+  ownProps: ownProps,
+});
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addImage: (uploadedImage: UploadedImageType) => {
+      dispatch(addImage(uploadedImage));
+    },
+  };
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type Props = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps> & {
+    label: string;
+  };
+
+const StepOne: React.FC<Props> = ({ addImage, uploadedImages }: Props) => {
   return (
     <View>
-      <Text>{JSON.stringify(uploadedImage)}</Text>
+      <Text>{JSON.stringify(uploadedImages)}</Text>
+      <Button
+        title="addImage"
+        onPress={() => {
+          console.log(12);
+          addImage({ index: 0, uri: "Hello" });
+        }}
+      />
       {/* <Upload /> */}
     </View>
   );
@@ -32,17 +59,6 @@ const StepOne: React.FC<any> = ({ addImage, uploadedImage }) => {
 
 const styles = StyleSheet.create({});
 
-const mapStateToProps = (state, ownProps) => ({
-  uploadedImage: state,
-  ownProps: ownProps,
-});
+export default connector(StepOne);
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addImage: (uploadedImage) => {
-      dispatch(Actions.UploadedImages.addImage(uploadedImage));
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(StepOne);
+// export default connect(mapStateToProps, mapDispatchToProps)(StepOne);

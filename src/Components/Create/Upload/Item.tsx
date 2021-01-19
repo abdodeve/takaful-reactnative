@@ -14,7 +14,6 @@ import * as ImagePicker from "expo-image-picker";
 import { Layout, Text, useTheme } from "@ui-kitten/components";
 import { connect } from "react-redux";
 
-import Actions from "../../../Store/Actions";
 import ImageBlock from "./ImageBlock";
 import { IconX, ICON_TYPE } from "../../../Icons";
 
@@ -167,7 +166,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     addImage: (uploadedImage) => {
-      dispatch(Actions.UploadedImages.addImage(uploadedImage));
+      // dispatch(Actions.UploadedImages.addImage(uploadedImage));
     },
   };
 };

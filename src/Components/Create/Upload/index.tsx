@@ -15,7 +15,6 @@ import { Layout, Text, useTheme } from "@ui-kitten/components";
 import { connect } from "react-redux";
 
 import Item from "./Item";
-import Actions from "../../../Store/Actions";
 import { IconX, ICON_TYPE } from "../../../Icons";
 import UPLOADED_IMAGES from "../../../../dummy-data/UPLOADED_IMAGES";
 

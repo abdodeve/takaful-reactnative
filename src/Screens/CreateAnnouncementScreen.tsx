@@ -4,7 +4,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import { Text, Input, Button, useTheme } from "@ui-kitten/components";
 import { connect } from "react-redux";
-import Actions from "../Store/Actions";
 
 import { ScreenProps } from "../Navigation/Routes";
 import StepOne from "../Components/Create/StepOne";
@@ -120,11 +119,11 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     addQuestion: (response) => {
-      dispatch(Actions.questions.addQuestions(response));
+      // dispatch(Actions.questions.addQuestions(response));
     },
     addImage: (uploadedImage) => {
       console.log(1);
-      dispatch(Actions.UploadedImages.addImage(uploadedImage));
+      // dispatch(Actions.UploadedImages.addImage(uploadedImage));
     },
   };
 };
