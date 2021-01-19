@@ -15,22 +15,12 @@ import { Layout, Text, useTheme } from "@ui-kitten/components";
 import { connect } from "react-redux";
 
 import Item from "./Item";
-import Actions from "./../../../Actions";
+import Actions from "../../../Store/Actions";
 import { IconX, ICON_TYPE } from "../../../Icons";
 import UPLOADED_IMAGES from "../../../../dummy-data/UPLOADED_IMAGES";
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
-let defaultImages: any = [
-  { index: 0 },
-  {
-    index: 1,
-    // uri:
-    //   "https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823__340.jpg",
-  },
-  { index: 2 },
-  { index: 3 },
-];
 
 /**
  * ImagesUploaded

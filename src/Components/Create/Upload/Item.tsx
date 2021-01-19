@@ -14,7 +14,7 @@ import * as ImagePicker from "expo-image-picker";
 import { Layout, Text, useTheme } from "@ui-kitten/components";
 import { connect } from "react-redux";
 
-import Actions from "./../../../Actions";
+import Actions from "../../../Store/Actions";
 import ImageBlock from "./ImageBlock";
 import { IconX, ICON_TYPE } from "../../../Icons";
 

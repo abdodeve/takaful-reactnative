@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import { Text, Input, Button, useTheme } from "@ui-kitten/components";
 import { connect } from "react-redux";
-import Actions from "./../Actions";
+import Actions from "../Store/Actions";
 
 import { ScreenProps } from "../Navigation/Routes";
 import StepOne from "../Components/Create/StepOne";

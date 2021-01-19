@@ -1,1 +1,2 @@
-export { Announcement } from "./Announcement.d";
+export { Announcement } from "./Announcement";
+export { UploadedImageType } from "./UploadedImageType";

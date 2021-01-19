@@ -14,7 +14,7 @@ import * as ImagePicker from "expo-image-picker";
 import { Layout, Text } from "@ui-kitten/components";
 import { connect } from "react-redux";
 
-import Actions from "./../../Actions";
+import Actions from "../../Store/Actions";
 import Upload from "./Upload";
 
 const StepOne: React.FC<any> = ({ addImage, uploadedImage }) => {
@@ -24,7 +24,8 @@ const StepOne: React.FC<any> = ({ addImage, uploadedImage }) => {
 
   return (
     <View>
-      <Upload />
+      <Text>{JSON.stringify(uploadedImage)}</Text>
+      {/* <Upload /> */}
     </View>
   );
 };

@@ -13,7 +13,8 @@ import AppLoading from "expo-app-loading";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 
-import rootReducer from "./src/Reducers";
+// import rootReducer from "./src/Store/Reducers";
+import { rootReducer } from "./src/Store";
 import { IconX, ICON_TYPE } from "./src/Icons";
 import RootNavigation from "./src/Navigation/RootNavigation";
 import { default as theme } from "./src/theme.json";

@@ -1,13 +1,17 @@
-// const initialState = {
-//   questionsResponses: [],
-//   storeResponse: { success: {}, error: {} },
-// };
-import UPLOADED_IMAGES from "./../../dummy-data/UPLOADED_IMAGES";
+import UPLOADED_IMAGES from "../../../dummy-data/UPLOADED_IMAGES";
+import Actions from "../Actions";
+import { UploadedImageType } from "../../Models";
+
 const initialState = UPLOADED_IMAGES;
 
-const UploadedImages = (state = initialState, action) => {
+interface SendMessageAction {
+  type: typeof Actions.UploadedImages.ADD_IMAGE;
+  uploadedImage: UploadedImageType;
+}
+
+const UploadedImages = (state = initialState, action: SendMessageAction) => {
   switch (action.type) {
-    case "ADD_IMAGE":
+    case Actions.UploadedImages.ADD_IMAGE:
       console.log("state - before==>", state);
       const myArr = state.map((obj) => {
         if (obj.index === action.uploadedImage.index) {

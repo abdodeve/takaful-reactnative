@@ -1,10 +1,8 @@
-const UPLOADED_IMAGES: any = [
+import { UploadedImages } from "./../src/Models";
+
+const UPLOADED_IMAGES: UploadedImages[] = [
   { index: 0 },
-  {
-    index: 1,
-    // uri:
-    //   "https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823__340.jpg",
-  },
+  { index: 1 },
   { index: 2 },
   { index: 3 },
 ];
