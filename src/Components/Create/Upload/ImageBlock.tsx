@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Layout, Text, useTheme } from "@ui-kitten/components";
+import { connect } from "react-redux";
 
 import Actions from "./../../../Actions";
 import { IconX, ICON_TYPE } from "../../../Icons";
@@ -31,7 +32,6 @@ type ImageBlockType = {
 const ImageBlock: React.FC<any> = ({
   index,
   uri,
-  setImages,
   addImage,
   uploadedImage,
 }: any) => {
@@ -41,11 +41,11 @@ const ImageBlock: React.FC<any> = ({
         style={styles.clearImageBtn}
         onPress={() => {
           console.log("123");
-          setImages((prevState) => {
-            // result["index"] = index;
-            prevState["uri"] = null;
-            return prevState;
-          });
+          // setImages((prevState) => {
+          //   // result["index"] = index;
+          //   prevState["uri"] = null;
+          //   return prevState;
+          // });
         }}
       >
         <IconX
@@ -94,4 +94,18 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ImageBlock;
+const mapStateToProps = (state, ownProps) => ({
+  uploadedImage: state,
+  ownProps: ownProps,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addImage: (uploadedImage) => {
+      console.log(1);
+      // dispatch(Actions.UploadedImages.addImage(uploadedImage));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImageBlock);

@@ -12,10 +12,12 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Layout, Text, useTheme } from "@ui-kitten/components";
+import { connect } from "react-redux";
 
 import Item from "./Item";
 import Actions from "./../../../Actions";
 import { IconX, ICON_TYPE } from "../../../Icons";
+import UPLOADED_IMAGES from "../../../../dummy-data/UPLOADED_IMAGES";
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
@@ -34,14 +36,13 @@ let defaultImages: any = [
  * ImagesUploaded
  *
  */
-const ImagesUploaded: React.FC = () => {
-  const [images, setImages] = useState<any[]>(defaultImages);
+const ImagesUploaded: React.FC<any> = ({ addImage, uploadedImage }) => {
+  const [images, setImages] = useState<any[]>(UPLOADED_IMAGES);
 
   return (
     <View style={[styles.container]}>
-      <Button title="Test images" onPress={() => {}} />
       {/* {DATA.map((value, index) => { */}
-      {defaultImages.map((value, index) => {
+      {uploadedImage.map((value, index) => {
         return (
           <Item
             key={value.index}
@@ -85,4 +86,18 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ImagesUploaded;
+const mapStateToProps = (state, ownProps) => ({
+  uploadedImage: state.UploadedImages,
+  ownProps: ownProps,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addImage: (uploadedImage) => {
+      console.log(1);
+      // dispatch(Actions.UploadedImages.addImage(uploadedImage));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ImagesUploaded);

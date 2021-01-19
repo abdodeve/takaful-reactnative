@@ -12,9 +12,10 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Layout, Text, useTheme } from "@ui-kitten/components";
+import { connect } from "react-redux";
 
-import ImageBlock from "./ImageBlock";
 import Actions from "./../../../Actions";
+import ImageBlock from "./ImageBlock";
 import { IconX, ICON_TYPE } from "../../../Icons";
 
 const deviceHeight = Dimensions.get("window").height;
@@ -45,12 +46,14 @@ type ItemType = {
  * @param uri
  * @param index
  */
-const Item: React.FC<ItemType> = ({
+const Item: React.FC<any> = ({
   uri,
   index,
   images,
   setImages,
-}: ItemType) => {
+  addImage,
+  uploadedImage,
+}: any) => {
   const theme = useTheme();
 
   useEffect(() => {
@@ -83,6 +86,9 @@ const Item: React.FC<ItemType> = ({
     });
 
     if (!result.cancelled) {
+      result["index"] = index;
+      const newImage = { index, uri: result["uri"] };
+      addImage(newImage);
       // setImages((prevState) => {
       //   // result["index"] = index;
       //   prevState[index] = { index, uri: result["uri"] };
@@ -153,4 +159,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Item;
+const mapStateToProps = (state, ownProps) => ({
+  uploadedImage: state,
+  ownProps: ownProps,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addImage: (uploadedImage) => {
+      dispatch(Actions.UploadedImages.addImage(uploadedImage));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Item);
