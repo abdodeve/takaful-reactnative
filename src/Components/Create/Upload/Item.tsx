@@ -16,6 +16,8 @@ import { connect } from "react-redux";
 
 import ImageBlock from "./ImageBlock";
 import { IconX, ICON_TYPE } from "../../../Icons";
+import { addImage } from "./../../../Store/UploadedImages/actions";
+import { UploadedImageType } from "./../../../Store/UploadedImages/types";
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
@@ -33,26 +35,36 @@ const styleFirstItem = (index, theme) => {
     iconColor: theme["color-warning-300"],
   };
 };
+interface RootState {
+  UploadedImages: Array<UploadedImageType>;
+}
+const mapStateToProps = (state: RootState, ownProps) => ({
+  uploadedImages: state.UploadedImages,
+  ownProps: ownProps,
+});
 
-type ItemType = {
-  uri: string | null | undefined;
-  index: number;
-  images: any;
-  setImages: any;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addImage: (uploadedImage: UploadedImageType) => {
+      dispatch(addImage(uploadedImage));
+    },
+  };
 };
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type Props = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps> & {
+    uri: string;
+    index: number;
+  };
+
 /**
  * Item of image
  * @param uri
  * @param index
+ * @param addImage
  */
-const Item: React.FC<any> = ({
-  uri,
-  index,
-  images,
-  setImages,
-  addImage,
-  uploadedImage,
-}: any) => {
+const Item: React.FC<Props> = ({ uri, index, addImage }: Props) => {
   const theme = useTheme();
 
   useEffect(() => {
@@ -63,16 +75,6 @@ const Item: React.FC<any> = ({
       }
     })();
   }, []);
-
-  const changeImage = useCallback(
-    (result) => {
-      setImages((prevState) => {
-        prevState[index] = { index, uri: result["uri"] };
-        return prevState;
-      });
-    },
-    [images]
-  );
 
   const [, updateState] = useState({});
   const forceUpdate = useCallback(() => updateState({}), []);
@@ -88,11 +90,6 @@ const Item: React.FC<any> = ({
       result["index"] = index;
       const newImage = { index, uri: result["uri"] };
       addImage(newImage);
-      // setImages((prevState) => {
-      //   // result["index"] = index;
-      //   prevState[index] = { index, uri: result["uri"] };
-      //   return prevState;
-      // });
     }
   };
   return (
@@ -111,10 +108,9 @@ const Item: React.FC<any> = ({
           justifyContent: "center",
         }}
       >
-        {console.log("uri===>", uri)}
         {uri ? (
           // If image uploaded
-          <ImageBlock index={index} uri={uri} setImages={setImages} />
+          <ImageBlock index={index} uri={uri} />
         ) : (
           //  If NO image uploaded
           <IconX
@@ -158,17 +154,5 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state, ownProps) => ({
-  uploadedImage: state,
-  ownProps: ownProps,
-});
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addImage: (uploadedImage) => {
-      // dispatch(Actions.UploadedImages.addImage(uploadedImage));
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Item);
+// export default connect(mapStateToProps, mapDispatchToProps)(Item);
+export default connector(Item);

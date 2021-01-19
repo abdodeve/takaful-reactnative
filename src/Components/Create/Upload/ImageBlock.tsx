@@ -15,6 +15,11 @@ import { Layout, Text, useTheme } from "@ui-kitten/components";
 import { connect } from "react-redux";
 
 import { IconX, ICON_TYPE } from "../../../Icons";
+import { addImage, removeImage } from "./../../../Store/UploadedImages/actions";
+import {
+  UploadedImageType,
+  MetaRemoveType,
+} from "./../../../Store/UploadedImages/types";
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
@@ -24,27 +29,51 @@ type ImageBlockType = {
   uri: string;
   setImages: Function;
 };
+
+interface RootState {
+  UploadedImages: Array<UploadedImageType>;
+}
+
+const mapStateToProps = (state: RootState, ownProps) => ({
+  uploadedImages: state.UploadedImages,
+  ownProps: ownProps,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addImage: (uploadedImage: UploadedImageType) => {
+      dispatch(addImage(uploadedImage));
+    },
+    removeImage: (meta: UploadedImageType) => {
+      dispatch(removeImage(meta));
+    },
+  };
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type Props = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps> & {
+    uri: string;
+    index: number;
+  };
+
 /**
  * If image uploaded
  * @param uri
  */
-const ImageBlock: React.FC<any> = ({
-  index,
+const ImageBlock: React.FC<Props> = ({
   uri,
+  index,
+  uploadedImages,
   addImage,
-  uploadedImage,
-}: any) => {
+  removeImage,
+}: Props) => {
   return (
     <View>
       <TouchableOpacity
         style={styles.clearImageBtn}
         onPress={() => {
-          console.log("123");
-          // setImages((prevState) => {
-          //   // result["index"] = index;
-          //   prevState["uri"] = null;
-          //   return prevState;
-          // });
+          removeImage({ index });
         }}
       >
         <IconX
@@ -93,18 +122,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state, ownProps) => ({
-  uploadedImage: state,
-  ownProps: ownProps,
-});
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addImage: (uploadedImage) => {
-      console.log(1);
-      // dispatch(Actions.UploadedImages.addImage(uploadedImage));
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ImageBlock);
+export default connector(ImageBlock);

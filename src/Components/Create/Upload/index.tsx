@@ -14,6 +14,8 @@ import * as ImagePicker from "expo-image-picker";
 import { Layout, Text, useTheme } from "@ui-kitten/components";
 import { connect } from "react-redux";
 
+import { UploadedImageType } from "./../../../Store/UploadedImages/types";
+import { addImage } from "./../../../Store/UploadedImages/actions";
 import Item from "./Item";
 import { IconX, ICON_TYPE } from "../../../Icons";
 import UPLOADED_IMAGES from "../../../../dummy-data/UPLOADED_IMAGES";
@@ -21,26 +23,42 @@ import UPLOADED_IMAGES from "../../../../dummy-data/UPLOADED_IMAGES";
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 
+interface RootState {
+  UploadedImages: Array<UploadedImageType>;
+}
+const mapStateToProps = (state: RootState, ownProps) => ({
+  uploadedImages: state.UploadedImages,
+  ownProps: ownProps,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addImage: (uploadedImage: UploadedImageType) => {
+      dispatch(addImage(uploadedImage));
+    },
+  };
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type Props = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps> & {
+    label: string;
+  };
+
 /**
  * ImagesUploaded
  *
  */
-const ImagesUploaded: React.FC<any> = ({ addImage, uploadedImage }) => {
+const ImagesUploaded: React.FC<Props> = ({
+  addImage,
+  uploadedImages,
+}: Props) => {
   const [images, setImages] = useState<any[]>(UPLOADED_IMAGES);
 
   return (
     <View style={[styles.container]}>
-      {/* {DATA.map((value, index) => { */}
-      {uploadedImage.map((value, index) => {
-        return (
-          <Item
-            key={value.index}
-            uri={value.uri}
-            index={index}
-            images={images}
-            setImages={setImages}
-          />
-        );
+      {uploadedImages.map((value, index) => {
+        return <Item key={value.index} uri={value.uri} index={index} />;
       })}
     </View>
   );
@@ -75,18 +93,5 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state, ownProps) => ({
-  uploadedImage: state.UploadedImages,
-  ownProps: ownProps,
-});
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addImage: (uploadedImage) => {
-      console.log(1);
-      // dispatch(Actions.UploadedImages.addImage(uploadedImage));
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ImagesUploaded);
+// export default connect(mapStateToProps, mapDispatchToProps)(ImagesUploaded);
+export default connector(ImagesUploaded);
