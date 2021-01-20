@@ -10,18 +10,12 @@ import {
   SafeAreaView,
   Dimensions,
 } from "react-native";
-import * as ImagePicker from "expo-image-picker";
-import { Layout, Text, useTheme } from "@ui-kitten/components";
 import { connect } from "react-redux";
 
 import { UploadedImageType } from "./../../../Store/UploadedImages/types";
-import { addImage } from "./../../../Store/UploadedImages/actions";
 import Item from "./Item";
-import { IconX, ICON_TYPE } from "../../../Icons";
-import UPLOADED_IMAGES from "../../../../dummy-data/UPLOADED_IMAGES";
 
 const deviceHeight = Dimensions.get("window").height;
-const deviceWidth = Dimensions.get("window").width;
 
 interface RootState {
   UploadedImages: Array<UploadedImageType>;
@@ -31,30 +25,14 @@ const mapStateToProps = (state: RootState, ownProps) => ({
   ownProps: ownProps,
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addImage: (uploadedImage: UploadedImageType) => {
-      dispatch(addImage(uploadedImage));
-    },
-  };
-};
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type Props = ReturnType<typeof mapStateToProps> &
-  ReturnType<typeof mapDispatchToProps> & {
-    label: string;
-  };
+const connector = connect(mapStateToProps);
+type Props = ReturnType<typeof mapStateToProps>;
 
 /**
  * ImagesUploaded
  *
  */
-const ImagesUploaded: React.FC<Props> = ({
-  addImage,
-  uploadedImages,
-}: Props) => {
-  const [images, setImages] = useState<any[]>(UPLOADED_IMAGES);
-
+const ImagesUploaded: React.FC<Props> = ({ uploadedImages }: Props) => {
   return (
     <View style={[styles.container]}>
       {uploadedImages.map((value, index) => {
@@ -66,7 +44,6 @@ const ImagesUploaded: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "flex-start",
@@ -93,5 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-// export default connect(mapStateToProps, mapDispatchToProps)(ImagesUploaded);
 export default connector(ImagesUploaded);

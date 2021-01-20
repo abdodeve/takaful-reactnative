@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { connect, ConnectedProps } from "react-redux";
+import { Text, Input } from "@ui-kitten/components";
 
 import { UploadedImageType } from "./../../Store/UploadedImages/types";
 import { addImage } from "./../../Store/UploadedImages/actions";
@@ -31,10 +32,22 @@ type Props = ReturnType<typeof mapStateToProps> &
 const StepOne: React.FC<Props> = ({ addImage, uploadedImages }: Props) => {
   return (
     <View>
+      <View style={styles.titleView}>
+        <Text style={styles.title}>Photos (4 maximum)</Text>
+      </View>
       <Upload />
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  titleView: {
+    alignItems: "center",
+    marginBottom: 40,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+});
 export default connector(StepOne);

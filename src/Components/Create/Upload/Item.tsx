@@ -20,7 +20,6 @@ import { addImage } from "./../../../Store/UploadedImages/actions";
 import { UploadedImageType } from "./../../../Store/UploadedImages/types";
 
 const deviceHeight = Dimensions.get("window").height;
-const deviceWidth = Dimensions.get("window").width;
 
 /**
  * Styling the first item of images
@@ -77,10 +76,8 @@ const Item: React.FC<Props> = ({ uri, index, addImage }: Props) => {
   }, []);
 
   const [, updateState] = useState({});
-  const forceUpdate = useCallback(() => updateState({}), []);
 
   const pickImage = async () => {
-    // setImages([]);
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
@@ -140,11 +137,11 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderRadius: 15,
     marginVertical: 6,
-    marginHorizontal: 16,
+    marginHorizontal: 6,
   },
   itemDimensions: {
-    height: deviceHeight * 0.18,
-    width: 150,
+    height: deviceHeight * 0.21,
+    width: 180,
   },
   clearImageBtn: {
     position: "absolute",
@@ -154,5 +151,4 @@ const styles = StyleSheet.create({
   },
 });
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Item);
 export default connector(Item);

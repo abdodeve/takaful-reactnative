@@ -6,30 +6,15 @@ import {
   Platform,
   StyleSheet,
   TouchableOpacity,
-  FlatList,
-  SafeAreaView,
   Dimensions,
 } from "react-native";
-import * as ImagePicker from "expo-image-picker";
-import { Layout, Text, useTheme } from "@ui-kitten/components";
 import { connect } from "react-redux";
 
 import { IconX, ICON_TYPE } from "../../../Icons";
 import { addImage, removeImage } from "./../../../Store/UploadedImages/actions";
-import {
-  UploadedImageType,
-  MetaRemoveType,
-} from "./../../../Store/UploadedImages/types";
+import { UploadedImageType } from "./../../../Store/UploadedImages/types";
 
 const deviceHeight = Dimensions.get("window").height;
-const deviceWidth = Dimensions.get("window").width;
-
-type ImageBlockType = {
-  index: number;
-  uri: string;
-  setImages: Function;
-};
-
 interface RootState {
   UploadedImages: Array<UploadedImageType>;
 }
@@ -61,13 +46,7 @@ type Props = ReturnType<typeof mapStateToProps> &
  * If image uploaded
  * @param uri
  */
-const ImageBlock: React.FC<Props> = ({
-  uri,
-  index,
-  uploadedImages,
-  addImage,
-  removeImage,
-}: Props) => {
+const ImageBlock: React.FC<Props> = ({ uri, index, removeImage }: Props) => {
   return (
     <View>
       <TouchableOpacity
@@ -111,13 +90,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   itemDimensions: {
-    height: deviceHeight * 0.18,
-    width: 150,
+    height: deviceHeight * 0.21,
+    width: 180,
   },
   clearImageBtn: {
     position: "absolute",
     top: 0,
-    right: 0,
+    right: 4,
     zIndex: 1,
   },
 });

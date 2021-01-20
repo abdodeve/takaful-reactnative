@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { View, useWindowDimensions, StyleSheet } from "react-native";
+import {
+  View,
+  useWindowDimensions,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import { Text, Input, Button, useTheme } from "@ui-kitten/components";
@@ -8,6 +13,8 @@ import { connect } from "react-redux";
 import { ScreenProps } from "../Navigation/Routes";
 import StepOne from "../Components/Create/StepOne";
 import { Colors } from "./../Constants";
+
+const deviceHeight = Dimensions.get("window").height;
 
 const CreateAnnouncementScreen: React.FC<any> = ({
   route,
@@ -55,7 +62,7 @@ const CreateAnnouncementScreen: React.FC<any> = ({
       <View style={{ flex: 1, backgroundColor: Colors.tintColor }}>
         <ProgressSteps
           marginBottom={0}
-          topOffset={0}
+          topOffset={10}
           progressBarColor="#ecf0f1"
           disabledStepIconColor="#ecf0f1"
           activeStepIconBorderColor="#2ecc71"
@@ -63,9 +70,10 @@ const CreateAnnouncementScreen: React.FC<any> = ({
           completedProgressBarColor="#2ecc71"
         >
           <ProgressStep {...ProgressStepPropsNext}>
-            <View style={{ alignItems: "center" }}>
-              <Text>Upload Image</Text>
-              <StepOne />
+            <View style={{ height: deviceHeight * 0.7 }}>
+              <View style={styles.wrapperPhotos}>
+                <StepOne />
+              </View>
             </View>
           </ProgressStep>
           <ProgressStep
@@ -107,6 +115,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+  },
+  wrapperPhotos: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
