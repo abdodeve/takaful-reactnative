@@ -19,7 +19,10 @@ const HomeStackNavigator = createStackNavigator();
 function LogoTitle() {
   return (
     <View>
-      <Image source={require("./../../../assets/logos/logo-takaful-2.png")} />
+      <Image
+        source={require("./../../../assets/logos/logo-main.png")}
+        style={{ resizeMode: "contain", width: 100 }}
+      />
     </View>
   );
 }
@@ -35,7 +38,7 @@ const HomeStack = ({ navigation }) => {
         name={Routes.HOME_SCREEN}
         component={AnnouncementsListScreen}
         options={{
-          headerTitle: (props: any) => <LogoTitle {...props} />,
+          headerTitle: (props: any) => <LogoTitle />,
           headerRight: () => (
             <TouchableOpacity
               onPress={() => {
