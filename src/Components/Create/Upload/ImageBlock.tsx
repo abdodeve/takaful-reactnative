@@ -52,6 +52,32 @@ type Props = ReturnType<typeof mapStateToProps> &
   };
 
 /**
+ * CheckBox
+ * Return checkbox element
+ * @param isChecked
+ */
+const CheckBox: React.FC<{ isChecked: boolean | null | undefined }> = ({
+  isChecked,
+}) => {
+  const checks = {
+    checked: "checkbox-marked-circle",
+    unChecked: "checkbox-blank-circle-outline",
+  };
+  return (
+    <IconX
+      name={isChecked ? checks.checked : checks.unChecked}
+      color="#fc5c65"
+      size={30}
+      origin={ICON_TYPE.MATERIAL_COMMUNITY}
+      style={{
+        marginLeft: 8,
+        color: "#fff",
+      }}
+    />
+  );
+};
+
+/**
  * If image uploaded
  * @param uri
  */
@@ -85,58 +111,15 @@ const ImageBlock: React.FC<Props> = ({
         }}
       />
 
-      <View
-        style={{
-          position: "absolute",
-          bottom: 0,
-          backgroundColor: "rgba(127, 140, 141,0.6)",
-          width: "100%",
-        }}
-      >
+      <View style={styles.checkboxWrapper}>
         <TouchableWithoutFeedback
           onPress={() => {
             setIsMain({ index });
           }}
         >
-          <View
-            style={{
-              alignItems: "center",
-              flexDirection: "row",
-            }}
-          >
-            {/* <Text>{JSON.stringify(UploadedImages[index].isMain)}</Text> */}
-            {UploadedImages[index].isMain === true ? (
-              <IconX
-                name="checkbox-marked-circle"
-                color="#fc5c65"
-                size={30}
-                origin={ICON_TYPE.MATERIAL_COMMUNITY}
-                style={{
-                  marginLeft: 8,
-                  color: "#fff",
-                }}
-              />
-            ) : (
-              <IconX
-                name="checkbox-blank-circle-outline"
-                color="#fc5c65"
-                size={30}
-                origin={ICON_TYPE.MATERIAL_COMMUNITY}
-                style={{
-                  marginLeft: 8,
-                  color: "#fff",
-                }}
-              />
-            )}
-
-            <Text
-              style={{
-                marginLeft: 8,
-                color: "#fff",
-              }}
-            >
-              Photo principale
-            </Text>
+          <View style={styles.checkAndText}>
+            <CheckBox isChecked={UploadedImages[index].isMain} />
+            <Text style={styles.textCheck}>Photo principale</Text>
           </View>
         </TouchableWithoutFeedback>
       </View>
@@ -164,6 +147,20 @@ const styles = StyleSheet.create({
   itemDimensions: {
     height: deviceHeight * 0.21,
     width: 180,
+  },
+  checkboxWrapper: {
+    position: "absolute",
+    bottom: 0,
+    backgroundColor: "rgba(127, 140, 141,0.6)",
+    width: "100%",
+  },
+  checkAndText: {
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  textCheck: {
+    marginLeft: 8,
+    color: "#fff",
   },
   clearImageBtn: {
     position: "absolute",
