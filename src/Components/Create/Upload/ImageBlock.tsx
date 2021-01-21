@@ -1,18 +1,27 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
-  Button,
   Image,
   View,
   Platform,
   StyleSheet,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   Dimensions,
 } from "react-native";
+import { Text, Input, useTheme, Radio } from "@ui-kitten/components";
 import { connect } from "react-redux";
 
 import { IconX, ICON_TYPE } from "../../../Icons";
-import { addImage, removeImage } from "./../../../Store/UploadedImages/actions";
-import { UploadedImageType } from "./../../../Store/UploadedImages/types";
+import {
+  addImage,
+  removeImage,
+  setIsMain,
+} from "./../../../Store/UploadedImages/actions";
+import {
+  UploadedImageType,
+  MetaMainType,
+  MetaRemoveType,
+} from "./../../../Store/UploadedImages/types";
 
 const deviceHeight = Dimensions.get("window").height;
 interface RootState {
@@ -20,17 +29,17 @@ interface RootState {
 }
 
 const mapStateToProps = (state: RootState, ownProps) => ({
-  uploadedImages: state.UploadedImages,
+  UploadedImages: state.UploadedImages,
   ownProps: ownProps,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addImage: (uploadedImage: UploadedImageType) => {
-      dispatch(addImage(uploadedImage));
-    },
-    removeImage: (meta: UploadedImageType) => {
+    removeImage: (meta: MetaRemoveType) => {
       dispatch(removeImage(meta));
+    },
+    setIsMain: (metaMain: MetaMainType) => {
+      dispatch(setIsMain(metaMain));
     },
   };
 };
@@ -46,7 +55,13 @@ type Props = ReturnType<typeof mapStateToProps> &
  * If image uploaded
  * @param uri
  */
-const ImageBlock: React.FC<Props> = ({ uri, index, removeImage }: Props) => {
+const ImageBlock: React.FC<Props> = ({
+  uri,
+  index,
+  UploadedImages,
+  removeImage,
+  setIsMain,
+}: Props) => {
   return (
     <View>
       <TouchableOpacity
@@ -62,12 +77,69 @@ const ImageBlock: React.FC<Props> = ({ uri, index, removeImage }: Props) => {
           origin={ICON_TYPE.IONICONS}
         />
       </TouchableOpacity>
+
       <Image
         style={styles.itemDimensions}
         source={{
           uri: uri,
         }}
       />
+
+      <View
+        style={{
+          position: "absolute",
+          bottom: 0,
+          backgroundColor: "rgba(127, 140, 141,0.6)",
+          width: "100%",
+        }}
+      >
+        <TouchableWithoutFeedback
+          onPress={() => {
+            setIsMain({ index });
+          }}
+        >
+          <View
+            style={{
+              alignItems: "center",
+              flexDirection: "row",
+            }}
+          >
+            {/* <Text>{JSON.stringify(UploadedImages[index].isMain)}</Text> */}
+            {UploadedImages[index].isMain === true ? (
+              <IconX
+                name="checkbox-marked-circle"
+                color="#fc5c65"
+                size={30}
+                origin={ICON_TYPE.MATERIAL_COMMUNITY}
+                style={{
+                  marginLeft: 8,
+                  color: "#fff",
+                }}
+              />
+            ) : (
+              <IconX
+                name="checkbox-blank-circle-outline"
+                color="#fc5c65"
+                size={30}
+                origin={ICON_TYPE.MATERIAL_COMMUNITY}
+                style={{
+                  marginLeft: 8,
+                  color: "#fff",
+                }}
+              />
+            )}
+
+            <Text
+              style={{
+                marginLeft: 8,
+                color: "#fff",
+              }}
+            >
+              Photo principale
+            </Text>
+          </View>
+        </TouchableWithoutFeedback>
+      </View>
     </View>
   );
 };

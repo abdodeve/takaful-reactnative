@@ -13,18 +13,23 @@ import { connect } from "react-redux";
 import { ScreenProps } from "../Navigation/Routes";
 import StepOne from "../Components/Create/StepOne";
 import { Colors } from "./../Constants";
+import { UploadedImageType } from "./../Store/UploadedImages/types";
 
 const deviceHeight = Dimensions.get("window").height;
+interface RootState {
+  UploadedImages: Array<UploadedImageType>;
+}
+const mapStateToProps = (state: RootState, ownProps) => ({
+  uploadedImages: state.UploadedImages,
+  ownProps: ownProps,
+});
 
-const CreateAnnouncementScreen: React.FC<any> = ({
-  route,
-  navigation,
-  questions,
-  addQuestion,
-  addImage,
-  uploadedImage,
-  ownProps,
-}: any) => {
+const connector = connect(mapStateToProps);
+type Props = ReturnType<typeof mapStateToProps>;
+
+const CreateAnnouncementScreen: React.FC<Props> = ({
+  uploadedImages,
+}: Props) => {
   const theme = useTheme();
 
   const ProgressStepCommonStyle = {
@@ -70,7 +75,7 @@ const CreateAnnouncementScreen: React.FC<any> = ({
           completedProgressBarColor="#2ecc71"
         >
           <ProgressStep {...ProgressStepPropsNext}>
-            <View style={{ height: deviceHeight * 0.7 }}>
+            <View style={{ height: deviceHeight * 0.6 }}>
               <View style={styles.wrapperPhotos}>
                 <StepOne />
               </View>
@@ -99,6 +104,10 @@ const CreateAnnouncementScreen: React.FC<any> = ({
           <ProgressStep
             {...ProgressStepPropsPrevious}
             {...ProgressStepPropsSubmit}
+            onSubmit={() => {
+              // Get images
+              console.log({ uploadedImages });
+            }}
           >
             <View style={{ alignItems: "center" }}>
               <Text>Nom complet</Text>
@@ -123,27 +132,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state, ownProps) => ({
-  questions: state,
-  uploadedImage: state,
-  ownProps: ownProps,
-});
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addQuestion: (response) => {
-      // dispatch(Actions.questions.addQuestions(response));
-    },
-    addImage: (uploadedImage) => {
-      console.log(1);
-      // dispatch(Actions.UploadedImages.addImage(uploadedImage));
-    },
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CreateAnnouncementScreen);
-
-// export default CreateAnnouncementScreen;
+export default connector(CreateAnnouncementScreen);

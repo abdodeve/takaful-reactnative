@@ -44,8 +44,8 @@ const mapStateToProps = (state: RootState, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addImage: (uploadedImage: UploadedImageType) => {
-      dispatch(addImage(uploadedImage));
+    addImage: (uploadedImage: UploadedImageType, index: number) => {
+      dispatch(addImage(uploadedImage, index));
     },
   };
 };
@@ -85,8 +85,8 @@ const Item: React.FC<Props> = ({ uri, index, addImage }: Props) => {
 
     if (!result.cancelled) {
       result["index"] = index;
-      const newImage = { index, uri: result["uri"] };
-      addImage(newImage);
+      const newImage = { uri: result["uri"] };
+      addImage(newImage, index);
     }
   };
   return (

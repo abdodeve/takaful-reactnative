@@ -9,6 +9,7 @@ import {
   FlatList,
   SafeAreaView,
   Dimensions,
+  Text,
 } from "react-native";
 import { connect } from "react-redux";
 
@@ -35,6 +36,7 @@ type Props = ReturnType<typeof mapStateToProps>;
 const ImagesUploaded: React.FC<Props> = ({ uploadedImages }: Props) => {
   return (
     <View style={[styles.container]}>
+      {/* <Text>{JSON.stringify(uploadedImages)}</Text> */}
       {uploadedImages.map((value, index) => {
         return <Item key={value.index} uri={value.uri} index={index} />;
       })}
