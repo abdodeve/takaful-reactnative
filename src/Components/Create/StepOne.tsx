@@ -31,7 +31,7 @@ const StepOne: React.FC<Props> = ({ uploadedImages }: Props) => {
       <View style={styles.textMessageView}>
         <IconX
           name="exclamation-triangle"
-          color="#d35400"
+          color="#f1c40f"
           size={17}
           origin={ICON_TYPE.FONT_AWESOME5}
           style={{ marginRight: 6 }}
