@@ -6,6 +6,7 @@ import { Text, Input } from "@ui-kitten/components";
 import { UploadedImageType } from "./../../Store/UploadedImages/types";
 import { addImage } from "./../../Store/UploadedImages/actions";
 import Upload from "./Upload";
+import { IconX, ICON_TYPE } from "../../Icons";
 
 interface RootState {
   UploadedImages: Array<UploadedImageType>;
@@ -15,27 +16,28 @@ const mapStateToProps = (state: RootState, ownProps) => ({
   ownProps: ownProps,
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addImage: (uploadedImage: UploadedImageType) => {
-      dispatch(addImage(uploadedImage));
-    },
-  };
+const connector = connect(mapStateToProps);
+type Props = ReturnType<typeof mapStateToProps> & {
+  label: string;
 };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-type Props = ReturnType<typeof mapStateToProps> &
-  ReturnType<typeof mapDispatchToProps> & {
-    label: string;
-  };
-
-const StepOne: React.FC<Props> = ({ addImage, uploadedImages }: Props) => {
+const StepOne: React.FC<Props> = ({ uploadedImages }: Props) => {
   return (
     <View>
       <View style={styles.titleView}>
         <Text style={styles.title}>Photos (4 maximum)</Text>
       </View>
       <Upload />
+      <View style={styles.textMessageView}>
+        <IconX
+          name="exclamation-triangle"
+          color="#d35400"
+          size={17}
+          origin={ICON_TYPE.FONT_AWESOME5}
+          style={{ marginRight: 6 }}
+        />
+        <Text style={styles.textMessage}>Une photo vaut mille mots</Text>
+      </View>
     </View>
   );
 };
@@ -49,5 +51,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
+  textMessageView: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 12,
+  },
+  textMessage: { fontSize: 17 },
 });
 export default connector(StepOne);
