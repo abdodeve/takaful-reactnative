@@ -16,12 +16,12 @@ import {
   addImage,
   removeImage,
   setIsMain,
-} from "./../../../Store/UploadedImages/actions";
+} from "../../../Store/UploadedImages/actions";
 import {
   UploadedImageType,
   MetaMainType,
   MetaRemoveType,
-} from "./../../../Store/UploadedImages/types";
+} from "../../../Store/UploadedImages/types";
 
 const deviceHeight = Dimensions.get("window").height;
 interface RootState {

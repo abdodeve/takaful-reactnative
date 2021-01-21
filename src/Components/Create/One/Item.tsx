@@ -16,8 +16,8 @@ import { connect } from "react-redux";
 
 import ImageBlock from "./ImageBlock";
 import { IconX, ICON_TYPE } from "../../../Icons";
-import { addImage } from "./../../../Store/UploadedImages/actions";
-import { UploadedImageType } from "./../../../Store/UploadedImages/types";
+import { addImage } from "../../../Store/UploadedImages/actions";
+import { UploadedImageType } from "../../../Store/UploadedImages/types";
 
 const deviceHeight = Dimensions.get("window").height;
 

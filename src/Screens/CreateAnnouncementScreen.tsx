@@ -11,9 +11,10 @@ import { Text, Input, Button, useTheme } from "@ui-kitten/components";
 import { connect } from "react-redux";
 
 import { ScreenProps } from "../Navigation/Routes";
-import StepOne from "../Components/Create/StepOne";
 import { Colors } from "./../Constants";
 import { UploadedImageType } from "./../Store/UploadedImages/types";
+import StepOne from "../Components/Create/StepOne";
+import StepTwo from "../Components/Create/StepTwo";
 
 const deviceHeight = Dimensions.get("window").height;
 interface RootState {
@@ -75,19 +76,16 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
           completedProgressBarColor="#2ecc71"
         >
           <ProgressStep {...ProgressStepPropsNext}>
-            <View style={{ height: deviceHeight * 0.6 }}>
-              <View style={styles.wrapperPhotos}>
-                <StepOne />
-              </View>
+            <View style={styles.wrapperSteps}>
+              <StepOne />
             </View>
           </ProgressStep>
           <ProgressStep
             {...ProgressStepPropsPrevious}
             {...ProgressStepPropsNext}
           >
-            <View style={{ alignItems: "center" }}>
-              <Text>Categorie</Text>
-              <Text>Type</Text>
+            <View style={styles.wrapperSteps}>
+              <StepTwo />
             </View>
           </ProgressStep>
           <ProgressStep
@@ -125,10 +123,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-  wrapperPhotos: {
+  wrapperSteps: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    height: deviceHeight * 0.6,
   },
 });
 

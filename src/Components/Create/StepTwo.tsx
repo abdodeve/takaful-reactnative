@@ -5,7 +5,7 @@ import { Text, Input } from "@ui-kitten/components";
 
 import { UploadedImageType } from "./../../Store/UploadedImages/types";
 import { addImage } from "./../../Store/UploadedImages/actions";
-import One from "./One";
+import Two from "./Two";
 import { IconX, ICON_TYPE } from "../../Icons";
 
 interface RootState {
@@ -23,21 +23,14 @@ type Props = ReturnType<typeof mapStateToProps> & {
 
 const StepOne: React.FC<Props> = ({ uploadedImages }: Props) => {
   return (
-    <View>
+    <View style={{ marginHorizontal: 15 }}>
       <View style={styles.titleView}>
-        <Text style={styles.title}>Photos (4 maximum)</Text>
+        <Text style={styles.title}>
+          Merci de choisir dans la liste ci-dessous la catégorie et le type de
+          votre annonce.
+        </Text>
       </View>
-      <One />
-      <View style={styles.textMessageView}>
-        <IconX
-          name="exclamation-triangle"
-          color="#f1c40f"
-          size={17}
-          origin={ICON_TYPE.FONT_AWESOME5}
-          style={{ marginRight: 6 }}
-        />
-        <Text style={styles.textMessage}>Une photo vaut mille mots</Text>
-      </View>
+      <Two />
     </View>
   );
 };
@@ -48,7 +41,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
   },
   textMessageView: {

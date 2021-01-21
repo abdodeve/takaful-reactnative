@@ -20,7 +20,7 @@ const SearchMain = (props) => {
           <InputCity />
         </View>
         <View style={styles.blockInput}>
-          <Text style={styles.label}>Catégorie</Text>
+          <Text style={styles.label}>Type d'annonce</Text>
           <RadioAnnouncementType />
         </View>
         <View style={styles.blockInput}>

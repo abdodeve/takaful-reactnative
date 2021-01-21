@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 
-import { UploadedImageType } from "./../../../Store/UploadedImages/types";
+import { UploadedImageType } from "../../../Store/UploadedImages/types";
 import Item from "./Item";
 
 const deviceHeight = Dimensions.get("window").height;
