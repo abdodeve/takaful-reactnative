@@ -10,4 +10,5 @@ export const Colors = {
   warningText: "#666804",
   noticeBackground: tintColor,
   noticeText: "#fff",
+  danger: "#e74c3c",
 };

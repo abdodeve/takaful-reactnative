@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   Dimensions,
 } from "react-native";
-import { Text, Input, useTheme, Radio } from "@ui-kitten/components";
+import { Text, Input, Radio } from "@ui-kitten/components";
 import { connect } from "react-redux";
 
 import { IconX, ICON_TYPE } from "../../../Icons";

@@ -15,6 +15,7 @@ import { Colors } from "./../Constants";
 import { UploadedImageType } from "./../Store/UploadedImages/types";
 import StepOne from "../Components/Create/StepOne";
 import StepTwo from "../Components/Create/StepTwo";
+import StepThree from "../Components/Create/StepThree";
 
 const deviceHeight = Dimensions.get("window").height;
 interface RootState {
@@ -76,28 +77,19 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
           completedProgressBarColor="#2ecc71"
         >
           <ProgressStep {...ProgressStepPropsNext}>
-            <View style={styles.wrapperSteps}>
-              <StepOne />
-            </View>
+            <StepOne />
           </ProgressStep>
           <ProgressStep
             {...ProgressStepPropsPrevious}
             {...ProgressStepPropsNext}
           >
-            <View style={styles.wrapperSteps}>
-              <StepTwo />
-            </View>
+            <StepTwo />
           </ProgressStep>
           <ProgressStep
             {...ProgressStepPropsPrevious}
             {...ProgressStepPropsNext}
           >
-            <View style={{ alignItems: "center" }}>
-              <Text>Ville</Text>
-              <Text>Titre de l'annonce</Text>
-              <Text>Description de l'annonce</Text>
-              <Text>Prix</Text>
-            </View>
+            <StepThree />
           </ProgressStep>
           <ProgressStep
             {...ProgressStepPropsPrevious}

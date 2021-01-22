@@ -5,7 +5,7 @@ import { Text, Input } from "@ui-kitten/components";
 
 import { UploadedImageType } from "./../../Store/UploadedImages/types";
 import { addImage } from "./../../Store/UploadedImages/actions";
-import One from "./One";
+import Three from "./Three";
 import { IconX, ICON_TYPE } from "../../Icons";
 
 const deviceHeight = Dimensions.get("window").height;
@@ -23,23 +23,10 @@ type Props = ReturnType<typeof mapStateToProps> & {
   label: string;
 };
 
-const StepOne: React.FC<Props> = ({ uploadedImages }: Props) => {
+const StepThree: React.FC<Props> = ({ uploadedImages }: Props) => {
   return (
     <View style={styles.wrapperSteps}>
-      <View style={styles.titleView}>
-        <Text style={styles.title}>Photos (4 maximum)</Text>
-      </View>
-      <One />
-      <View style={styles.textMessageView}>
-        <IconX
-          name="exclamation-triangle"
-          color="#f1c40f"
-          size={17}
-          origin={ICON_TYPE.FONT_AWESOME5}
-          style={{ marginRight: 6 }}
-        />
-        <Text style={styles.textMessage}>Une photo vaut mille mots</Text>
-      </View>
+      <Three />
     </View>
   );
 };
@@ -48,16 +35,15 @@ const styles = StyleSheet.create({
   wrapperSteps: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
     height: deviceHeight * 0.6,
-    // marginHorizontal: 15,
+    marginHorizontal: 15,
   },
   titleView: {
     alignItems: "center",
     marginBottom: 40,
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
   },
   textMessageView: {
@@ -68,4 +54,4 @@ const styles = StyleSheet.create({
   },
   textMessage: { fontSize: 17 },
 });
-export default connector(StepOne);
+export default connector(StepThree);

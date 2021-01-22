@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import { connect, ConnectedProps } from "react-redux";
 import { Text, Input } from "@ui-kitten/components";
 
@@ -7,6 +7,8 @@ import { UploadedImageType } from "./../../Store/UploadedImages/types";
 import { addImage } from "./../../Store/UploadedImages/actions";
 import Two from "./Two";
 import { IconX, ICON_TYPE } from "../../Icons";
+
+const deviceHeight = Dimensions.get("window").height;
 
 interface RootState {
   UploadedImages: Array<UploadedImageType>;
@@ -23,7 +25,7 @@ type Props = ReturnType<typeof mapStateToProps> & {
 
 const StepOne: React.FC<Props> = ({ uploadedImages }: Props) => {
   return (
-    <View style={{ marginHorizontal: 15 }}>
+    <View style={styles.wrapperSteps}>
       <View style={styles.titleView}>
         <Text style={styles.title}>
           Merci de choisir dans la liste ci-dessous la catégorie et le type de
@@ -36,6 +38,12 @@ const StepOne: React.FC<Props> = ({ uploadedImages }: Props) => {
 };
 
 const styles = StyleSheet.create({
+  wrapperSteps: {
+    flex: 1,
+    justifyContent: "center",
+    height: deviceHeight * 0.6,
+    marginHorizontal: 15,
+  },
   titleView: {
     alignItems: "center",
     marginBottom: 40,
