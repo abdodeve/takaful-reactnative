@@ -16,6 +16,7 @@ import { UploadedImageType } from "./../Store/UploadedImages/types";
 import StepOne from "../Components/Create/StepOne";
 import StepTwo from "../Components/Create/StepTwo";
 import StepThree from "../Components/Create/StepThree";
+import StepFour from "../Components/Create/StepFour";
 
 const deviceHeight = Dimensions.get("window").height;
 interface RootState {
@@ -99,10 +100,7 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
               console.log({ uploadedImages });
             }}
           >
-            <View style={{ alignItems: "center" }}>
-              <Text>Nom complet</Text>
-              <Text>Telephone</Text>
-            </View>
+            <StepFour />
           </ProgressStep>
         </ProgressSteps>
       </View>
