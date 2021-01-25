@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Layout, Text, useTheme } from "@ui-kitten/components";
@@ -7,8 +7,8 @@ import { Layout, Text, useTheme } from "@ui-kitten/components";
 import { IconX, ICON_TYPE } from "../../Icons";
 import HomeStack from "./HomeStack";
 import MyAnnouncementsStack from "./MyAnnouncementsStack";
-import CreateAnnouncementScreen from "../../Screens/CreateAnnouncementScreen";
 import AccountScreen from "../../Screens/AccountScreen";
+import CreateAnnouncementScreen from "../../Screens/CreateAnnouncementScreen";
 import { Routes } from "./../Routes";
 
 const Tab = createBottomTabNavigator();
@@ -87,6 +87,15 @@ export default ({ navigation }) => {
               size={size + 14}
               origin={ICON_TYPE.MATERIAL_ICONS}
               style={{}}
+            />
+          ),
+          tabBarButton: (props) => (
+            <TouchableOpacity
+              {...props}
+              activeOpacity={1}
+              onPress={() => {
+                navigation.navigate(Routes.CREATE_ANNOUNCEMENT_SCREEN);
+              }}
             />
           ),
         }}

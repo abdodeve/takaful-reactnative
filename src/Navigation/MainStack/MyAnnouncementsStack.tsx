@@ -5,8 +5,6 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { Layout, Text, useTheme } from "@ui-kitten/components";
 
 import { Routes } from "../Routes";
-import MyAnnouncementsScreen from "../../Screens/MyAnnouncementsScreen";
-import DetailsScreen from "../../Screens/DetailsScreen";
 import TitleHeader from "./../../Components/Shared/TitleHeader";
 import AnnouncementsListScreen from "../../Screens/AnnouncementsListScreen";
 

@@ -11,12 +11,11 @@ import {
 } from "@react-navigation/drawer";
 
 import { Routes } from "./Routes";
-import MainStack from "./MainStack";
 import SearchDrawerNavigator from "./Drawers/SearchDrawerNavigator";
 import LaunchScreen from "./../Screens/LaunchScreen";
 import DetailsScreen from "../Screens/DetailsScreen";
+import CreateAnnouncementScreen from "../Screens/CreateAnnouncementScreen";
 import SliderFullScreen from "../Screens/SliderFullScreen";
-import SearchScreen from "../Screens/SearchScreen";
 
 const Stack = createStackNavigator();
 export default function RootNavigation() {
@@ -41,6 +40,10 @@ export default function RootNavigation() {
               <Stack.Screen
                 name={Routes.SLIDER_FULL_SCREEN}
                 component={SliderFullScreen}
+              />
+              <Stack.Screen
+                name={Routes.CREATE_ANNOUNCEMENT_SCREEN}
+                component={CreateAnnouncementScreen}
               />
             </>
           ) : (

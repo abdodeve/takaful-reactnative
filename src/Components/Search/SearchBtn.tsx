@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { Text, Input, Button, useTheme } from "@ui-kitten/components";
 import { IconX, ICON_TYPE } from "../../Icons";
 
-const SearchScreen = (props) => {
+const SearchBtn = (props) => {
   const theme = useTheme();
 
   return (
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
   searchText: { color: "#fff", fontSize: 15 },
 });
 
-export default SearchScreen;
+export default SearchBtn;

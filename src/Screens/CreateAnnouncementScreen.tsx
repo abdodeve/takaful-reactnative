@@ -1,24 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   useWindowDimensions,
   StyleSheet,
   Dimensions,
 } from "react-native";
+import { NavigationContainer, useFocusEffect } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import { Text, Input, Button, useTheme } from "@ui-kitten/components";
 import { connect } from "react-redux";
 
 import { ScreenProps } from "../Navigation/Routes";
-import { Colors } from "./../Constants";
-import { UploadedImageType } from "./../Store/UploadedImages/types";
+import { Colors } from "../Constants";
+import { UploadedImageType } from "../Store/UploadedImages/types";
 import StepOne from "../Components/Create/StepOne";
 import StepTwo from "../Components/Create/StepTwo";
 import StepThree from "../Components/Create/StepThree";
 import StepFour from "../Components/Create/StepFour";
 
 const deviceHeight = Dimensions.get("window").height;
+
 interface RootState {
   UploadedImages: Array<UploadedImageType>;
 }
@@ -28,12 +30,32 @@ const mapStateToProps = (state: RootState, ownProps) => ({
 });
 
 const connector = connect(mapStateToProps);
-type Props = ReturnType<typeof mapStateToProps>;
+type Props = ReturnType<typeof mapStateToProps> & any;
 
 const CreateAnnouncementScreen: React.FC<Props> = ({
+  navigation,
   uploadedImages,
 }: Props) => {
   const theme = useTheme();
+
+  const [currentStep, setCurrentStep] = useState(-1);
+
+  const [isSubmitted, setIsSubmitted] = React.useState(true);
+
+  React.useEffect(
+    () =>
+      navigation.addListener("beforeRemove", (e) => {
+        // Before Leaving check if data submitted
+        if (isSubmitted) {
+          console.log("isSaved", isSubmitted);
+          return;
+        }
+        // Prevent default behavior of leaving the screen
+        e.preventDefault();
+        alert("Screen was unfocuse");
+      }),
+    [navigation, isSubmitted]
+  );
 
   const ProgressStepCommonStyle = {
     btnTextStyle: { color: "#fff", fontWeight: "bold", fontSize: 14 },
@@ -76,6 +98,7 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
           activeStepIconBorderColor="#2ecc71"
           completedStepIconColor="#2ecc71"
           completedProgressBarColor="#2ecc71"
+          activeStep={currentStep === -1 ? 0 : currentStep}
         >
           <ProgressStep {...ProgressStepPropsNext}>
             <StepOne />
@@ -96,8 +119,7 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
             {...ProgressStepPropsPrevious}
             {...ProgressStepPropsSubmit}
             onSubmit={() => {
-              // Get images
-              console.log({ uploadedImages });
+              // Submit code goes here
             }}
           >
             <StepFour />
