@@ -7,6 +7,7 @@ import { Layout, Text, useTheme } from "@ui-kitten/components";
 import { IconX, ICON_TYPE } from "../../Icons";
 import HomeStack from "./HomeStack";
 import MyAnnouncementsStack from "./MyAnnouncementsStack";
+import AccountStack from "./AccountStack";
 import AccountScreen from "../../Screens/AccountScreen";
 import CreateAnnouncementScreen from "../../Screens/CreateAnnouncementScreen";
 import { Routes } from "./../Routes";
@@ -143,7 +144,7 @@ export default ({ navigation }) => {
             />
           ),
         }}
-        component={AccountScreen}
+        component={AccountStack}
       />
     </Tab.Navigator>
   );
