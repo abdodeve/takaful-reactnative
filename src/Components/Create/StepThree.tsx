@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
-import { connect, ConnectedProps } from "react-redux";
-import { Text, Input } from "@ui-kitten/components";
-
+import { connect } from "react-redux";
 import { UploadedImageType } from "./../../Store/UploadedImages/types";
-import { addImage } from "./../../Store/UploadedImages/actions";
 import Three from "./Three";
-import { IconX, ICON_TYPE } from "../../Icons";
 
 const deviceHeight = Dimensions.get("window").height;
 

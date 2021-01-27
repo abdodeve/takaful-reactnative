@@ -4,9 +4,7 @@ import { connect, ConnectedProps } from "react-redux";
 import { Text, Input } from "@ui-kitten/components";
 
 import { UploadedImageType } from "./../../Store/UploadedImages/types";
-import { addImage } from "./../../Store/UploadedImages/actions";
 import Two from "./Two";
-import { IconX, ICON_TYPE } from "../../Icons";
 
 const deviceHeight = Dimensions.get("window").height;
 
