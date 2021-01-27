@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { Text, Input, Button, useTheme } from "@ui-kitten/components";
 import { IconX, ICON_TYPE } from "../../Icons";
 
-const SignOutBtn = (props) => {
+const SignOutBtn = () => {
   return (
     <View style={styles.container}>
       <View>

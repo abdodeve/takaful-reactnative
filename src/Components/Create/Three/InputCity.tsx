@@ -8,20 +8,21 @@ import {
 import { IconX, ICON_TYPE } from "../../../Icons";
 import { TouchableOpacity } from "react-native";
 import cities from "./../../../../dummy-data/cities";
+import { City } from "./../../../Models";
 
 const filter = (item, query) =>
-  item.title.toLowerCase().includes(query.toLowerCase());
+  item.name.toLowerCase().includes(query.toLowerCase());
 
 const StarIcon = (props) => (
   <IconX name="location" origin={ICON_TYPE.EVIL_ICONS} />
 );
 
 const InputCity = () => {
-  const [value, setValue] = React.useState<any | null>(null);
-  const [data, setData] = React.useState<any | null>(cities);
+  const [value, setValue] = React.useState<string | undefined>(undefined);
+  const [data, setData] = React.useState<City[]>(cities);
 
   const onSelect = (index) => {
-    setValue(data[index].title);
+    if (data) setValue(data[index].name);
   };
 
   const onChangeText = (query) => {
@@ -35,7 +36,7 @@ const InputCity = () => {
   };
 
   const renderOption = (item, index) => (
-    <AutocompleteItem key={index} title={item.title} accessoryLeft={StarIcon} />
+    <AutocompleteItem key={index} title={item.name} accessoryLeft={StarIcon} />
   );
 
   const renderCloseIcon = (props) => (

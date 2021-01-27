@@ -37,16 +37,16 @@ const useInputState = (initialValue = "") => {
   return { value, onChangeText: setValue };
 };
 
-const renderFullNameIcon = (props) => (
+const renderFullNameIcon = () => (
   <IconX name="user" size={20} origin={ICON_TYPE.ANT_ICON} />
 );
-const renderEmailIcon = (props) => (
+const renderEmailIcon = () => (
   <IconX name="mail" size={20} origin={ICON_TYPE.ANT_ICON} />
 );
-const renderPhoneIcon = (props) => (
+const renderPhoneIcon = () => (
   <IconX name="phone" size={20} origin={ICON_TYPE.ANT_ICON} />
 );
-const RequiredSign = (props) => <Text style={styles.requiredSign}>*</Text>;
+const RequiredSign = () => <Text style={styles.requiredSign}>*</Text>;
 
 /**
  * Account
@@ -118,7 +118,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     marginTop: 20,
   },
-  cityInput: { marginBottom: 40 },
   title: {
     fontSize: 15,
     fontWeight: "bold",
@@ -137,7 +136,6 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   requiredSign: { color: Colors.danger },
-  inputDescription: { minHeight: 130, textAlignVertical: "top" },
 });
 
 export default connector(Account);

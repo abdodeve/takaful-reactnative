@@ -38,7 +38,7 @@ const HomeStack = ({ navigation }) => {
         name={Routes.HOME_SCREEN}
         component={AnnouncementsListScreen}
         options={{
-          headerTitle: (props: any) => <LogoTitle />,
+          headerTitle: () => <LogoTitle />,
           headerRight: () => (
             <TouchableOpacity
               onPress={() => {

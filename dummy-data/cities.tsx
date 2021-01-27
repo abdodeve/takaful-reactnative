@@ -1,8 +1,9 @@
-const CITIES = [
-  { title: "Rabat" },
-  { title: "Tanger" },
-  { title: "Casablanca" },
-  { title: "Kenitra" },
-  { title: "Fes" },
+import { City } from "./../src/Models";
+const CITIES: City[] = [
+  { name: "Rabat" },
+  { name: "Tanger" },
+  { name: "Casablanca" },
+  { name: "Kenitra" },
+  { name: "Fes" },
 ];
 export default CITIES;

@@ -7,7 +7,7 @@ import { IconX, ICON_TYPE } from "../../Icons";
 import BottomBtn from "../Shared/BottomBtn";
 import { Routes } from "../../Navigation/Routes";
 
-const RenderIcon = ({ name }) => {
+const RenderIcon = ({ name }: { name: string }) => {
   return (
     <IconX
       name={name}
@@ -68,10 +68,6 @@ const styles = StyleSheet.create({
     height: 80,
     justifyContent: "center",
     alignItems: "center",
-  },
-  bottomTouchable: {
-    padding: 15,
-    borderRadius: 6,
   },
 });
 

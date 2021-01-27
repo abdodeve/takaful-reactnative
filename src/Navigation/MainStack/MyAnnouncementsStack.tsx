@@ -41,7 +41,7 @@ const MyAnnouncementsStackScreen = () => {
     <MyAnnouncementsStack.Navigator screenOptions={{}}>
       <MyAnnouncementsStack.Screen
         options={{
-          headerTitle: (props: any) => <TitleHeader title="Mes annonces" />,
+          headerTitle: () => <TitleHeader title="Mes annonces" />,
           headerStyle: {
             elevation: 1,
           },

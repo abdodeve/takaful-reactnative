@@ -15,7 +15,7 @@ const AccountStack = () => {
     <AccountStackNavigator.Navigator screenOptions={{}}>
       <AccountStackNavigator.Screen
         options={{
-          headerTitle: (props: any) => <TitleHeader title="Compte" />,
+          headerTitle: () => <TitleHeader title="Compte" />,
           headerStyle: {
             elevation: 1,
           },

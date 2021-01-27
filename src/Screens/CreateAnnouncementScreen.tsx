@@ -30,7 +30,7 @@ const mapStateToProps = (state: RootState, ownProps) => ({
 });
 
 const connector = connect(mapStateToProps);
-type Props = ReturnType<typeof mapStateToProps> & any;
+type Props = ReturnType<typeof mapStateToProps> & ScreenProps;
 
 const CreateAnnouncementScreen: React.FC<Props> = ({
   navigation,

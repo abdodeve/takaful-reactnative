@@ -23,7 +23,7 @@ type Props = ReturnType<typeof mapStateToProps> & {
   label: string;
 };
 
-const StepFour: React.FC<Props> = ({ uploadedImages }: Props) => {
+const StepFour: React.FC<Props> = () => {
   return (
     <View style={styles.wrapperSteps}>
       <View style={styles.titleView}>

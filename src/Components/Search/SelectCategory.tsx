@@ -11,10 +11,10 @@ import { Colors } from "./../../Constants";
 import categories from "./../../../dummy-data/categories";
 
 const SelectCategory = (props) => {
-  const [selectedIndex, setSelectedIndex] = React.useState<any>(
+  const [selectedIndex, setSelectedIndex] = React.useState<IndexPath>(
     new IndexPath(0, 0)
   );
-  const [displayValue, setDisplayValue] = React.useState<any>(
+  const [displayValue, setDisplayValue] = React.useState<string>(
     categories[0].data[0].name
   );
 
@@ -26,11 +26,11 @@ const SelectCategory = (props) => {
         value={displayValue}
         placeholder="Default"
         selectedIndex={selectedIndex}
-        onSelect={(index: any) => {
-          setSelectedIndex(index);
+        onSelect={(index: Partial<IndexPath>) => {
+          setSelectedIndex(index as IndexPath);
           console.log("onSelect==>index==>", index);
           setDisplayValue(() => {
-            return categories[index.section].data[index.row].name;
+            return categories[index.section!].data[index.row!].name;
           });
         }}
       >
