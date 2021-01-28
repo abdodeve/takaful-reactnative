@@ -84,20 +84,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
     flex: 1,
   },
-  inputsView: {
-    marginBottom: 10,
-  },
   signUpBtn: {
     width: "100%",
     position: "absolute",
     bottom: 130,
   },
   appName: { fontWeight: "bold" },
-  BottomBtns: {
-    width: "100%",
-    position: "absolute",
-    bottom: 0,
-  },
   introduction: {
     flexDirection: "row",
     alignItems: "center",
