@@ -18,19 +18,30 @@ import { IconX, ICON_TYPE } from "../../Icons";
 import { UploadedImageType } from "../../Store/UploadedImages/types";
 import BottomBLock from "./BottomBLock";
 import SignOutBtn from "./SignOutBtn";
+import { logInAction } from "../../Store/IsLoggedIn/actions";
 
 const deviceHeight = Dimensions.get("window").height;
 
 interface RootState {
-  UploadedImages: Array<UploadedImageType>;
+  UploadedImagesStore: Array<UploadedImageType>;
+  isLoggedInStore: boolean;
 }
 const mapStateToProps = (state: RootState, ownProps) => ({
-  uploadedImages: state.UploadedImages,
+  isLoggedInStore: state.isLoggedInStore,
   ownProps: ownProps,
 });
 
-const connector = connect(mapStateToProps);
-type Props = ReturnType<typeof mapStateToProps>;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logInAction: (isLoggedIn: boolean) => {
+      dispatch(logInAction(isLoggedIn));
+    },
+  };
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type Props = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
 
 const useInputState = (initialValue = "") => {
   const [value, setValue] = React.useState(initialValue);
@@ -52,7 +63,7 @@ const RequiredSign = () => <Text style={styles.requiredSign}>*</Text>;
  * Account
  *
  */
-const Account: React.FC<Props> = () => {
+const Account: React.FC<Props> = ({ logInAction }) => {
   const fullNameInputState = useInputState("Abdelhadi Ahmed");
   const emaiInputState = useInputState("abdelhadi.deve@gmail.com");
   const phoneInputState = useInputState("0626777317");

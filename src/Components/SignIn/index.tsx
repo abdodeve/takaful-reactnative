@@ -21,19 +21,28 @@ import {
 import { Colors } from "./../../Constants";
 import { IconX, ICON_TYPE } from "../../Icons";
 
-import { UploadedImageType } from "../../Store/UploadedImages/types";
+import { logInAction } from "../../Store/IsLoggedIn/actions";
 const deviceHeight = Dimensions.get("window").height;
 
 interface RootState {
-  UploadedImages: Array<UploadedImageType>;
+  isLoggedInStore: boolean;
 }
 const mapStateToProps = (state: RootState, ownProps) => ({
-  uploadedImages: state.UploadedImages,
+  isLoggedInStore: state.isLoggedInStore,
   ownProps: ownProps,
 });
 
-const connector = connect(mapStateToProps);
-type Props = ReturnType<typeof mapStateToProps>;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logInAction: (isLoggedIn: boolean) => {
+      dispatch(logInAction(isLoggedIn));
+    },
+  };
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type Props = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
 
 const renderGmailIcon = () => (
   <IconX
@@ -48,7 +57,7 @@ const renderGmailIcon = () => (
  * SignIn
  *
  */
-const SignIn: React.FC<Props> = () => {
+const SignIn: React.FC<Props> = ({ isLoggedInStore, logInAction }) => {
   return (
     <View style={styles.container}>
       <View style={[styles.mainWrapper]}>
@@ -66,7 +75,13 @@ const SignIn: React.FC<Props> = () => {
         <View style={styles.divider} />
         <View style={styles.signInBlock}>
           <Text style={styles.connectText}>Connexion</Text>
-          <Button accessoryLeft={renderGmailIcon} style={styles.installButton}>
+          <Button
+            accessoryLeft={renderGmailIcon}
+            style={styles.installButton}
+            onPress={() => {
+              logInAction(!isLoggedInStore);
+            }}
+          >
             SE CONNECTER AVEC GMAIL
           </Button>
         </View>

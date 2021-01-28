@@ -1,19 +1,36 @@
 import React, { useState } from "react";
 import { View, useWindowDimensions, StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { connect } from "react-redux";
 
 import Account from "./../Components/Account";
 import SignIn from "./../Components/SignIn";
 import { ScreenProps } from "../Navigation/Routes";
+import { logInAction } from "../Store/IsLoggedIn/actions";
 
-const AccountScreen: React.FC<ScreenProps> = ({
+interface RootState {
+  isLoggedInStore: boolean;
+}
+const mapStateToProps = (state: RootState, ownProps) => ({
+  isLoggedInStore: state.isLoggedInStore,
+  ownProps: ownProps,
+});
+
+const connector = connect(mapStateToProps);
+type Props = ScreenProps & ReturnType<typeof mapStateToProps>;
+
+/**
+ * AccountScreen
+ * @param ScreenProps
+ */
+const AccountScreen: React.FC<Props> = ({
+  isLoggedInStore,
   route,
   navigation,
-}: ScreenProps) => {
-  const isLoggedIn = false;
+}: Props) => {
   return (
     <View style={styles.container}>
-      <View>{isLoggedIn ? <Account /> : <SignIn />}</View>
+      <View>{isLoggedInStore ? <Account /> : <SignIn />}</View>
     </View>
   );
 };
@@ -24,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AccountScreen;
+export default connector(AccountScreen);

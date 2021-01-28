@@ -1,9 +1,31 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { View, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { Text, Input, Button, useTheme } from "@ui-kitten/components";
 import { IconX, ICON_TYPE } from "../../Icons";
+import { logInAction } from "../../Store/IsLoggedIn/actions";
 
-const SignOutBtn = () => {
+interface RootState {
+  isLoggedInStore: boolean;
+}
+const mapStateToProps = (state: RootState, ownProps) => ({
+  isLoggedInStore: state.isLoggedInStore,
+  ownProps: ownProps,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logInAction: (isLoggedIn: boolean) => {
+      dispatch(logInAction(isLoggedIn));
+    },
+  };
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+type Props = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
+
+const SignOutBtn: React.FC<Props> = ({ logInAction }) => {
   return (
     <View style={styles.container}>
       <View>
@@ -11,6 +33,7 @@ const SignOutBtn = () => {
           style={[styles.signOutTouchable]}
           onPress={() => {
             console.log("Sign out");
+            logInAction(false);
           }}
         >
           <View style={styles.signOutTextIcon}>
@@ -71,4 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignOutBtn;
+export default connector(SignOutBtn);

@@ -25,11 +25,11 @@ import {
 
 const deviceHeight = Dimensions.get("window").height;
 interface RootState {
-  UploadedImages: Array<UploadedImageType>;
+  UploadedImagesStore: Array<UploadedImageType>;
 }
 
 const mapStateToProps = (state: RootState, ownProps) => ({
-  UploadedImages: state.UploadedImages,
+  UploadedImagesStore: state.UploadedImagesStore,
   ownProps: ownProps,
 });
 
@@ -84,7 +84,7 @@ const CheckBox: React.FC<{ isChecked: boolean | null | undefined }> = ({
 const ImageBlock: React.FC<Props> = ({
   uri,
   index,
-  UploadedImages,
+  UploadedImagesStore,
   removeImage,
   setIsMain,
 }: Props) => {
@@ -118,7 +118,7 @@ const ImageBlock: React.FC<Props> = ({
           }}
         >
           <View style={styles.checkAndText}>
-            <CheckBox isChecked={UploadedImages[index].isMain} />
+            <CheckBox isChecked={UploadedImagesStore[index].isMain} />
             <Text style={styles.textCheck}>Photo principale</Text>
           </View>
         </TouchableWithoutFeedback>

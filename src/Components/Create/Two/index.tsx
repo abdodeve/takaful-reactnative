@@ -20,10 +20,10 @@ import RadioAnnouncementType from "./RadioAnnouncementType";
 const deviceHeight = Dimensions.get("window").height;
 
 interface RootState {
-  UploadedImages: Array<UploadedImageType>;
+  UploadedImagesStore: Array<UploadedImageType>;
 }
 const mapStateToProps = (state: RootState, ownProps) => ({
-  uploadedImages: state.UploadedImages,
+  uploadedImages: state.UploadedImagesStore,
   ownProps: ownProps,
 });
 

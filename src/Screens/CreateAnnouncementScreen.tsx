@@ -22,10 +22,11 @@ import StepFour from "../Components/Create/StepFour";
 const deviceHeight = Dimensions.get("window").height;
 
 interface RootState {
-  UploadedImages: Array<UploadedImageType>;
+  UploadedImagesStore: Array<UploadedImageType>;
+  isLoggedInStore: boolean;
 }
 const mapStateToProps = (state: RootState, ownProps) => ({
-  uploadedImages: state.UploadedImages,
+  isLoggedInStore: state.isLoggedInStore,
   ownProps: ownProps,
 });
 
@@ -33,8 +34,8 @@ const connector = connect(mapStateToProps);
 type Props = ReturnType<typeof mapStateToProps> & ScreenProps;
 
 const CreateAnnouncementScreen: React.FC<Props> = ({
+  isLoggedInStore,
   navigation,
-  uploadedImages,
 }: Props) => {
   const theme = useTheme();
 
