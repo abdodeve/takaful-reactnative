@@ -35,10 +35,10 @@ const styleFirstItem = (index, theme) => {
   };
 };
 interface RootState {
-  UploadedImagesStore: Array<UploadedImageType>;
+  uploadedImagesStore: Array<UploadedImageType>;
 }
 const mapStateToProps = (state: RootState, ownProps) => ({
-  uploadedImages: state.UploadedImagesStore,
+  uploadedImages: state.uploadedImagesStore,
   ownProps: ownProps,
 });
 

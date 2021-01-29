@@ -3,7 +3,7 @@ import { UploadedImagesReducer } from "./UploadedImages/reducers";
 import { IsLoggedInReducer } from "./IsLoggedIn/reducers";
 
 export const rootReducer = combineReducers({
-  UploadedImagesStore: UploadedImagesReducer,
+  uploadedImagesStore: UploadedImagesReducer,
   isLoggedInStore: IsLoggedInReducer,
 });
 

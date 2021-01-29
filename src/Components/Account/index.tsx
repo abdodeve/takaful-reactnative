@@ -23,7 +23,7 @@ import { logInAction } from "../../Store/IsLoggedIn/actions";
 const deviceHeight = Dimensions.get("window").height;
 
 interface RootState {
-  UploadedImagesStore: Array<UploadedImageType>;
+  uploadedImagesStore: Array<UploadedImageType>;
   isLoggedInStore: boolean;
 }
 const mapStateToProps = (state: RootState, ownProps) => ({
