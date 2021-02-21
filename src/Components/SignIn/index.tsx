@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
+import axios from "axios";
 import {
   Image,
   View,
@@ -18,17 +19,21 @@ import {
   Divider,
   Button,
 } from "@ui-kitten/components";
+import * as Google from "expo-google-app-auth";
 import { Colors } from "./../../Constants";
 import { IconX, ICON_TYPE } from "../../Icons";
+import { logInAction, logInAsyncAction } from "../../Store/IsLoggedIn/actions";
+import { userDataType } from "../../Store/UserData/types";
 
-import { logInAction } from "../../Store/IsLoggedIn/actions";
 const deviceHeight = Dimensions.get("window").height;
 
 interface RootState {
   isLoggedInStore: boolean;
+  userDataStore: userDataType;
 }
 const mapStateToProps = (state: RootState, ownProps) => ({
   isLoggedInStore: state.isLoggedInStore,
+  userDataStore: state.userDataStore,
   ownProps: ownProps,
 });
 
@@ -36,6 +41,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     logInAction: (isLoggedIn: boolean) => {
       dispatch(logInAction(isLoggedIn));
+    },
+    logInAsyncAction: (isLoggedIn: boolean) => {
+      dispatch(logInAsyncAction(isLoggedIn));
     },
   };
 };
@@ -57,7 +65,12 @@ const renderGmailIcon = () => (
  * SignIn
  *
  */
-const SignIn: React.FC<Props> = ({ isLoggedInStore, logInAction }) => {
+const SignIn: React.FC<Props> = ({
+  isLoggedInStore,
+  userDataStore,
+  logInAction,
+  logInAsyncAction,
+}) => {
   return (
     <View style={styles.container}>
       <View style={[styles.mainWrapper]}>
@@ -78,8 +91,8 @@ const SignIn: React.FC<Props> = ({ isLoggedInStore, logInAction }) => {
           <Button
             accessoryLeft={renderGmailIcon}
             style={styles.installButton}
-            onPress={() => {
-              logInAction(!isLoggedInStore);
+            onPress={async () => {
+              logInAsyncAction(!isLoggedInStore);
             }}
           >
             SE CONNECTER AVEC GMAIL

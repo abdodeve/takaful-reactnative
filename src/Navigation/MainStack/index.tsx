@@ -108,7 +108,7 @@ export default ({ navigation }) => {
           tabBarLabel: (props) => {
             return (
               <Text style={[styles.tabBarLabel, { color: props.color }]}>
-                Mes annonces
+                Annonces
               </Text>
             );
           },

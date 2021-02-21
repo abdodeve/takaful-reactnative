@@ -12,15 +12,28 @@ import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
+import createSagaMiddleware from "redux-saga";
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from "@react-native-community/google-signin";
+
+// import rootSaga from "./src/Store/sagas";
+import rootSaga from "./src/Store/rootSaga";
 
 // import rootReducer from "./src/Store/Reducers";
-import { rootReducer } from "./src/Store";
+import { rootReducer } from "./src/Store/rootReducer";
 import { IconX, ICON_TYPE } from "./src/Icons";
 import RootNavigation from "./src/Navigation/RootNavigation";
 import { default as theme } from "./src/theme.json";
 import { default as mapping } from "./mapping.json";
 
-const store = createStore(rootReducer);
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(rootSaga);
 
 export const HomeIcon = () => (
   <IconX
