@@ -28,8 +28,7 @@ async function login() {
     };
     const googleLogin: any = await Google.logInAsync(config);
 
-    if (googleLogin.type !== "success")
-      throw { ...googleLogin, customMessage: "Connection to Google is failed" };
+    if (googleLogin.type !== "success") return false;
 
     const credentialResponseGoogle = firebase.auth.GoogleAuthProvider.credential(
       googleLogin.idToken,
