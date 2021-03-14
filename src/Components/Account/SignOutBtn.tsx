@@ -4,12 +4,16 @@ import { View, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { Text, Input, Button, useTheme } from "@ui-kitten/components";
 import { IconX, ICON_TYPE } from "../../Icons";
 import { logInAction } from "../../Store/IsLoggedIn/actions";
+import { userDataType } from "../../Store/UserData/types";
 
 interface RootState {
   isLoggedInStore: boolean;
+  userDataStore: userDataType;
 }
+
 const mapStateToProps = (state: RootState, ownProps) => ({
   isLoggedInStore: state.isLoggedInStore,
+  userDataStore: state.userDataStore,
   ownProps: ownProps,
 });
 
@@ -25,14 +29,14 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
-const SignOutBtn: React.FC<Props> = ({ logInAction }) => {
+const SignOutBtn: React.FC<Props> = ({ logInAction, userDataStore }) => {
   return (
     <View style={styles.container}>
       <View>
         <TouchableOpacity
           style={[styles.signOutTouchable]}
           onPress={() => {
-            console.log("Sign out");
+            console.log("Sign out", JSON.stringify(userDataStore));
             logInAction(false);
           }}
         >

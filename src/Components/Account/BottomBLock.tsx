@@ -2,10 +2,24 @@ import React, { useState } from "react";
 import { View, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { Text, Input, Button, useTheme } from "@ui-kitten/components";
 import { useNavigation } from "@react-navigation/native";
+import { connect } from "react-redux";
 
 import { IconX, ICON_TYPE } from "../../Icons";
 import BottomBtn from "../Shared/BottomBtn";
 import { Routes } from "../../Navigation/Routes";
+import { userDataType } from "../../Store/UserData/types";
+
+interface RootState {
+  userDataStore: userDataType;
+}
+
+const mapStateToProps = (state: RootState, ownProps) => ({
+  userDataStore: state.userDataStore,
+  ownProps: ownProps,
+});
+
+const connector = connect(mapStateToProps);
+type Props = ReturnType<typeof mapStateToProps>;
 
 const RenderIcon = ({ name }: { name: string }) => {
   return (
@@ -19,7 +33,7 @@ const RenderIcon = ({ name }: { name: string }) => {
   );
 };
 
-const BottomBLock: React.FC = () => {
+const BottomBLock: React.FC<Props> = ({ userDataStore }) => {
   const theme = useTheme();
   const navigation = useNavigation();
 
@@ -71,4 +85,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BottomBLock;
+export default connector(BottomBLock);

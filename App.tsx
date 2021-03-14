@@ -29,6 +29,8 @@ import RootNavigation from "./src/Navigation/RootNavigation";
 import { default as theme } from "./src/theme.json";
 import { default as mapping } from "./mapping.json";
 
+import InitApp from "./src/Utils/InitApp";
+
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
@@ -54,6 +56,7 @@ const styles = StyleSheet.create({
 });
 
 export default () => {
+  InitApp(store);
   let [fontsLoaded] = useFonts({
     "OpenSans-Regular": require("./assets/fonts/OpenSans-Regular.ttf"),
   });

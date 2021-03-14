@@ -2,10 +2,7 @@ export const SET_USER_DATA = "SET_USER_DATA";
 
 export type userDataType = {
   email: string;
-  familyName: string;
-  givenName: string;
-  id: string;
-  name: string;
+  displayName: string;
 };
 
 interface setUserDataActionType {

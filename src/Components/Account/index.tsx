@@ -19,15 +19,19 @@ import { UploadedImageType } from "../../Store/UploadedImages/types";
 import BottomBLock from "./BottomBLock";
 import SignOutBtn from "./SignOutBtn";
 import { logInAction } from "../../Store/IsLoggedIn/actions";
+import { userDataType } from "../../Store/UserData/types";
 
 const deviceHeight = Dimensions.get("window").height;
 
 interface RootState {
   uploadedImagesStore: Array<UploadedImageType>;
   isLoggedInStore: boolean;
+  userDataStore: userDataType;
 }
+
 const mapStateToProps = (state: RootState, ownProps) => ({
   isLoggedInStore: state.isLoggedInStore,
+  userDataStore: state.userDataStore,
   ownProps: ownProps,
 });
 
@@ -63,7 +67,7 @@ const RequiredSign = () => <Text style={styles.requiredSign}>*</Text>;
  * Account
  *
  */
-const Account: React.FC<Props> = ({ logInAction }) => {
+const Account: React.FC<Props> = ({ logInAction, userDataStore }) => {
   const fullNameInputState = useInputState("Abdelhadi Ahmed");
   const emaiInputState = useInputState("abdelhadi.deve@gmail.com");
   const phoneInputState = useInputState("0626777317");

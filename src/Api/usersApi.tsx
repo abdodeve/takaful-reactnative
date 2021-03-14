@@ -2,6 +2,10 @@ import axios from "axios";
 import * as Google from "expo-google-app-auth";
 import { ANDROID_CLIENT_ID } from "./../Config";
 import * as firebase from "firebase";
+import "firebase/firestore";
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs(["Setting a timer"]);
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -15,40 +19,35 @@ const firebaseConfig = {
   // measurementId: 'G-measurement-id',
 };
 
-firebase.initializeApp(firebaseConfig);
+let FirebaseContext = firebase.initializeApp(firebaseConfig);
 
 async function login() {
   try {
-    // await storeHighScore("1", 24);
-    // loginFirebase();
     const config = {
       androidClientId: ANDROID_CLIENT_ID,
     };
-    const dataLogin: any = await Google.logInAsync(config);
+    const googleLogin: any = await Google.logInAsync(config);
 
-    if (dataLogin.type === "success") {
-      const credential = firebase.auth.GoogleAuthProvider.credential(
-        dataLogin.idToken,
-        dataLogin.accessToken
-      );
-      /* 
+    if (googleLogin.type !== "success")
+      throw { ...googleLogin, customMessage: "Connection to Google is failed" };
+
+    const credentialResponseGoogle = firebase.auth.GoogleAuthProvider.credential(
+      googleLogin.idToken,
+      googleLogin.accessToken
+    );
+
+    /* 
        Sign in with credential from the Google user.
        Or SignUp if its the first connection
         */
-      const signIngResult = await firebase
-        .auth()
-        .signInWithCredential(credential)
-        .catch((error) => {
-          console.error("signInWithCredential====>", { error });
-        });
-      console.log(
-        "signIngResult====================>",
-        JSON.stringify(signIngResult)
-      );
-    }
+    const signIngResponseFirebase = await firebase
+      .auth()
+      .signInWithCredential(credentialResponseGoogle)
+      .catch((error) => {
+        console.error("signInWithCredential====>", { error });
+      });
 
-    // console.log("dataLogin====>", dataLogin.accessToken);
-    return dataLogin;
+    return { credentialResponseGoogle, signIngResponseFirebase };
   } catch (error) {
     console.error({ error });
     return error;
