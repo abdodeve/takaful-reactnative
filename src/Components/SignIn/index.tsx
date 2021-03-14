@@ -97,13 +97,6 @@ const SignIn: React.FC<Props> = ({
           >
             SE CONNECTER AVEC GMAIL
           </Button>
-          <Button
-            onPress={async () => {
-              console.log("userDataType===>", userDataStore);
-            }}
-          >
-            Check userDataStore
-          </Button>
         </View>
       </View>
     </View>
