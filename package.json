@@ -29,6 +29,7 @@
     "faker": "^5.1.0",
     "firebase": "7.9.0",
     "lodash": "^4.17.21",
+    "moment": "^2.29.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",

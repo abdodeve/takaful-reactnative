@@ -1,6 +1,6 @@
 import { put, takeEvery, all, call } from "redux-saga/effects";
 import usersApi from "./../../Api/usersApi";
-import { LOG_IN } from "./types";
+import { LOG_IN, LOG_IN_ASYNC } from "./types";
 import { SET_USER_DATA } from "../UserData/types";
 import { userDataDestructor } from "./../../Utils/UserHelper";
 
@@ -12,7 +12,6 @@ function* login(action) {
       usersApi.login as any,
       action.isLoggedIn
     );
-    console.log("signIngResponse==>", signIngResponse);
     if (!signIngResponse) return false;
     yield put({ type: LOG_IN, isLoggedIn: action.isLoggedIn });
     const userData = userDataDestructor(signIngResponse.user);
@@ -23,7 +22,7 @@ function* login(action) {
 }
 
 function* watchLogin() {
-  yield takeEvery("LOG_IN_ASYNC", login);
+  yield takeEvery(LOG_IN_ASYNC, login);
 }
 
 // notice how we now only export the rootSaga

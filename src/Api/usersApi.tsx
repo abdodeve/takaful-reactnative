@@ -5,21 +5,24 @@ import * as firebase from "firebase";
 import "firebase/firestore";
 import { LogBox } from "react-native";
 
+import FirebaseHelper from "./../Utils/FirebaseHelper";
+
 LogBox.ignoreLogs(["Setting a timer"]);
 
 // Initialize Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyCJtUYqT_SI496aZYqxxmoqTzm7u2_QJL8",
-  authDomain: "takaful-mobile.firebaseio.com",
-  databaseURL: "https://takaful-mobile-default-rtdb.firebaseio.com",
-  projectId: "takaful-mobile",
-  // storageBucket: "takaful-mobile.appspot.com",
-  // messagingSenderId: 'sender-id',
-  // appId: "1:520521244029:android:fdf7fef31acba9611c4014",
-  // measurementId: 'G-measurement-id',
-};
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCJtUYqT_SI496aZYqxxmoqTzm7u2_QJL8",
+//   authDomain: "takaful-mobile.firebaseio.com",
+//   databaseURL: "https://takaful-mobile-default-rtdb.firebaseio.com",
+//   projectId: "takaful-mobile",
+//   // storageBucket: "takaful-mobile.appspot.com",
+//   // messagingSenderId: 'sender-id',
+//   // appId: "1:520521244029:android:fdf7fef31acba9611c4014",
+//   // measurementId: 'G-measurement-id',
+// };
 
-let FirebaseContext = firebase.initializeApp(firebaseConfig);
+// let FirebaseContext = firebase.initializeApp(firebaseConfig);
+let FirebaseContext = FirebaseHelper.FirebaseContext;
 
 async function login() {
   try {

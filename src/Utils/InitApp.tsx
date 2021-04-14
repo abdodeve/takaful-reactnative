@@ -1,7 +1,8 @@
 import { logInAction, logInAsyncAction } from "./../Store/IsLoggedIn/actions";
 import { setUserDataAction } from "./../Store/UserData/actions";
 import * as firebase from "firebase";
-import { userDataDestructor } from "./../Utils/UserHelper";
+import { userDataDestructor } from "./UserHelper";
+import FirebaseHelper from "./FirebaseHelper";
 
 const checkIfUserLoggedIn = (store) => {
   firebase.auth().onAuthStateChanged(function (user) {
@@ -12,11 +13,13 @@ const checkIfUserLoggedIn = (store) => {
       store.dispatch(setUserDataAction(userData));
     } else {
       // No user is signed in.
-      // console.log("INITAPP onAuthStateChanged", "OUUUUUUUUT", user);
+      store.dispatch(logInAction(false));
+      store.dispatch(setUserDataAction(false));
     }
   });
 };
 
 export default (store) => {
   checkIfUserLoggedIn(store);
+  FirebaseHelper.FirebaseContext;
 };

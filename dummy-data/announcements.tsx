@@ -1,20 +1,24 @@
 const ANNOUNCEMENTS = [
   {
     id: "1",
+    user_id: "1",
     title: "Pousette single en trés bonne état",
     content: "Hello content",
     nbImg: 3,
     mainImg: require("../assets/announcements/1/1.jpg"),
     city: "Casablanca",
+    type: "donation",
     created_at: "12 déc, 09:45",
   },
   {
     id: "2",
+    user_id: "1",
     title: "Armoire",
     content: "Hello content",
     nbImg: 2,
     mainImg: require("../assets/announcements/2/1.jpg"),
     city: "Casablanca",
+    type: "request",
     created_at: "12 déc, 09:45",
   },
   {
