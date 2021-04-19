@@ -97,7 +97,7 @@ const ItemRight: React.FC<ScreenProps & Props> = (
             origin={ICON_TYPE.IONICONS}
             style={{ marginRight: 4 }}
           />
-          <Text style={styles.textLocation}>Casablanca</Text>
+          <Text style={styles.textLocation}>{props.item.city}</Text>
         </View>
         <View style={styles.locationBlock}>
           <IconX
@@ -107,7 +107,7 @@ const ItemRight: React.FC<ScreenProps & Props> = (
             origin={ICON_TYPE.ANT_ICON}
             style={{ marginRight: 4 }}
           />
-          <Text style={styles.textLocation}>12 déc, 09:45</Text>
+          <Text style={styles.textLocation}>{props.item.created_at}</Text>
         </View>
       </View>
     </Layout>

@@ -8,7 +8,6 @@ function* getAnnouncements(action) {
   try {
     const payload = yield call(announcementsApi.getAnnouncements as any, {
       type: "DONATION",
-      nextPage: action.nextPage,
       announcementsStore: action.payload,
     });
     yield put({ type: SET_ANNOUNCEMENTS, payload: payload });
@@ -21,7 +20,6 @@ function* watchLogin() {
   yield takeLatest(GET_ANNOUNCEMENTS, getAnnouncements);
 }
 
-// notice how we now only export the rootSaga
 // single entry point to start all Sagas at once
 export default function* saga() {
   yield all([watchLogin()]);

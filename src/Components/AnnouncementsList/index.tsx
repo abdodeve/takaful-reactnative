@@ -60,7 +60,6 @@ const AnnouncementsList: React.FC<ScreenProps & Props> = ({
   AnnouncementStore,
   getAnnouncementsAction,
 }: ScreenProps & Props) => {
-  // const [fetchTest, setFetchTest] =  useState(false);
   useEffect(() => {
     getAnnouncementsAction(AnnouncementStore);
     return () => {
