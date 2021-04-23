@@ -63,8 +63,7 @@ async function getAnnouncements({
 
     return announcementsNormalized;
   } catch (error) {
-    console.error({ error });
-    return error;
+    throw error;
   }
 }
 

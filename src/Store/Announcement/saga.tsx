@@ -1,6 +1,10 @@
 import { put, takeEvery, takeLatest, all, call } from "redux-saga/effects";
 import announcementsApi from "./../../Api/announcementsApi";
-import { GET_ANNOUNCEMENTS, SET_ANNOUNCEMENTS } from "./types";
+import {
+  GET_ANNOUNCEMENTS,
+  SET_ANNOUNCEMENTS,
+  GET_ANNOUNCEMENTS_FAILED,
+} from "./types";
 import { SET_USER_DATA } from "../UserData/types";
 import { userDataDestructor } from "./../../Utils/UserHelper";
 
@@ -12,7 +16,8 @@ function* getAnnouncements(action) {
     });
     yield put({ type: SET_ANNOUNCEMENTS, payload: payload });
   } catch (err) {
-    console.error("getAnnouncements saga", err);
+    console.dir(err, { depth: null });
+    yield put({ type: GET_ANNOUNCEMENTS_FAILED, error: err });
   }
 }
 

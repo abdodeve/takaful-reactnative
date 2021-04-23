@@ -6,6 +6,11 @@ export const getAnnouncementsAction = (payload: [Announcement]) => ({
   payload,
 });
 
+export const getAnnouncementsFailedAction = (error) => ({
+  type: GET_ANNOUNCEMENTS,
+  error,
+});
+
 export const setAnnouncementsAction = (payload: [Announcement]) => ({
   type: SET_ANNOUNCEMENTS,
   payload,

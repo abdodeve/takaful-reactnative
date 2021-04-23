@@ -82,6 +82,7 @@ const AnnouncementsList: React.FC<ScreenProps & Props> = ({
 
   return (
     <View>
+      {/* <Text>{JSON.stringify(AnnouncementStore)}</Text> */}
       <FlatList
         data={AnnouncementStore.items}
         renderItem={renderItem}
