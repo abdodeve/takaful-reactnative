@@ -128,6 +128,7 @@ const Account: React.FC<Props> = ({ logInAction, userDataStore }) => {
 const styles = StyleSheet.create({
   container: {
     height: "100%",
+    justifyContent: "space-between",
   },
   mainWrapper: {
     marginHorizontal: 15,
@@ -142,13 +143,10 @@ const styles = StyleSheet.create({
   },
   signUpBtn: {
     width: "100%",
-    position: "absolute",
-    bottom: 130,
+    top: 20,
   },
   BottomBtns: {
     width: "100%",
-    position: "absolute",
-    bottom: 0,
   },
   requiredSign: { color: Colors.danger },
 });

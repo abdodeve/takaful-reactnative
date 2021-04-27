@@ -86,7 +86,11 @@ const ItemRight: React.FC<ScreenProps & Props> = (
         </OverflowMenu>
       </Layout>
       <View style={[styles.viewTitle]}>
-        <Text style={[styles.title]}>{props.item.title}</Text>
+        <Text style={[styles.title]}>
+          {props.item.title.length < 30
+            ? props.item.title
+            : props.item.title.substring(0, 30) + "..."}
+        </Text>
       </View>
       <View style={styles.bottomItem}>
         <View style={styles.locationBlock}>

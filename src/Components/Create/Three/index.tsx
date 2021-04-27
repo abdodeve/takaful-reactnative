@@ -58,6 +58,7 @@ const Three: React.FC<Props> = ({ uploadedImages }: Props) => {
           Titre de l'annonce<Text style={styles.requiredSign}>*</Text>
         </Text>
         <Input
+          maxLength={30}
           status="basic"
           placeholder="Entrez le titre de l'annonce"
           {...primaryInputState}

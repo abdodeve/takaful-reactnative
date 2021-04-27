@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    height: deviceHeight * 0.6,
+    // height: deviceHeight * 0.6,
     // marginHorizontal: 15,
   },
   titleView: {

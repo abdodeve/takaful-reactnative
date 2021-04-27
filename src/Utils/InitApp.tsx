@@ -3,7 +3,7 @@ import { setUserDataAction } from "./../Store/UserData/actions";
 import * as firebase from "firebase";
 import { userDataDestructor } from "./UserHelper";
 import FirebaseHelper from "./FirebaseHelper";
-import ManipulateFirebase from "./ManipulateFirebase";
+import ManipulateFirebase from "./ManipulateFireStore";
 
 const checkIfUserLoggedIn = (store) => {
   firebase.auth().onAuthStateChanged(function (user) {
