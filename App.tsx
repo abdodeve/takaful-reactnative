@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import * as eva from "@eva-design/eva";
 import {
   ApplicationProvider,
@@ -56,10 +56,17 @@ const styles = StyleSheet.create({
 });
 
 export default () => {
-  InitApp(store);
+  useEffect(() => {
+    InitApp(store);
+    return () => {
+      // cleanup
+    };
+  }, []);
+
   let [fontsLoaded] = useFonts({
     "OpenSans-Regular": require("./assets/fonts/OpenSans-Regular.ttf"),
   });
+
   if (!fontsLoaded) {
     return <AppLoading />;
   } else {

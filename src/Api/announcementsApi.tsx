@@ -4,19 +4,15 @@ import * as firebase from "firebase";
 import "firebase/firestore";
 import { LogBox } from "react-native";
 import moment from "moment";
-import "moment/locale/fr"; // without this line it didn't work
-import { Announcement } from "./../Models/Announcement";
+import "moment/locale/fr";
+import { Announcement } from "./../Models";
+import { TypeAnnouncement } from "./../Models/TypeAnnouncement";
 
 import { ANDROID_CLIENT_ID } from "./../Config";
 import FirebaseHelper from "./../Utils/FirebaseHelper";
 import AnnouncementsUtil from "./../Utils/Announcements";
 
 LogBox.ignoreLogs(["Setting a timer"]);
-
-enum TypeAnnouncement {
-  Donation = "DONATION",
-  Request = "REQUEST",
-}
 
 async function getAnnouncements({
   type = TypeAnnouncement.Donation,

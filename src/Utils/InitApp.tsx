@@ -3,6 +3,7 @@ import { setUserDataAction } from "./../Store/UserData/actions";
 import * as firebase from "firebase";
 import { userDataDestructor } from "./UserHelper";
 import FirebaseHelper from "./FirebaseHelper";
+import ManipulateFirebase from "./ManipulateFirebase";
 
 const checkIfUserLoggedIn = (store) => {
   firebase.auth().onAuthStateChanged(function (user) {
@@ -22,4 +23,5 @@ const checkIfUserLoggedIn = (store) => {
 export default (store) => {
   checkIfUserLoggedIn(store);
   FirebaseHelper.FirebaseContext;
+  // ManipulateFirebase.deleteAnnouncements();
 };

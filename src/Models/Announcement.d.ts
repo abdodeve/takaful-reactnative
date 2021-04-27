@@ -5,7 +5,6 @@ export type Announcement = {
   content: string;
   nbImg: number;
   mainImg: ImageSourcePropType;
-  images: [ImageSourcePropType];
   city: string;
   type: string;
   created_at: string;
