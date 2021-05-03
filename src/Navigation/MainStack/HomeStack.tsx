@@ -27,7 +27,7 @@ function LogoTitle() {
   );
 }
 
-const HomeStack = ({ navigation }) => {
+const HomeStack = ({ navigation, route }) => {
   return (
     <HomeStackNavigator.Navigator
       screenOptions={{
@@ -36,6 +36,7 @@ const HomeStack = ({ navigation }) => {
     >
       <HomeStackNavigator.Screen
         name={Routes.HOME_SCREEN}
+        initialParams={{ announcementType: route.params.announcementType }}
         component={AnnouncementsListScreen}
         options={{
           headerTitle: () => <LogoTitle />,
@@ -56,10 +57,10 @@ const HomeStack = ({ navigation }) => {
           ),
         }}
       />
-      <HomeStackNavigator.Screen
+      {/* <HomeStackNavigator.Screen
         name={Routes.MY_ANNOUNCEMENTS_SCREEN}
         component={MyAnnouncementsScreen}
-      />
+      /> */}
     </HomeStackNavigator.Navigator>
   );
 };

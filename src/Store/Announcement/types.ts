@@ -7,6 +7,7 @@ export const SET_ANNOUNCEMENTS = "SET_ANNOUNCEMENTS";
 interface GetAnnouncementsActionType {
   type: typeof GET_ANNOUNCEMENTS;
   payload: [Announcement];
+  getAnnouncementsAction: string;
 }
 interface GetAnnouncementsFailedActionType {
   type: typeof GET_ANNOUNCEMENTS_FAILED;

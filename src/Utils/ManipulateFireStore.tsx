@@ -28,7 +28,7 @@ async function creatAnnouncements() {
         nbImg: 1,
         mainImg: "1",
         city: faker.address.city(),
-        type: TypeAnnouncement.Donation,
+        type: TypeAnnouncement.Request,
         created_at: "1617461663000",
       };
       data.push(newAnnouncement);

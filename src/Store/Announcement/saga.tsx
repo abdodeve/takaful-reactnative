@@ -10,8 +10,9 @@ import { userDataDestructor } from "./../../Utils/UserHelper";
 
 function* getAnnouncements(action) {
   try {
+    console.log("action.announcementType", action.announcementType);
     const payload = yield call(announcementsApi.getAnnouncements as any, {
-      type: "DONATION",
+      type: action.announcementType,
       announcementsStore: action.payload,
     });
     yield put({ type: SET_ANNOUNCEMENTS, payload: payload });

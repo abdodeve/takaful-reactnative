@@ -44,8 +44,8 @@ const mapStateToProps = (state: RootState, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getAnnouncementsAction: (AnnouncementStore) => {
-      dispatch(getAnnouncementsAction(AnnouncementStore));
+    getAnnouncementsAction: (AnnouncementStore, announcementType) => {
+      dispatch(getAnnouncementsAction(AnnouncementStore, announcementType));
     },
   };
 };
@@ -60,12 +60,31 @@ const AnnouncementsList: React.FC<ScreenProps & Props> = ({
   AnnouncementStore,
   getAnnouncementsAction,
 }: ScreenProps & Props) => {
+  const [announcementsData, setAnnouncementsData] = useState<Announcement[]>(
+    []
+  );
+  const [isFetching, setIsFetching] = useState<Boolean>(false);
+
   useEffect(() => {
-    getAnnouncementsAction(AnnouncementStore);
+    const unsubscribe = navigation.addListener("focus", async (route) => {
+      setAnnouncementsData([]);
+      await fetchAnnouncements();
+    });
     return () => {
-      // cleanup
+      unsubscribe;
     };
-  }, []);
+  }, [navigation]);
+
+  async function fetchAnnouncements() {
+    setIsFetching(true);
+    const retrievedAnnouncements = await announcementsApi.getAnnouncements({
+      type: (route.params as any).announcementType,
+      announcementsData,
+      // announcementsStore: { items: announcementsData },
+    });
+    setAnnouncementsData([...announcementsData, ...retrievedAnnouncements]);
+    setIsFetching(false);
+  }
 
   const renderItem = ({ item }: { item: Announcement }) => {
     return (
@@ -82,21 +101,18 @@ const AnnouncementsList: React.FC<ScreenProps & Props> = ({
 
   return (
     <View>
-      {/* <Text>{JSON.stringify(AnnouncementStore)}</Text> */}
       <FlatList
-        data={AnnouncementStore.items}
+        data={announcementsData}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        onEndReached={() => {
-          getAnnouncementsAction(AnnouncementStore);
+        onEndReached={async () => {
+          await fetchAnnouncements();
         }}
         onEndReachedThreshold={0.1}
         ListFooterComponent={() => {
           return (
             <View style={{ height: 20 }}>
-              {AnnouncementStore.isFetching && (
-                <ActivityIndicator color="#0000ff" />
-              )}
+              {isFetching && <ActivityIndicator color="#0000ff" />}
             </View>
           );
         }}

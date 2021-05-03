@@ -1,9 +1,13 @@
 import { Announcement } from "./../../Models/Announcement";
 import { GET_ANNOUNCEMENTS, SET_ANNOUNCEMENTS } from "./types";
 
-export const getAnnouncementsAction = (payload: [Announcement]) => ({
+export const getAnnouncementsAction = (
+  payload: [Announcement],
+  announcementType: string
+) => ({
   type: GET_ANNOUNCEMENTS,
   payload,
+  announcementType,
 });
 
 export const getAnnouncementsFailedAction = (error) => ({

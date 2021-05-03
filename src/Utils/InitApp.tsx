@@ -23,5 +23,5 @@ const checkIfUserLoggedIn = (store) => {
 export default (store) => {
   checkIfUserLoggedIn(store);
   FirebaseHelper.FirebaseContext;
-  // ManipulateFirebase.deleteAnnouncements();
+  // ManipulateFirebase.creatAnnouncements();
 };

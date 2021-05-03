@@ -29,6 +29,8 @@ export default ({ navigation }) => {
     >
       <Tab.Screen
         name={Routes.DONATIONS_STACK}
+        component={HomeStack}
+        initialParams={{ announcementType: "DONATION" }}
         options={{
           tabBarLabel: (props) => {
             return (
@@ -47,10 +49,11 @@ export default ({ navigation }) => {
             />
           ),
         }}
-        component={HomeStack}
       />
       <Tab.Screen
         name={Routes.REQUESTS_STACK}
+        initialParams={{ announcementType: "REQUEST" }}
+        component={HomeStack}
         options={{
           tabBarLabel: (props) => {
             return (
@@ -69,7 +72,6 @@ export default ({ navigation }) => {
             />
           ),
         }}
-        component={HomeStack}
       />
       <Tab.Screen
         name={Routes.CREATE_ANNOUNCEMENT_SCREEN}

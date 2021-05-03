@@ -14,10 +14,7 @@ import AnnouncementsUtil from "./../Utils/Announcements";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 
-async function getAnnouncements({
-  type = TypeAnnouncement.Donation,
-  announcementsStore,
-}) {
+async function getAnnouncements({ type, announcementsData }) {
   try {
     const field = "id";
     const pageSize = 6;
@@ -34,9 +31,9 @@ async function getAnnouncements({
     query = query.limit(pageSize);
 
     // Paginate to the next page
-    if (announcementsStore.items.length > 0) {
+    if (announcementsData.length > 0) {
       query = query.startAfter(
-        announcementsStore.items[announcementsStore.items.length - 1].id
+        announcementsData[announcementsData.length - 1].id
       );
     }
     let snapshot: firebase.firestore.QuerySnapshot;
