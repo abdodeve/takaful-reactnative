@@ -80,7 +80,6 @@ const AnnouncementsList: React.FC<ScreenProps & Props> = ({
     const retrievedAnnouncements = await announcementsApi.getAnnouncements({
       type: (route.params as any).announcementType,
       announcementsData,
-      // announcementsStore: { items: announcementsData },
     });
     setAnnouncementsData([...announcementsData, ...retrievedAnnouncements]);
     setIsFetching(false);
