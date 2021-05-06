@@ -16,6 +16,7 @@ const MyAnnouncementsNavigatorScreen = () => {
     <MyAnnouncementsTabNavigator.Navigator>
       <MyAnnouncementsTabNavigator.Screen
         name={Routes.MY_DONATIONS_SCREEN}
+        initialParams={{ announcementType: "DONATION" }}
         component={AnnouncementsListScreen}
         options={{
           tabBarLabel: (props) => {
@@ -25,6 +26,7 @@ const MyAnnouncementsNavigatorScreen = () => {
       />
       <MyAnnouncementsTabNavigator.Screen
         name={Routes.MY_REQUESTS_SCREEN}
+        initialParams={{ announcementType: "REQUEST" }}
         component={AnnouncementsListScreen}
         options={{
           tabBarLabel: (props) => {

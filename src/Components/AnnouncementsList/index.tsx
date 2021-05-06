@@ -108,6 +108,10 @@ const AnnouncementsList: React.FC<ScreenProps & Props> = ({
           await fetchAnnouncements();
         }}
         onEndReachedThreshold={0.1}
+        refreshing={false}
+        onRefresh={() => {
+          console.log("onRefresh");
+        }}
         ListFooterComponent={() => {
           return (
             <View style={{ height: 20 }}>

@@ -11,7 +11,6 @@ import { Layout, Text, useTheme } from "@ui-kitten/components";
 
 import { Routes } from "../Routes";
 import AnnouncementsListScreen from "../../Screens/AnnouncementsListScreen";
-import MyAnnouncementsScreen from "../../Screens/MyAnnouncementsScreen";
 import { IconX, ICON_TYPE } from "../../Icons";
 
 const HomeStackNavigator = createStackNavigator();
@@ -57,10 +56,6 @@ const HomeStack = ({ navigation, route }) => {
           ),
         }}
       />
-      {/* <HomeStackNavigator.Screen
-        name={Routes.MY_ANNOUNCEMENTS_SCREEN}
-        component={MyAnnouncementsScreen}
-      /> */}
     </HomeStackNavigator.Navigator>
   );
 };
