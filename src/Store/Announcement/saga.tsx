@@ -10,14 +10,18 @@ import { userDataDestructor } from "./../../Utils/UserHelper";
 
 function* getAnnouncements(action) {
   try {
-    console.log("action.announcementType", action.announcementType);
     const payload = yield call(announcementsApi.getAnnouncements as any, {
       type: action.announcementType,
-      announcementsStore: action.payload,
+      announcementsData: action.payload,
     });
-    yield put({ type: SET_ANNOUNCEMENTS, payload: payload });
+    yield put({
+      type: SET_ANNOUNCEMENTS,
+      payload: payload,
+      announcementType: action.announcementType,
+      refresh: action.refresh,
+    });
   } catch (err) {
-    console.dir(err, { depth: null });
+    console.error("getAnnouncements===>", err);
     yield put({ type: GET_ANNOUNCEMENTS_FAILED, error: err });
   }
 }

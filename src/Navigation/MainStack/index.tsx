@@ -10,6 +10,7 @@ import MyAnnouncementsStack from "./MyAnnouncementsStack";
 import AccountStack from "./AccountStack";
 import AccountScreen from "../../Screens/AccountScreen";
 import CreateAnnouncementScreen from "../../Screens/CreateAnnouncementScreen";
+import { TypeAnnouncement } from "../../Models/TypeAnnouncement";
 import { Routes } from "./../Routes";
 
 const Tab = createBottomTabNavigator();
@@ -30,7 +31,7 @@ export default ({ navigation }) => {
       <Tab.Screen
         name={Routes.DONATIONS_STACK}
         component={HomeStack}
-        initialParams={{ announcementType: "DONATION" }}
+        initialParams={{ announcementType: TypeAnnouncement.Donation }}
         options={{
           tabBarLabel: (props) => {
             return (
@@ -52,7 +53,7 @@ export default ({ navigation }) => {
       />
       <Tab.Screen
         name={Routes.REQUESTS_STACK}
-        initialParams={{ announcementType: "REQUEST" }}
+        initialParams={{ announcementType: TypeAnnouncement.Request }}
         component={HomeStack}
         options={{
           tabBarLabel: (props) => {

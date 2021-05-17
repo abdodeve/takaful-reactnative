@@ -4,6 +4,7 @@ import * as firebase from "firebase";
 import { userDataDestructor } from "./UserHelper";
 import FirebaseHelper from "./FirebaseHelper";
 import ManipulateFirebase from "./ManipulateFireStore";
+import FetchAnnouncements from "./FetchAnnouncements";
 
 const checkIfUserLoggedIn = (store) => {
   firebase.auth().onAuthStateChanged(function (user) {
@@ -23,5 +24,6 @@ const checkIfUserLoggedIn = (store) => {
 export default (store) => {
   checkIfUserLoggedIn(store);
   FirebaseHelper.FirebaseContext;
+  FetchAnnouncements.loadAnnouncements(store);
   // ManipulateFirebase.creatAnnouncements();
 };

@@ -5,6 +5,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { Layout, Text, useTheme } from "@ui-kitten/components";
 
 import { Routes } from "../Routes";
+import { TypeAnnouncement } from "./../../Models/TypeAnnouncement";
 import TitleHeader from "./../../Components/Shared/TitleHeader";
 import AnnouncementsListScreen from "../../Screens/AnnouncementsListScreen";
 
@@ -16,7 +17,7 @@ const MyAnnouncementsNavigatorScreen = () => {
     <MyAnnouncementsTabNavigator.Navigator>
       <MyAnnouncementsTabNavigator.Screen
         name={Routes.MY_DONATIONS_SCREEN}
-        initialParams={{ announcementType: "DONATION" }}
+        initialParams={{ announcementType: TypeAnnouncement.DonationUser }}
         component={AnnouncementsListScreen}
         options={{
           tabBarLabel: (props) => {
@@ -26,7 +27,7 @@ const MyAnnouncementsNavigatorScreen = () => {
       />
       <MyAnnouncementsTabNavigator.Screen
         name={Routes.MY_REQUESTS_SCREEN}
-        initialParams={{ announcementType: "REQUEST" }}
+        initialParams={{ announcementType: TypeAnnouncement.RequestUser }}
         component={AnnouncementsListScreen}
         options={{
           tabBarLabel: (props) => {
@@ -42,6 +43,7 @@ const MyAnnouncementsStackScreen = () => {
   return (
     <MyAnnouncementsStack.Navigator screenOptions={{}}>
       <MyAnnouncementsStack.Screen
+        initialParams={{ announcementType: "TestADEV" }}
         options={{
           headerTitle: () => <TitleHeader title="Mes annonces" />,
           headerStyle: {
