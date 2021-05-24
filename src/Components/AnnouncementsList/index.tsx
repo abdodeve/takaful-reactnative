@@ -135,7 +135,7 @@ const AnnouncementsList: React.FC<ScreenProps & Props> = ({
         }}
         ListFooterComponent={() => {
           return (
-            <View style={{ height: 20 }}>
+            <View style={{ height: 20, marginTop: 6 }}>
               {AnnouncementStore.isFetching && (
                 <ActivityIndicator color="#0000ff" />
               )}
