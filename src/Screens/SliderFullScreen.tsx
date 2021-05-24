@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Dimensions, StyleSheet } from "react-native";
+import { View, Dimensions, StyleSheet, Text } from "react-native";
 import * as ScreenOrientation from "expo-screen-orientation";
 import ImageViewer from "react-native-image-zoom-viewer";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -36,9 +36,20 @@ const SliderFullScreen: React.FC<ScreenProps> = ({
     },
   ];
 
+  const [imagesFormatted, setImagesFormatted] = useState<{ url: string }[]>([]);
+
   useEffect(() => {
     ScreenOrientation.unlockAsync();
-  });
+    function formattingImage() {
+      const getImages = (route.params as any)?.images as string[];
+      const formatImgs = getImages.map((value) => {
+        return { url: value };
+      });
+      setImagesFormatted(formatImgs);
+    }
+    formattingImage();
+    return () => {};
+  }, []);
 
   ScreenOrientation.addOrientationChangeListener((event) => {
     setWidth(Dimensions.get("window").width);
@@ -48,7 +59,14 @@ const SliderFullScreen: React.FC<ScreenProps> = ({
     <SafeAreaView style={{ flex: 1 }}>
       <View style={[styles.container, { width, height }]}>
         <GoBack route={route} navigation={navigation} />
-        <ImageViewer imageUrls={images} saveToLocalByLongPress={false} />
+        {/* <Text>{JSON.stringify(imagesFormatted)}</Text> */}
+        {imagesFormatted.length > 0 && (
+          <ImageViewer
+            imageUrls={imagesFormatted}
+            // imageUrls={images}
+            saveToLocalByLongPress={false}
+          />
+        )}
       </View>
     </SafeAreaView>
   );

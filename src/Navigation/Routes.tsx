@@ -22,7 +22,7 @@ type RootStackParamList = {
   HOME_SCREEN: undefined;
   DETAILS_SCREEN: undefined;
   MY_ANNOUNCEMENTS_SCREEN: undefined;
-  SLIDER_FULL_SCREEN: undefined;
+  SLIDER_FULL_SCREEN: { images: string[] };
   CREATE_ANNOUNCEMENT_SCREEN: undefined;
 
   // Stacks

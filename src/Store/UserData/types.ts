@@ -4,6 +4,7 @@ export type userDataType =
   | {
       email: string;
       displayName: string;
+      uid: string;
     }
   | boolean;
 

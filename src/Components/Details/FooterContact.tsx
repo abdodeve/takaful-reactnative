@@ -4,25 +4,27 @@ import { Text, Button } from "@ui-kitten/components";
 
 import { IconX, ICON_TYPE } from "../../Icons";
 import { Colors } from "./../../Constants";
+import { Announcement } from "./../../Models";
 
 export const PhoneIcon = () => (
   <IconX name="phone" color="#fff" origin={ICON_TYPE.FEATHER_ICONS} />
 );
 const windowHeight = Dimensions.get("window").height;
 
-const FooterContact: React.FC = () => {
+type Props = { announcement?: Announcement };
+const FooterContact: React.FC<Props> = ({ announcement }: Props) => {
   return (
     <View style={styles.footerWrapper}>
       <View>
         <Text category="h6" style={styles.nameText}>
-          Amine
+          {announcement?.user?.fullName}
         </Text>
       </View>
       <View>
         <View style={styles.rightBlock}>
           <Button
             onPress={() => {
-              Linking.openURL(`tel:0766755933`);
+              Linking.openURL(`tel:${announcement?.user?.phone}`);
             }}
             activeOpacity={0.2}
             status="info"

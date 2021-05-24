@@ -11,6 +11,8 @@ import { TypeAnnouncement } from "../Models/TypeAnnouncement";
 import { ANDROID_CLIENT_ID } from "../Config";
 import FirebaseHelper from "./FirebaseHelper";
 import AnnouncementsUtil from "./Announcements";
+import announcementsApi from "./../Api/announcementsApi";
+import usersApi from "./../Api/usersApi";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 
@@ -61,7 +63,43 @@ async function deleteAnnouncements() {
   }
 }
 
+async function testFetching() {
+  try {
+    const data = await announcementsApi.getAnnouncements({
+      type: "DONATION",
+      subType: "DONATION_USER",
+      announcementsData: [],
+      userData: { uid: "IPlBSh1okhT341lYwhRKYXlSUXx1" },
+    });
+    // console.log("data===>", data);
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getAnnouncementById() {
+  try {
+    let query: any =
+      FirebaseHelper.FirebaseContext.firestore().collection("Announcements");
+    // .where("type", "==", "REQUEST");
+    query = query.where("user_id", "==", "IPlBSh1okhT341lYwhRKYXlSUXx1");
+    query = query.where("type", "==", "REQUEST");
+
+    let snapshot = await query.get();
+    let data: any = snapshot.docs;
+
+    data.map((doc) => {
+      console.log("doc.data()===>", doc.data());
+      return { id: doc.id, ...doc.data() };
+    });
+  } catch (error) {
+    throw error;
+  }
+}
+
 export default {
   creatAnnouncements,
   deleteAnnouncements,
+  testFetching,
+  getAnnouncementById,
 };

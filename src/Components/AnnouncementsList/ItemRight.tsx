@@ -111,7 +111,9 @@ const ItemRight: React.FC<ScreenProps & Props> = (
             origin={ICON_TYPE.ANT_ICON}
             style={{ marginRight: 4 }}
           />
-          <Text style={styles.textLocation}>{props.item.created_at}</Text>
+          <Text style={styles.textLocation}>
+            {props.item.created_at_formatted}
+          </Text>
         </View>
       </View>
     </Layout>

@@ -1,4 +1,11 @@
-import { put, takeEvery, takeLatest, all, call } from "redux-saga/effects";
+import {
+  select,
+  put,
+  takeEvery,
+  takeLatest,
+  all,
+  call,
+} from "redux-saga/effects";
 import announcementsApi from "./../../Api/announcementsApi";
 import {
   GET_ANNOUNCEMENTS,
@@ -10,9 +17,11 @@ import { userDataDestructor } from "./../../Utils/UserHelper";
 
 function* getAnnouncements(action) {
   try {
+    const userDataStore = yield select((state) => state.userDataStore);
     const payload = yield call(announcementsApi.getAnnouncements as any, {
       type: action.announcementType,
       announcementsData: action.payload,
+      userData: userDataStore,
     });
     yield put({
       type: SET_ANNOUNCEMENTS,

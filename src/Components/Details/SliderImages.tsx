@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Image,
@@ -13,27 +13,42 @@ import { Text, Button } from "@ui-kitten/components";
 
 import { ScreenProps, Routes } from "../../Navigation/Routes";
 import { IconX, ICON_TYPE } from "../../Icons";
+import { Announcement } from "../../Models/Announcement";
+import { conforms } from "lodash";
 
 export const PhoneIcon = () => (
   <IconX name="phone" color="#fff" origin={ICON_TYPE.FEATHER_ICONS} />
 );
 
-const SliderImages: React.FC<ScreenProps> = ({
+type Props = { announcement?: Announcement } & ScreenProps;
+
+const SliderImages: React.FC<Props> = ({
   route,
   navigation,
-}: ScreenProps) => {
+  announcement,
+}: Props) => {
   const width = Dimensions.get("window").width;
   const height = width * 0.6;
 
   const [active, setActive] = useState(0);
-
-  const images = [
+  const imagesDefault = [
     "https://i.pinimg.com/236x/09/66/4f/09664f3441de659f26bf604a2f1f8f43.jpg",
     "https://i.pinimg.com/236x/1f/9a/44/1f9a4405c1db5d23a13d8608dfba6850.jpg",
     "https://i.pinimg.com/236x/28/b9/43/28b94382c8bea2d56afbabe1369d3b68.jpg",
     "https://i.pinimg.com/564x/9c/40/ac/9c40acb5931b72b8ace4cb446ee0d068.jpg",
     "https://i.pinimg.com/236x/0d/a7/3b/0da73b6592ba04b63385c12280d1bf6a.jpg",
   ];
+
+  const [images, setImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    const imgs =
+      announcement?.images && (announcement?.images as []).length > 0
+        ? announcement?.images
+        : imagesDefault;
+    setImages(imgs);
+    return () => {};
+  }, []);
 
   /**
    * OnSlide Image
@@ -62,7 +77,7 @@ const SliderImages: React.FC<ScreenProps> = ({
             <TouchableWithoutFeedback
               key={index}
               onPress={() => {
-                navigation.navigate(Routes.SLIDER_FULL_SCREEN);
+                navigation.navigate(Routes.SLIDER_FULL_SCREEN, { images });
               }}
             >
               <Image

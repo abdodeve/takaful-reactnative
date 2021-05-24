@@ -14,20 +14,40 @@ import AnnouncementsUtil from "./../Utils/Announcements";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 
-async function getAnnouncements({ type, announcementsData }) {
+async function getAnnouncements({
+  type,
+  subType,
+  announcementsData,
+  userData,
+}: {
+  type: any;
+  subType?: any;
+  announcementsData: any;
+  userData?: any;
+}) {
   try {
     const field = "id";
     const pageSize = 6;
 
     let query: firebase.firestore.Query;
-    let collectionReference: firebase.firestore.CollectionReference = FirebaseHelper.FirebaseContext.firestore().collection(
-      "Announcements"
-    );
+    let collectionReference: firebase.firestore.CollectionReference =
+      FirebaseHelper.FirebaseContext.firestore().collection("Announcements");
     query = collectionReference.orderBy(
       firebase.firestore.FieldPath.documentId(),
       "desc"
     );
-    query = query.where("type", "==", type);
+    const typeSanitized = AnnouncementsUtil.sanitizeType(type);
+    query = query.where("type", "==", typeSanitized);
+
+    if (
+      [TypeAnnouncement.DonationUser, TypeAnnouncement.RequestUser].includes(
+        type
+      )
+    ) {
+      if (userData) {
+        query = query.where("user_id", "==", userData.uid);
+      }
+    }
     query = query.limit(pageSize);
 
     // Paginate to the next page
@@ -46,13 +66,12 @@ async function getAnnouncements({ type, announcementsData }) {
     )
       return [];
 
-    let announcements = snapshot.docs.map((doc) => {
+    let announcements: Announcement[] = snapshot.docs.map((doc) => {
       return { id: doc.id, ...doc.data() };
-    });
+    }) as Announcement[];
 
-    const announcementsNormalized: Announcement[] = await AnnouncementsUtil.normalizeAnnouncements(
-      announcements
-    );
+    const announcementsNormalized: Announcement[] =
+      await AnnouncementsUtil.normalizeAnnouncements(announcements);
 
     return announcementsNormalized;
   } catch (error) {

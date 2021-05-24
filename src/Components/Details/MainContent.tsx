@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Image,
@@ -12,21 +12,28 @@ import { Layout, Text, Button, useTheme } from "@ui-kitten/components";
 
 import { IconX, ICON_TYPE } from "../../Icons";
 import { ScreenProps } from "../../Navigation/Routes";
+import { Announcement } from "../../Models/Announcement";
 
 export const PhoneIcon = () => (
   <IconX name="phone" color="#fff" origin={ICON_TYPE.FEATHER_ICONS} />
 );
+type Props = { announcement?: Announcement };
 
-const MainContent: React.FC = () => {
+const MainContent: React.FC<Props> = ({ announcement }: Props) => {
+  useEffect(() => {
+    return () => {
+      // unsubscribe;
+    };
+  }, []);
+
   const theme = useTheme();
-  // const specsColor = theme["color-basic-600"];
   const specsColor = "#747d8c";
 
   return (
     <View>
       <View style={styles.titleView}>
         <Text style={styles.titleText} category="h5">
-          Pousette double en bon état
+          {announcement?.title}
         </Text>
       </View>
       <View style={styles.blockSpecs}>
@@ -39,7 +46,7 @@ const MainContent: React.FC = () => {
             style={{ marginRight: 4 }}
           />
           <Text style={[styles.specText, { color: specsColor }]}>
-            Casablanca
+            {announcement?.city}
           </Text>
         </View>
         <View style={styles.firstSpecs}>
@@ -51,7 +58,7 @@ const MainContent: React.FC = () => {
             style={styles.IconSecondBlock}
           />
           <Text style={[styles.specText, { color: specsColor }]}>
-            12 déc, 09:45
+            {announcement?.created_at_formatted}
           </Text>
         </View>
       </View>
@@ -64,7 +71,9 @@ const MainContent: React.FC = () => {
             origin={ICON_TYPE.FONT_AWESOME5}
             style={styles.IconSecondBlock}
           />
-          <Text style={[styles.specText, { color: specsColor }]}>Don</Text>
+          <Text style={[styles.specText, { color: specsColor }]}>
+            {announcement?.type_formatted}
+          </Text>
         </View>
         <View style={styles.verticalSeparator} />
         <View style={styles.secondSpecs}>
@@ -75,7 +84,9 @@ const MainContent: React.FC = () => {
             origin={ICON_TYPE.MATERIAL_COMMUNITY}
             style={styles.IconSecondBlock}
           />
-          <Text style={[styles.specText, { color: specsColor }]}>32 min</Text>
+          <Text style={[styles.specText, { color: specsColor }]}>
+            {announcement?.timeSince}
+          </Text>
         </View>
         <View style={styles.verticalSeparator} />
         <View style={styles.secondSpecs}>
@@ -87,7 +98,7 @@ const MainContent: React.FC = () => {
             style={styles.IconSecondBlock}
           />
           <Text style={[styles.specText, { color: specsColor }]}>
-            À bricoler
+            {announcement?.condition_formatted}
           </Text>
         </View>
       </View>
@@ -98,7 +109,9 @@ const MainContent: React.FC = () => {
           <Text style={styles.characteristicTextLeft}>Type</Text>
         </View>
         <View>
-          <Text style={styles.characteristicTextRight}>Electromenager</Text>
+          <Text style={styles.characteristicTextRight}>
+            {announcement?.category}
+          </Text>
         </View>
       </View>
       <View style={styles.horizontalSeparator} />
@@ -107,30 +120,7 @@ const MainContent: React.FC = () => {
         <Text category="h6" style={styles.descriptionText}>
           Description
         </Text>
-        <Text>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged.
-        </Text>
-        <Text>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged.
-        </Text>
-        <Text>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged.
-        </Text>
+        <Text>{announcement?.content}</Text>
       </View>
     </View>
   );

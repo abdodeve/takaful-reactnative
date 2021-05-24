@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, useWindowDimensions, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -14,10 +14,17 @@ const DetailsScreen: React.FC<ScreenProps> = ({
   route,
   navigation,
 }: ScreenProps) => {
+  useEffect(() => {
+    return () => {};
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ flex: 1 }}>
-        <Details route={route} navigation={navigation} />
+        <Details
+          route={route}
+          navigation={navigation}
+          announcement={(route.params as any).announcement}
+        />
       </View>
     </SafeAreaView>
   );

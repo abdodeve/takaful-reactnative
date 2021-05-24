@@ -18,18 +18,24 @@ LogBox.ignoreLogs(["Setting a timer"]);
 
 async function loadAnnouncements(store) {
   try {
-    for (let item in TypeAnnouncement) {
-      let fetchedAnnouncement: Announcement[] = await announcementsApi.getAnnouncements(
-        { type: TypeAnnouncement[item], announcementsData: [] }
-      );
-      store.dispatch(
-        setAnnouncementsAction(
-          fetchedAnnouncement,
-          TypeAnnouncement[item],
-          true
-        )
-      );
-    }
+    new Promise(async (resolve, reject) => {
+      for (let item in TypeAnnouncement) {
+        let fetchedAnnouncement: Announcement[] =
+          await announcementsApi.getAnnouncements({
+            type: TypeAnnouncement[item],
+            announcementsData: [],
+            userData: store.getState()?.userDataStore,
+          });
+        store.dispatch(
+          setAnnouncementsAction(
+            fetchedAnnouncement,
+            TypeAnnouncement[item],
+            true
+          )
+        );
+      }
+      resolve(true);
+    });
   } catch (error) {
     throw error;
   }

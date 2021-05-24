@@ -95,7 +95,9 @@ const AnnouncementsList: React.FC<ScreenProps & Props> = ({
       <Item
         item={item}
         onPress={() => {
-          navigation.navigate(Routes.DETAILS_SCREEN);
+          navigation.navigate(Routes.DETAILS_SCREEN, {
+            announcement: item,
+          } as any);
         }}
         route={route}
         navigation={navigation}
@@ -116,7 +118,6 @@ const AnnouncementsList: React.FC<ScreenProps & Props> = ({
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         onEndReached={async () => {
-          console.log("onEndReached", currentAnnouncementsByScreen().length);
           getAnnouncementsAction(
             currentAnnouncementsByScreen(),
             (route.params as any).announcementType,
@@ -126,7 +127,6 @@ const AnnouncementsList: React.FC<ScreenProps & Props> = ({
         onEndReachedThreshold={0.5}
         refreshing={false}
         onRefresh={() => {
-          console.log("onRefresh");
           getAnnouncementsAction(
             [],
             (route.params as any).announcementType,

@@ -4,7 +4,7 @@ import { ANDROID_CLIENT_ID } from "./../Config";
 import * as firebase from "firebase";
 import "firebase/firestore";
 import { LogBox } from "react-native";
-
+import { User } from "./../Models";
 import FirebaseHelper from "./../Utils/FirebaseHelper";
 
 LogBox.ignoreLogs(["Setting a timer"]);
@@ -56,6 +56,16 @@ async function login() {
   }
 }
 
+const getUserById = async ({ uid }: { uid: string }): Promise<User> => {
+  let collectionReference: firebase.firestore.CollectionReference = FirebaseHelper.FirebaseContext.firestore().collection(
+    "Users"
+  );
+  const doc = collectionReference.doc(uid);
+  const snapshot = await doc.get();
+  return snapshot.data() as User;
+};
+
 export default {
   login,
+  getUserById,
 };
