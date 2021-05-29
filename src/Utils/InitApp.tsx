@@ -5,6 +5,7 @@ import { userDataDestructor } from "./UserHelper";
 import FirebaseHelper from "./FirebaseHelper";
 import ManipulateFirebase from "./ManipulateFireStore";
 import FetchAnnouncements from "./FetchAnnouncements";
+import usersApi from "./../Api/usersApi";
 
 const checkIfUserLoggedIn = (store) => {
   return new Promise((resolve, reject) => {
@@ -30,6 +31,9 @@ export default async (store) => {
     FirebaseHelper.FirebaseContext;
     await checkIfUserLoggedIn(store);
     await FetchAnnouncements.loadAnnouncements(store);
+    // const res = await usersApi.checkUserExistence({
+    //   uid: "123",
+    // });
     // ManipulateFirebase.testFetching();
     // ManipulateFirebase.getAnnouncementById();
   } catch (error) {

@@ -1,20 +1,33 @@
 import { put, takeEvery, all, call } from "redux-saga/effects";
-import usersApi from "./../../Api/usersApi";
+import usersApi, { loginType } from "./../../Api/usersApi";
 import { LOG_IN, LOG_IN_ASYNC } from "./types";
 import { SET_USER_DATA } from "../UserData/types";
 import { userDataDestructor } from "./../../Utils/UserHelper";
+import { User } from "./../../Models";
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 function* login(action) {
   try {
-    const signIngResponse = yield call(
+    // Call Login API of FireStore
+    const signIngResponse: loginType = yield call(
       usersApi.login as any,
       action.isLoggedIn
     );
+
     if (!signIngResponse) return false;
     yield put({ type: LOG_IN, isLoggedIn: action.isLoggedIn });
-    const userData = userDataDestructor(signIngResponse.user);
+    const userData: User = userDataDestructor(
+      signIngResponse.signIngResponseFirebase.user
+    );
+
+    // Create new user on FireStore
+    const isUserExist = yield call(usersApi.checkUserExistence as any, {
+      uid: userData.id,
+    });
+    if (!isUserExist) {
+      const createdUser = yield call(usersApi.createUser as any, userData);
+    }
     yield put({ type: SET_USER_DATA, userData: userData });
   } catch (err) {
     console.error("login saga", err);

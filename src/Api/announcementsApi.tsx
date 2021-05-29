@@ -45,7 +45,7 @@ async function getAnnouncements({
       )
     ) {
       if (userData) {
-        query = query.where("user_id", "==", userData.uid);
+        query = query.where("user_id", "==", userData.id);
       }
     }
     query = query.limit(pageSize);
