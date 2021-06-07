@@ -24,6 +24,7 @@ import { Colors } from "./../../Constants";
 import { IconX, ICON_TYPE } from "../../Icons";
 import { logInAction, logInAsyncAction } from "../../Store/IsLoggedIn/actions";
 import { userDataType } from "../../Store/UserData/types";
+import * as Updates from "expo-updates";
 
 const deviceHeight = Dimensions.get("window").height;
 
@@ -93,6 +94,7 @@ const SignIn: React.FC<Props> = ({
             style={styles.installButton}
             onPress={async () => {
               logInAsyncAction(!isLoggedInStore);
+              // await Updates.reloadAsync();
             }}
           >
             SE CONNECTER AVEC GMAIL
