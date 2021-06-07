@@ -86,7 +86,7 @@ const checkUserExistence = async ({
   }
 };
 
-const createUser = async (data: any) => {
+const createUser = async (data: User) => {
   try {
     let collectionReference = FirebaseHelper.FirebaseContext.firestore()
       .collection("Users")
@@ -98,9 +98,22 @@ const createUser = async (data: any) => {
   }
 };
 
+const updateUser = async (data: User) => {
+  try {
+    let collectionReference = FirebaseHelper.FirebaseContext.firestore()
+      .collection("Users")
+      .doc(data.id);
+    await collectionReference.update(data);
+    return data;
+  } catch (error) {
+    throw { error, message: "updateUser API error" };
+  }
+};
+
 export default {
   login,
   getUserById,
-  createUser,
   checkUserExistence,
+  createUser,
+  updateUser,
 };

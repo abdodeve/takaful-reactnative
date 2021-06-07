@@ -9,12 +9,15 @@ import usersApi from "./../Api/usersApi";
 
 const checkIfUserLoggedIn = (store) => {
   return new Promise((resolve, reject) => {
-    firebase.auth().onAuthStateChanged(function (user) {
+    firebase.auth().onAuthStateChanged(async function (user) {
       if (user) {
         // User is signed in.
         store.dispatch(logInAction(true));
-        const userData = userDataDestructor(user);
-        store.dispatch(setUserDataAction(userData));
+        const userDataAuth = userDataDestructor(user);
+        const userDataFireStore = await usersApi.getUserById({
+          uid: userDataAuth.id,
+        });
+        store.dispatch(setUserDataAction(userDataFireStore));
         resolve(true);
       } else {
         // No user is signed in.

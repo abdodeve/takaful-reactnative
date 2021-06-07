@@ -8,6 +8,9 @@ import { IconX, ICON_TYPE } from "../../Icons";
 import BottomBtn from "../Shared/BottomBtn";
 import { Routes } from "../../Navigation/Routes";
 import { userDataType } from "../../Store/UserData/types";
+import { setUserDataAction } from "../../Store/UserData/actions";
+import usersApi from "../../Api/usersApi";
+import { User } from "../../Models";
 
 interface RootState {
   userDataStore: userDataType;
@@ -18,8 +21,18 @@ const mapStateToProps = (state: RootState, ownProps) => ({
   ownProps: ownProps,
 });
 
-const connector = connect(mapStateToProps);
-type Props = ReturnType<typeof mapStateToProps>;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserDataAction: (userData: userDataType) => {
+      dispatch(setUserDataAction(userData));
+    },
+  };
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type Props = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps> & { userValues: User };
 
 const RenderIcon = ({ name }: { name: string }) => {
   return (
@@ -33,7 +46,7 @@ const RenderIcon = ({ name }: { name: string }) => {
   );
 };
 
-const BottomBLock: React.FC<Props> = ({ userDataStore }) => {
+const BottomBLock: React.FC<Props> = ({ userValues, setUserDataAction }) => {
   const theme = useTheme();
   const navigation = useNavigation();
 
@@ -61,8 +74,9 @@ const BottomBLock: React.FC<Props> = ({ userDataStore }) => {
         <View style={styles.rightView}>
           <BottomBtn
             title="VALIDER"
-            onPress={() => {
-              console.log("VALIDER");
+            onPress={async () => {
+              const updatedUser = await usersApi.updateUser(userValues);
+              setUserDataAction(updatedUser);
               navigation.navigate(Routes.DONATIONS_STACK);
             }}
             color={theme["color-primary-500"]}

@@ -20,6 +20,8 @@ import BottomBLock from "./BottomBLock";
 import SignOutBtn from "./SignOutBtn";
 import { logInAction } from "../../Store/IsLoggedIn/actions";
 import { userDataType } from "../../Store/UserData/types";
+import { User } from "../../Models";
+import { store } from "../../../App";
 
 const deviceHeight = Dimensions.get("window").height;
 
@@ -47,11 +49,6 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
-const useInputState = (initialValue = "") => {
-  const [value, setValue] = React.useState(initialValue);
-  return { value, onChangeText: setValue };
-};
-
 const renderFullNameIcon = () => (
   <IconX name="user" size={20} origin={ICON_TYPE.ANT_ICON} />
 );
@@ -68,23 +65,33 @@ const RequiredSign = () => <Text style={styles.requiredSign}>*</Text>;
  *
  */
 const Account: React.FC<Props> = ({ logInAction, userDataStore }) => {
-  const fullNameInputState = useInputState("Abdelhadi Ahmed");
-  const emaiInputState = useInputState("abdelhadi.deve@gmail.com");
-  const phoneInputState = useInputState("0626777317");
+  const [userValues, setUserValues] = useState<User>(userDataStore as User);
+
+  useEffect(() => {
+    setUserValues(userDataStore as User);
+    return () => {};
+  }, [userDataStore]);
+
+  const changeHandler = ({ name, value }) => {
+    setUserValues({ ...userValues, [name]: value });
+  };
 
   return (
     <View style={styles.container}>
       <View style={[styles.mainWrapper]}>
         <View style={styles.inputsView}>
           <Text style={styles.title}>
-            Nom complet
+            Nom complet {(userDataStore as User).fullName}
             <RequiredSign />
           </Text>
           <Input
             status="basic"
             placeholder="Entrez le nom complet"
-            {...fullNameInputState}
             accessoryLeft={renderFullNameIcon}
+            value={userValues.fullName}
+            onChangeText={(text) => {
+              changeHandler({ name: "fullName", value: text });
+            }}
           />
         </View>
         <View style={styles.inputsView}>
@@ -95,7 +102,7 @@ const Account: React.FC<Props> = ({ logInAction, userDataStore }) => {
           <Input
             status="basic"
             placeholder="Entrez l'email"
-            {...emaiInputState}
+            value={userValues.email}
             accessoryLeft={renderEmailIcon}
             disabled
             keyboardType="email-address"
@@ -109,7 +116,10 @@ const Account: React.FC<Props> = ({ logInAction, userDataStore }) => {
           <Input
             status="basic"
             placeholder="Entrez le télephone"
-            {...phoneInputState}
+            value={userValues.phone}
+            onChangeText={(text) => {
+              changeHandler({ name: "phone", value: text });
+            }}
             accessoryLeft={renderPhoneIcon}
             keyboardType="phone-pad"
           />
@@ -119,7 +129,7 @@ const Account: React.FC<Props> = ({ logInAction, userDataStore }) => {
         <SignOutBtn />
       </View>
       <View style={styles.BottomBtns}>
-        <BottomBLock />
+        <BottomBLock userValues={userValues} />
       </View>
     </View>
   );

@@ -28,7 +28,12 @@ function* login(action) {
     if (!isUserExist) {
       const createdUser = yield call(usersApi.createUser as any, userData);
     }
-    yield put({ type: SET_USER_DATA, userData: userData });
+    const connectedUser = yield call(usersApi.getUserById as any, {
+      uid: userData.id,
+    });
+    console.log("connectedUser===>", connectedUser);
+
+    yield put({ type: SET_USER_DATA, userData: connectedUser });
   } catch (err) {
     console.error("login saga", err);
   }
