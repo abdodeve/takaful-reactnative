@@ -1,3 +1,3 @@
 # takaful-reactnative
 
-Mobile app
+Mobile app for dons
