@@ -6,6 +6,7 @@ import "firebase/firestore";
 import { LogBox } from "react-native";
 import { User } from "./../Models";
 import FirebaseHelper from "./../Utils/FirebaseHelper";
+import * as AppAuth from "expo-app-auth";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 
@@ -57,7 +58,7 @@ async function login(): Promise<loginType | boolean> {
     return { credentialResponseGoogle, signIngResponseFirebase };
   } catch (error) {
     console.error({ error });
-    return error;
+    throw error;
   }
 }
 

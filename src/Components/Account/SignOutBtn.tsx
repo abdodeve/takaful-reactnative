@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { View, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import { Text, Input, Button, useTheme } from "@ui-kitten/components";
 import * as firebase from "firebase";
+import * as Updates from "expo-updates";
 
 import { IconX, ICON_TYPE } from "../../Icons";
 import { logInAction } from "../../Store/IsLoggedIn/actions";
@@ -53,9 +54,10 @@ const SignOutBtn: React.FC<Props> = ({
             firebase
               .auth()
               .signOut()
-              .then(() => {
+              .then(async () => {
                 // Sign-out successful.
                 console.log("Sign-out successful.");
+                await Updates.reloadAsync();
               })
               .catch((error) => {
                 // An error happened.

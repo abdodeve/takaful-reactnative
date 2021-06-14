@@ -1,4 +1,5 @@
 import { put, takeEvery, all, call } from "redux-saga/effects";
+import * as Updates from "expo-updates";
 import usersApi, { loginType } from "./../../Api/usersApi";
 import { LOG_IN, LOG_IN_ASYNC } from "./types";
 import { SET_USER_DATA } from "../UserData/types";
@@ -31,9 +32,9 @@ function* login(action) {
     const connectedUser = yield call(usersApi.getUserById as any, {
       uid: userData.id,
     });
-    console.log("connectedUser===>", connectedUser);
-
     yield put({ type: SET_USER_DATA, userData: connectedUser });
+    yield call(Updates.reloadAsync as any);
+    // Updates.reloadAsync();
   } catch (err) {
     console.error("login saga", err);
   }

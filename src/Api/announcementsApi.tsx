@@ -39,14 +39,24 @@ async function getAnnouncements({
     const typeSanitized = AnnouncementsUtil.sanitizeType(type);
     query = query.where("type", "==", typeSanitized);
 
+    // If the user not connected return
+    // an empty array for announcementsUser
     if (
       [TypeAnnouncement.DonationUser, TypeAnnouncement.RequestUser].includes(
         type
-      )
+      ) &&
+      !userData
+    )
+      return [];
+
+    // If the user connected return announcementsUser by User
+    if (
+      [TypeAnnouncement.DonationUser, TypeAnnouncement.RequestUser].includes(
+        type
+      ) &&
+      userData
     ) {
-      if (userData) {
-        query = query.where("user_id", "==", userData.id);
-      }
+      query = query.where("user_id", "==", userData.id);
     }
     query = query.limit(pageSize);
 

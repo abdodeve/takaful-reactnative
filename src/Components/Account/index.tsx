@@ -81,7 +81,7 @@ const Account: React.FC<Props> = ({ logInAction, userDataStore }) => {
       <View style={[styles.mainWrapper]}>
         <View style={styles.inputsView}>
           <Text style={styles.title}>
-            Nom complet {(userDataStore as User).fullName}
+            Nom complet
             <RequiredSign />
           </Text>
           <Input
