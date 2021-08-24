@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch } from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
 import { connect, ConnectedProps } from "react-redux";
 import { Text, Input } from "@ui-kitten/components";
 
 import { UploadedImageType } from "./../../Store/UploadedImages/types";
 import Two from "./Two";
+import { setDataStepTwoType, dataStepTwoType } from "./Two/types";
 
 const deviceHeight = Dimensions.get("window").height;
 
@@ -18,10 +19,19 @@ const mapStateToProps = (state: RootState, ownProps) => ({
 
 const connector = connect(mapStateToProps);
 type Props = ReturnType<typeof mapStateToProps> & {
-  label: string;
+  setDataStepTwo: setDataStepTwoType;
+  dataStepTwo: dataStepTwoType;
 };
 
-const StepOne: React.FC<Props> = () => {
+const StepTwo: React.FC<Props> = (props) => {
+
+  useEffect(() => {
+    props.setDataStepTwo(props.dataStepTwo);
+    return () => {
+      //cleanup
+    };
+  }, [props.dataStepTwo]);
+
   return (
     <View style={styles.wrapperSteps}>
       <View style={styles.titleView}>
@@ -30,7 +40,8 @@ const StepOne: React.FC<Props> = () => {
           votre annonce.
         </Text>
       </View>
-      <Two />
+      <Two setDataStepTwo={props.setDataStepTwo} 
+          dataStepTwo={props.dataStepTwo}/>
     </View>
   );
 };
@@ -58,4 +69,4 @@ const styles = StyleSheet.create({
   },
   textMessage: { fontSize: 17 },
 });
-export default connector(StepOne);
+export default connector(StepTwo);

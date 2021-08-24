@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  Dispatch,
+} from "react";
 import {
   Button,
   Image,
@@ -9,13 +15,18 @@ import {
   FlatList,
   SafeAreaView,
   Dimensions,
-  Text,
+  Text
 } from "react-native";
+import {
+  IndexPath
+} from "@ui-kitten/components";
 import { connect } from "react-redux";
 
 import { UploadedImageType } from "../../../Store/UploadedImages/types";
 import SelectCategory from "./SelectCategory";
 import RadioAnnouncementType from "./RadioAnnouncementType";
+import { PropsSelectCategory } from "./SelectCategory";
+import { setDataStepTwoType, dataStepTwoType } from "./types";
 
 const deviceHeight = Dimensions.get("window").height;
 
@@ -28,19 +39,38 @@ const mapStateToProps = (state: RootState, ownProps) => ({
 });
 
 const connector = connect(mapStateToProps);
-type Props = ReturnType<typeof mapStateToProps>;
+type Props = ReturnType<typeof mapStateToProps> & {
+  setDataStepTwo: setDataStepTwoType;
+  dataStepTwo: dataStepTwoType;
+};
 
 /**
  * Two
  *
  */
-const Two: React.FC<Props> = ({ uploadedImages }: Props) => {
+const Two: React.FC<Props> = ({ uploadedImages, setDataStepTwo, dataStepTwo }: Props) => {
+  const [selectCategory, setSelectCategory] = useState<IndexPath>(
+    dataStepTwo.selectCategory
+  );
+  const [selectAnnouncementType, setSelectAnnouncementType] =
+    useState<number>(dataStepTwo.selectAnnouncementType);
+
+  useEffect(() => {
+    setDataStepTwo({ selectCategory, selectAnnouncementType });
+    return () => {
+      // cleanup
+    };
+  }, [selectCategory, selectAnnouncementType]);
+
   return (
     <View style={[styles.container]}>
-      <SelectCategory />
+      <SelectCategory selectCategory={selectCategory} setSelectCategory={setSelectCategory} />
       <View style={styles.typeTitle}>
         <Text style={styles.title}>Type d'annonce</Text>
-        <RadioAnnouncementType />
+        <RadioAnnouncementType
+          setSelectAnnouncementType={setSelectAnnouncementType}
+          selectAnnouncementType={selectAnnouncementType}
+        />
       </View>
     </View>
   );

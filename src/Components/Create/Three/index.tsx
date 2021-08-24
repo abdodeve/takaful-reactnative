@@ -43,6 +43,17 @@ const Three: React.FC<Props> = ({ uploadedImages }: Props) => {
   const primaryInputState = useInputState();
   const multilineInputState = useInputState();
 
+  const [city, setCity] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+
+    useEffect(() => {
+      // effect
+      return () => {
+        // cleanup
+      }
+    },[])
+
   const theme = useTheme();
 
   return (

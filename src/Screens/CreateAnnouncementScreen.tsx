@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
+import {IndexPath} from "@ui-kitten/components";
 import { NavigationContainer, useFocusEffect } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
@@ -26,6 +27,7 @@ interface RootState {
   isLoggedInStore: boolean;
 }
 const mapStateToProps = (state: RootState, ownProps) => ({
+  uploadedImages: state.uploadedImagesStore,
   isLoggedInStore: state.isLoggedInStore,
   ownProps: ownProps,
 });
@@ -34,6 +36,7 @@ const connector = connect(mapStateToProps);
 type Props = ReturnType<typeof mapStateToProps> & ScreenProps;
 
 const CreateAnnouncementScreen: React.FC<Props> = ({
+  uploadedImages,
   isLoggedInStore,
   navigation,
 }: Props) => {
@@ -42,6 +45,17 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
   const [currentStep, setCurrentStep] = useState(-1);
 
   const [isSubmitted, setIsSubmitted] = React.useState(true);
+
+  const [dataStepTwo, setDataStepTwo] =  React.useState({
+    selectCategory: new IndexPath(0, 0),
+    selectAnnouncementType: -1,
+  });
+
+  useEffect(() => {
+    return () => {
+      //cleanup
+    };
+  }, [dataStepTwo]);
 
   React.useEffect(
     () =>
@@ -108,7 +122,7 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
             {...ProgressStepPropsPrevious}
             {...ProgressStepPropsNext}
           >
-            <StepTwo />
+            <StepTwo setDataStepTwo={setDataStepTwo} dataStepTwo={dataStepTwo} />
           </ProgressStep>
           <ProgressStep
             {...ProgressStepPropsPrevious}
@@ -121,6 +135,9 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
             {...ProgressStepPropsSubmit}
             onSubmit={() => {
               // Submit code goes here
+              console.log("Submit creation");
+              console.log("Step 1==>", uploadedImages);
+              console.log("Step 2==>", dataStepTwo);
             }}
           >
             <StepFour />

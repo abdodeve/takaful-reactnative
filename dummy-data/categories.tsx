@@ -6,25 +6,25 @@ const CATEGORIES = [
   {
     groupTitle: "HABILLEMENT & MAISON",
     data: [
-      { id: 1, name: "Vêtements" },
-      { id: 1, name: "Electroménager Et Vaisselles" },
+      { id: 2, name: "Vêtements" },
+      { id: 3, name: "Electroménager Et Vaisselles" },
     ],
   },
   {
     groupTitle: "OUTIL & MATERIEL",
     data: [
-      { id: 1, name: "Meubles Et Décoration" },
-      { id: 1, name: "Outils De Bricolage" },
-      { id: 1, name: "Matériels Professionnels" },
-      { id: 1, name: "Equipements Pour Enfant Et Bébé" },
+      { id: 4, name: "Meubles Et Décoration" },
+      { id: 5, name: "Outils De Bricolage" },
+      { id: 6, name: "Matériels Professionnels" },
+      { id: 7, name: "Equipements Pour Enfant Et Bébé" },
     ],
   },
   {
     groupTitle: "SERVICES",
     data: [
-      { id: 1, name: "Travaux De Maison" },
-      { id: 1, name: "Coiffure" },
-      { id: 1, name: "Cours Et Formations" },
+      { id: 8, name: "Travaux De Maison" },
+      { id: 9, name: "Coiffure" },
+      { id: 10, name: "Cours Et Formations" },
     ],
   },
 ];

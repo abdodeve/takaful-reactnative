@@ -1,16 +1,17 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
+import React, {Dispatch} from "react";
+import { View, StyleSheet, Text } from "react-native";
 import { Radio, RadioGroup } from "@ui-kitten/components";
 
-const RadioAnnouncementType = () => {
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+const RadioAnnouncementType = ({setSelectAnnouncementType, selectAnnouncementType}: {setSelectAnnouncementType: Dispatch<number>, selectAnnouncementType: number}) => {
 
   return (
     <View style={styles.container}>
       <RadioGroup
         style={styles.inlineRadioGroup}
-        selectedIndex={selectedIndex}
-        onChange={(index) => setSelectedIndex(index)}
+        selectedIndex={selectAnnouncementType}
+        onChange={(index) => {
+          setSelectAnnouncementType(index);
+        }}
       >
         <Radio>Don</Radio>
         <Radio>Demande</Radio>

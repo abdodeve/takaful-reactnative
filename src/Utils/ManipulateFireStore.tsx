@@ -35,7 +35,6 @@ async function creatAnnouncements() {
       };
       data.push(newAnnouncement);
     }
-    console.log({ data });
 
     for (let element of data) {
       await FirebaseHelper.FirebaseContext.firestore()

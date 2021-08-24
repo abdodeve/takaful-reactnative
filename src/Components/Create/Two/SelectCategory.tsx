@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Dispatch} from "react";
 import { View, StyleSheet, Text } from "react-native";
 import {
   Select,
@@ -10,7 +10,11 @@ import {
 import { Colors } from "../../../Constants";
 import categories from "../../../../dummy-data/categories";
 
-const SelectCategory = (props) => {
+// export type PropsSelectCategory = {setSelectCategory: (category_id: number)=> any} ;
+export type PropsSelectCategory = {setSelectCategory: Dispatch<number>} ;
+
+
+const SelectCategory = ({selectCategory, setSelectCategory}: {selectCategory: IndexPath, setSelectCategory: Dispatch<any>}) => {
   const [selectedIndex, setSelectedIndex] = React.useState<IndexPath>(
     new IndexPath(0, 0)
   );
@@ -18,20 +22,21 @@ const SelectCategory = (props) => {
     categories[0].data[0].name
   );
 
-  useEffect(() => {});
+  useEffect(() => {
+    setDisplayValue(() => {
+      return categories[selectCategory.section!].data[selectCategory.row!].name;
+    });
+  }, [selectCategory]);
 
   return (
     <View>
       <Select
         value={displayValue}
         placeholder="Default"
-        selectedIndex={selectedIndex}
+        selectedIndex={selectCategory}
         onSelect={(index: Partial<IndexPath>) => {
-          setSelectedIndex(index as IndexPath);
-          console.log("onSelect==>index==>", index);
-          setDisplayValue(() => {
-            return categories[index.section!].data[index.row!].name;
-          });
+          // setSelectedIndex(index as IndexPath);
+          setSelectCategory(index as IndexPath);
         }}
       >
         {categories.map((categoryValue, categoryIndex) => {
