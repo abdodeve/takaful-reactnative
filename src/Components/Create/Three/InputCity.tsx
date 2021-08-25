@@ -1,14 +1,16 @@
-import React from "react";
+import React, {Dispatch} from "react";
 import {
   Autocomplete,
   AutocompleteItem,
   Icon,
-  Text,
+  Text
 } from "@ui-kitten/components";
 import { IconX, ICON_TYPE } from "../../../Icons";
 import { TouchableOpacity } from "react-native";
 import cities from "./../../../../dummy-data/cities";
 import { City } from "./../../../Models";
+
+type Props = {city: string, setCity: Dispatch<string>};
 
 const filter = (item, query) =>
   item.name.toLowerCase().includes(query.toLowerCase());
@@ -17,21 +19,21 @@ const StarIcon = (props) => (
   <IconX name="location" origin={ICON_TYPE.EVIL_ICONS} />
 );
 
-const InputCity = () => {
-  const [value, setValue] = React.useState<string | undefined>(undefined);
+const InputCity: React.FC<Props> = ({city, setCity}) => {
+  // const [value, setValue] = React.useState<string | undefined>(undefined);
   const [data, setData] = React.useState<City[]>(cities);
 
   const onSelect = (index) => {
-    if (data) setValue(data[index].name);
+    if (data) setCity(data[index].name);
   };
 
   const onChangeText = (query) => {
-    setValue(query);
+    setCity(query);
     setData(cities.filter((item) => filter(item, query)));
   };
 
   const clearInput = () => {
-    setValue("");
+    setCity("");
     setData(cities);
   };
 
@@ -48,7 +50,7 @@ const InputCity = () => {
   return (
     <Autocomplete
       placeholder="Entrez le nom de la ville"
-      value={value}
+      value={city}
       accessoryRight={renderCloseIcon}
       onChangeText={onChangeText}
       onSelect={onSelect}

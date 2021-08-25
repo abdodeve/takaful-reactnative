@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, Dispatch } from "react";
 import {
   Button,
   Image,
@@ -16,6 +16,7 @@ import { Colors } from "./../../../Constants";
 
 import { UploadedImageType } from "../../../Store/UploadedImages/types";
 import InputCity from "./InputCity";
+import { setDataStepThreeType, dataStepThreeType } from "./types";
 
 const deviceHeight = Dimensions.get("window").height;
 
@@ -28,7 +29,10 @@ const mapStateToProps = (state: RootState, ownProps) => ({
 });
 
 const connector = connect(mapStateToProps);
-type Props = ReturnType<typeof mapStateToProps>;
+type Props = {
+  setDataStepThree: setDataStepThreeType;
+  dataStepThree: dataStepThreeType;
+};
 
 const useInputState = (initialValue = "") => {
   const [value, setValue] = React.useState(initialValue);
@@ -39,20 +43,21 @@ const useInputState = (initialValue = "") => {
  * Three
  *
  */
-const Three: React.FC<Props> = ({ uploadedImages }: Props) => {
-  const primaryInputState = useInputState();
-  const multilineInputState = useInputState();
+const Three: React.FC<Props> = ({ setDataStepThree, dataStepThree }) => {
+  const [city, setCity] = useState<string>(dataStepThree.city);
+  const [titleAnnouncement, setTitleAnnouncement] = React.useState(
+    dataStepThree.titleAnnouncement
+  );
+  const [description, setDescription] = useState<string>(
+    dataStepThree.description
+  );
 
-  const [city, setCity] = useState<string>("");
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-
-    useEffect(() => {
-      // effect
-      return () => {
-        // cleanup
-      }
-    },[])
+  useEffect(() => {
+    setDataStepThree({ city, titleAnnouncement, description });
+    return () => {
+      // cleanup
+    };
+  }, [city, titleAnnouncement, description]);
 
   const theme = useTheme();
 
@@ -62,7 +67,7 @@ const Three: React.FC<Props> = ({ uploadedImages }: Props) => {
         <Text style={styles.title}>
           Ville<Text style={styles.requiredSign}>*</Text>
         </Text>
-        <InputCity />
+        <InputCity city={city} setCity={setCity} />
       </View>
       <View style={styles.inputsView}>
         <Text style={styles.title}>
@@ -72,7 +77,10 @@ const Three: React.FC<Props> = ({ uploadedImages }: Props) => {
           maxLength={30}
           status="basic"
           placeholder="Entrez le titre de l'annonce"
-          {...primaryInputState}
+          value={titleAnnouncement}
+          onChangeText={(nextValue) => {
+            setTitleAnnouncement(nextValue);
+          }}
         />
       </View>
       <View style={styles.inputsView}>
@@ -84,7 +92,10 @@ const Three: React.FC<Props> = ({ uploadedImages }: Props) => {
           textStyle={styles.inputDescription}
           numberOfLines={6}
           placeholder="Entrez la déscription de l'annonce"
-          {...multilineInputState}
+          value={description}
+          onChangeText={(nextValue) => {
+            setDescription(nextValue);
+          }}
         />
       </View>
     </View>

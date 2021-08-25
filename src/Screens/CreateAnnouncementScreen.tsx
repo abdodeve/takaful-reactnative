@@ -51,6 +51,10 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
     selectAnnouncementType: -1,
   });
 
+  const [dataStepThree, setDataStepThree] =  React.useState({
+    city: "",
+  });
+
   useEffect(() => {
     return () => {
       //cleanup
@@ -128,7 +132,7 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
             {...ProgressStepPropsPrevious}
             {...ProgressStepPropsNext}
           >
-            <StepThree />
+            <StepThree dataStepThree={dataStepThree} setDataStepThree={setDataStepThree} />
           </ProgressStep>
           <ProgressStep
             {...ProgressStepPropsPrevious}

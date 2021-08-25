@@ -24,14 +24,6 @@ type Props = ReturnType<typeof mapStateToProps> & {
 };
 
 const StepTwo: React.FC<Props> = (props) => {
-
-  useEffect(() => {
-    props.setDataStepTwo(props.dataStepTwo);
-    return () => {
-      //cleanup
-    };
-  }, [props.dataStepTwo]);
-
   return (
     <View style={styles.wrapperSteps}>
       <View style={styles.titleView}>
@@ -40,8 +32,10 @@ const StepTwo: React.FC<Props> = (props) => {
           votre annonce.
         </Text>
       </View>
-      <Two setDataStepTwo={props.setDataStepTwo} 
-          dataStepTwo={props.dataStepTwo}/>
+      <Two
+        setDataStepTwo={props.setDataStepTwo}
+        dataStepTwo={props.dataStepTwo}
+      />
     </View>
   );
 };
