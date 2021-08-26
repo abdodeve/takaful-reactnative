@@ -28,7 +28,7 @@ const mapStateToProps = (state: RootState, ownProps) => ({
 });
 
 const connector = connect(mapStateToProps);
-type Props = ReturnType<typeof mapStateToProps>;
+type Props = any;
 
 const useInputState = (initialValue = "") => {
   const [value, setValue] = React.useState(initialValue);
@@ -50,10 +50,17 @@ const RequiredSign = (props) => <Text style={styles.requiredSign}>*</Text>;
  * Four
  *
  */
-const Four: React.FC<Props> = ({ uploadedImages }: Props) => {
-  const fullNameInputState = useInputState("Abdelhadi Ahmed");
-  const emaiInputState = useInputState("abdelhadi.deve@gmail.com");
-  const phoneInputState = useInputState("0626777317");
+const Four: React.FC<Props> = ({ setDataStepFour, dataStepFour }: Props) => {
+  const [fullname, setFullname] = useState(dataStepFour.fullname);
+  const [email, setEmail] = useState(dataStepFour.email);
+  const [phone, setPhone] = useState(dataStepFour.phone);
+
+  useEffect(() => {
+    setDataStepFour({ fullname, email, phone });
+    return () => {
+      // cleanup
+    };
+  }, [fullname, email, phone]);
 
   return (
     <View style={[styles.container]}>
@@ -65,7 +72,11 @@ const Four: React.FC<Props> = ({ uploadedImages }: Props) => {
         <Input
           status="basic"
           placeholder="Entrez le nom complet"
-          {...fullNameInputState}
+          value={fullname}
+          // onChangeText={setFullname}
+          onChangeText={(nextValue) => {
+            setFullname(nextValue);
+          }}
           accessoryLeft={renderFullNameIcon}
         />
       </View>
@@ -77,7 +88,8 @@ const Four: React.FC<Props> = ({ uploadedImages }: Props) => {
         <Input
           status="basic"
           placeholder="Entrez l'email"
-          {...emaiInputState}
+          value={email}
+          onChangeText={setEmail}
           accessoryLeft={renderEmailIcon}
           disabled
           keyboardType="email-address"
@@ -91,7 +103,8 @@ const Four: React.FC<Props> = ({ uploadedImages }: Props) => {
         <Input
           status="basic"
           placeholder="Entrez le télephone"
-          {...phoneInputState}
+          value={phone}
+          onChangeText={setPhone}
           accessoryLeft={renderPhoneIcon}
           keyboardType="phone-pad"
         />

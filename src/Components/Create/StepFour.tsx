@@ -19,17 +19,19 @@ const mapStateToProps = (state: RootState, ownProps) => ({
 });
 
 const connector = connect(mapStateToProps);
-type Props = ReturnType<typeof mapStateToProps> & {
-  label: string;
-};
+type Props = any;
 
-const StepFour: React.FC<Props> = () => {
+const StepFour: React.FC<Props> = ({
+  setDataStepFour,
+  dataStepFour,
+  testProp,
+}) => {
   return (
     <View style={styles.wrapperSteps}>
       <View style={styles.titleView}>
         <Text style={styles.title}>Vos informations</Text>
       </View>
-      <Four />
+      <Four setDataStepFour={setDataStepFour} dataStepFour={dataStepFour} />
     </View>
   );
 };

@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
-import {IndexPath} from "@ui-kitten/components";
+import { IndexPath } from "@ui-kitten/components";
 import { NavigationContainer, useFocusEffect } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
@@ -19,6 +19,10 @@ import StepOne from "../Components/Create/StepOne";
 import StepTwo from "../Components/Create/StepTwo";
 import StepThree from "../Components/Create/StepThree";
 import StepFour from "../Components/Create/StepFour";
+import {
+  setDataStepThreeType,
+  dataStepThreeType,
+} from "./../Components/Create/Three/types";
 
 const deviceHeight = Dimensions.get("window").height;
 
@@ -46,13 +50,21 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
 
   const [isSubmitted, setIsSubmitted] = React.useState(true);
 
-  const [dataStepTwo, setDataStepTwo] =  React.useState({
+  const [dataStepTwo, setDataStepTwo] = React.useState({
     selectCategory: new IndexPath(0, 0),
     selectAnnouncementType: -1,
   });
 
-  const [dataStepThree, setDataStepThree] =  React.useState({
+  const [dataStepThree, setDataStepThree] = React.useState<dataStepThreeType>({
     city: "",
+    titleAnnouncement: "",
+    description: "",
+  });
+
+  const [dataStepFour, setDataStepFour] = React.useState<any>({
+    fullname: "abdel",
+    email: "abc@ab.com",
+    phone: "0777",
   });
 
   useEffect(() => {
@@ -126,13 +138,19 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
             {...ProgressStepPropsPrevious}
             {...ProgressStepPropsNext}
           >
-            <StepTwo setDataStepTwo={setDataStepTwo} dataStepTwo={dataStepTwo} />
+            <StepTwo
+              setDataStepTwo={setDataStepTwo}
+              dataStepTwo={dataStepTwo}
+            />
           </ProgressStep>
           <ProgressStep
             {...ProgressStepPropsPrevious}
             {...ProgressStepPropsNext}
           >
-            <StepThree dataStepThree={dataStepThree} setDataStepThree={setDataStepThree} />
+            <StepThree
+              dataStepThree={dataStepThree}
+              setDataStepThree={setDataStepThree}
+            />
           </ProgressStep>
           <ProgressStep
             {...ProgressStepPropsPrevious}
@@ -142,9 +160,14 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
               console.log("Submit creation");
               console.log("Step 1==>", uploadedImages);
               console.log("Step 2==>", dataStepTwo);
+              console.log("Step 3==>", dataStepThree);
+              console.log("Step 4==>", dataStepFour);
             }}
           >
-            <StepFour />
+            <StepFour
+              dataStepFour={dataStepFour}
+              setDataStepFour={setDataStepFour}
+            />
           </ProgressStep>
         </ProgressSteps>
       </View>
