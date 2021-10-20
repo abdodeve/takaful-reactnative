@@ -1,9 +1,5 @@
 const CATEGORIES = [
   {
-    groupTitle: "TOUTES LES CATÉGORIES",
-    data: [{ id: 1, name: "Toutes" }],
-  },
-  {
     groupTitle: "HABILLEMENT & MAISON",
     data: [
       { id: 2, name: "Vêtements" },

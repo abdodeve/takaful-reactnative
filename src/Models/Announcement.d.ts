@@ -13,9 +13,12 @@ export type Announcement = {
   type: string;
   type_formatted?: string;
   timeSince?: string;
-  condition?: string;
+  condition?: number;
   condition_formatted?: string;
   created_at: string;
   created_at_formatted?: string;
-  category?: string;
+  category?: {
+    indexPath: { row: number; section: number };
+    displayValue: string;
+  };
 };

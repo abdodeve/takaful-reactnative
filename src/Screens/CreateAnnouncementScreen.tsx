@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import { ScreenProps } from "../Navigation/Routes";
 import { Colors } from "../Constants";
 import { UploadedImageType } from "../Store/UploadedImages/types";
+import { userDataType } from "../Store/UserData/types";
 import StepOne from "../Components/Create/StepOne";
 import StepTwo from "../Components/Create/StepTwo";
 import StepThree from "../Components/Create/StepThree";
@@ -23,16 +24,24 @@ import {
   setDataStepThreeType,
   dataStepThreeType,
 } from "./../Components/Create/Three/types";
+import {
+  setDataStepFourType,
+  dataStepFourType,
+} from "./../Components/Create/Four/types";
+import announcementsApi from "./../Api/announcementsApi";
+import { dataStepTwoType } from "../Components/Create/Two/types";
 
 const deviceHeight = Dimensions.get("window").height;
 
 interface RootState {
   uploadedImagesStore: Array<UploadedImageType>;
   isLoggedInStore: boolean;
+  userDataStore: userDataType;
 }
 const mapStateToProps = (state: RootState, ownProps) => ({
   uploadedImages: state.uploadedImagesStore,
   isLoggedInStore: state.isLoggedInStore,
+  userDataStore: state.userDataStore,
   ownProps: ownProps,
 });
 
@@ -42,6 +51,7 @@ type Props = ReturnType<typeof mapStateToProps> & ScreenProps;
 const CreateAnnouncementScreen: React.FC<Props> = ({
   uploadedImages,
   isLoggedInStore,
+  userDataStore,
   navigation,
 }: Props) => {
   const theme = useTheme();
@@ -50,9 +60,10 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
 
   const [isSubmitted, setIsSubmitted] = React.useState(true);
 
-  const [dataStepTwo, setDataStepTwo] = React.useState({
-    selectCategory: new IndexPath(0, 0),
-    selectAnnouncementType: -1,
+  const [dataStepTwo, setDataStepTwo] = React.useState<dataStepTwoType>({
+    selectCategory: { indexPath: new IndexPath(0, 0), displayValue: "" },
+    radioAnnouncementType: 0,
+    radioAnnouncementCondition: 0,
   });
 
   const [dataStepThree, setDataStepThree] = React.useState<dataStepThreeType>({
@@ -61,7 +72,7 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
     description: "",
   });
 
-  const [dataStepFour, setDataStepFour] = React.useState<any>({
+  const [dataStepFour, setDataStepFour] = React.useState<dataStepFourType>({
     fullname: "abdel",
     email: "abc@ab.com",
     phone: "0777",
@@ -155,13 +166,21 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
           <ProgressStep
             {...ProgressStepPropsPrevious}
             {...ProgressStepPropsSubmit}
-            onSubmit={() => {
-              // Submit code goes here
-              console.log("Submit creation");
-              console.log("Step 1==>", uploadedImages);
-              console.log("Step 2==>", dataStepTwo);
-              console.log("Step 3==>", dataStepThree);
-              console.log("Step 4==>", dataStepFour);
+            onSubmit={async () => {
+              announcementsApi.createAnnouncement(
+                {
+                  uploadedImages,
+                  dataStepTwo,
+                  dataStepThree,
+                  dataStepFour,
+                },
+                userDataStore
+              );
+              // console.log("Submit creation");
+              // console.log("Step 1==>", uploadedImages);
+              // console.log("Step 2==>", dataStepTwo);
+              // console.log("Step 3==>", dataStepThree);
+              // console.log("Step 4==>", dataStepFour);
             }}
           >
             <StepFour

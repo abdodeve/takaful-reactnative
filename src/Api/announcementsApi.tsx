@@ -11,6 +11,12 @@ import { TypeAnnouncement } from "./../Models/TypeAnnouncement";
 import { ANDROID_CLIENT_ID } from "./../Config";
 import FirebaseHelper from "./../Utils/FirebaseHelper";
 import AnnouncementsUtil from "./../Utils/Announcements";
+import { dataStepTwoType } from "./../Components/Create/Two/types";
+import { dataStepThreeType } from "./../Components/Create/Three/types";
+import { dataStepFourType } from "./../Components/Create/Four/types";
+import { UploadedImageType } from "./../Store/UploadedImages/types";
+import { userDataType } from "./../Store/UserData/types";
+import { User } from "./../Models/User";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 
@@ -83,7 +89,80 @@ async function getAnnouncements({
     const announcementsNormalized: Announcement[] =
       await AnnouncementsUtil.normalizeAnnouncements(announcements);
 
+    console.log("announcementsNormalized==>", announcementsNormalized);
+
     return announcementsNormalized;
+  } catch (error) {
+    throw error;
+  }
+}
+
+type createAnnouncementType = {
+  uploadedImages: UploadedImageType[];
+  dataStepTwo: dataStepTwoType;
+  dataStepThree: dataStepThreeType;
+  dataStepFour: dataStepFourType;
+};
+
+async function createAnnouncement(
+  {
+    uploadedImages,
+    dataStepTwo,
+    dataStepThree,
+    dataStepFour,
+  }: createAnnouncementType,
+  userData: userDataType
+) {
+  try {
+    let announcementReference: firebase.firestore.CollectionReference =
+      FirebaseHelper.FirebaseContext.firestore().collection("Announcements");
+
+      console.log("uploadedImages===>", uploadedImages);
+      return;
+
+
+    let snapshot: firebase.firestore.QuerySnapshot;
+    // snapshot = await announcementReference.orderBy("id", "desc").limit(1).get();
+    snapshot = await announcementReference
+      .orderBy("created_at", "desc")
+      .limit(1)
+      .get();
+
+    if (
+      !snapshot ||
+      typeof snapshot == "undefined" ||
+      typeof snapshot.docs == "undefined"
+    )
+      return [];
+
+    let announcements: Announcement[] = snapshot.docs.map((doc) => {
+      return { ...doc.data() };
+    }) as Announcement[];
+
+    const nextId = String(Number(announcements[0].id) + 1);
+
+    var docData = {
+      id: nextId,
+      category: JSON.stringify(dataStepTwo.selectCategory),
+      type: dataStepTwo.radioAnnouncementType === 0 ? "DONATION" : "REQUEST",
+      city: dataStepThree.city,
+      condition: dataStepTwo.radioAnnouncementCondition,
+      content: dataStepThree.description,
+      title: dataStepThree.titleAnnouncement,
+      fullname: dataStepFour.fullname,
+      email: dataStepFour.email,
+      phone: dataStepFour.phone,
+      mainImg: 1,
+      nbImg: 1,
+      user_id: (userData as User).id,
+      created_at: Date.now().toString(),
+    };
+    announcementReference
+      .doc(nextId)
+      .set(docData)
+      .then(() => {
+        console.log("Document successfully written!");
+      });
   } catch (error) {
     throw error;
   }
@@ -91,4 +170,5 @@ async function getAnnouncements({
 
 export default {
   getAnnouncements,
+  createAnnouncement,
 };

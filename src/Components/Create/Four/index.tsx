@@ -16,6 +16,7 @@ import { Colors } from "./../../../Constants";
 import { IconX, ICON_TYPE } from "../../../Icons";
 
 import { UploadedImageType } from "../../../Store/UploadedImages/types";
+import { setDataStepFourType, dataStepFourType } from "./types";
 
 const deviceHeight = Dimensions.get("window").height;
 
@@ -28,7 +29,10 @@ const mapStateToProps = (state: RootState, ownProps) => ({
 });
 
 const connector = connect(mapStateToProps);
-type Props = any;
+type Props = {
+  setDataStepFour: setDataStepFourType;
+  dataStepFour: dataStepFourType;
+};
 
 const useInputState = (initialValue = "") => {
   const [value, setValue] = React.useState(initialValue);

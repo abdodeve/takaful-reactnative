@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Dispatch} from "react";
+import React, { useState, useEffect, Dispatch } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import {
   Select,
@@ -9,22 +9,27 @@ import {
 } from "@ui-kitten/components";
 import { Colors } from "../../../Constants";
 import categories from "../../../../dummy-data/categories";
+import { selectCategoryType } from "./types";
 
 // export type PropsSelectCategory = {setSelectCategory: (category_id: number)=> any} ;
-export type PropsSelectCategory = {setSelectCategory: Dispatch<number>} ;
+export type PropsSelectCategory = { setSelectCategory: Dispatch<number> };
 
-
-const SelectCategory = ({selectCategory, setSelectCategory}: {selectCategory: IndexPath, setSelectCategory: Dispatch<any>}) => {
-  const [selectedIndex, setSelectedIndex] = React.useState<IndexPath>(
-    new IndexPath(0, 0)
-  );
+const SelectCategory = ({
+  selectCategory,
+  setSelectCategory,
+}: {
+  selectCategory: selectCategoryType;
+  setSelectCategory: Dispatch<selectCategoryType>;
+}) => {
   const [displayValue, setDisplayValue] = React.useState<string>(
     categories[0].data[0].name
   );
 
   useEffect(() => {
     setDisplayValue(() => {
-      return categories[selectCategory.section!].data[selectCategory.row!].name;
+      return categories[selectCategory.indexPath.section!].data[
+        selectCategory.indexPath.row!
+      ].name;
     });
   }, [selectCategory]);
 
@@ -33,10 +38,13 @@ const SelectCategory = ({selectCategory, setSelectCategory}: {selectCategory: In
       <Select
         value={displayValue}
         placeholder="Default"
-        selectedIndex={selectCategory}
+        selectedIndex={selectCategory.indexPath}
         onSelect={(index: Partial<IndexPath>) => {
-          // setSelectedIndex(index as IndexPath);
-          setSelectCategory(index as IndexPath);
+          console.log("index===>", index);
+          setSelectCategory({
+            indexPath: index as IndexPath,
+            value: categories[index.section!].data[index.row!].name,
+          });
         }}
       >
         {categories.map((categoryValue, categoryIndex) => {

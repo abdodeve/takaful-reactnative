@@ -15,18 +15,21 @@ import {
   FlatList,
   SafeAreaView,
   Dimensions,
-  Text
+  Text,
 } from "react-native";
-import {
-  IndexPath
-} from "@ui-kitten/components";
+import { IndexPath } from "@ui-kitten/components";
 import { connect } from "react-redux";
 
 import { UploadedImageType } from "../../../Store/UploadedImages/types";
 import SelectCategory from "./SelectCategory";
 import RadioAnnouncementType from "./RadioAnnouncementType";
+import RadioAnnouncementCondition from "./RadioAnnouncementCondition";
 import { PropsSelectCategory } from "./SelectCategory";
-import { setDataStepTwoType, dataStepTwoType } from "./types";
+import {
+  selectCategoryType,
+  setDataStepTwoType,
+  dataStepTwoType,
+} from "./types";
 
 const deviceHeight = Dimensions.get("window").height;
 
@@ -48,28 +51,46 @@ type Props = ReturnType<typeof mapStateToProps> & {
  * Two
  *
  */
-const Two: React.FC<Props> = ({ uploadedImages, setDataStepTwo, dataStepTwo }: Props) => {
-  const [selectCategory, setSelectCategory] = useState<IndexPath>(
+const Two: React.FC<Props> = ({
+  uploadedImages,
+  setDataStepTwo,
+  dataStepTwo,
+}: Props) => {
+  const [selectCategory, setSelectCategory] = useState<selectCategoryType>(
     dataStepTwo.selectCategory
   );
-  const [selectAnnouncementType, setSelectAnnouncementType] =
-    useState<number>(dataStepTwo.selectAnnouncementType);
+  const [radioAnnouncementType, setRadioAnnouncementType] = useState<number>(
+    dataStepTwo.radioAnnouncementType
+  );
+  const [radioAnnouncementCondition, setRadioAnnouncementCondition] = useState<number>(
+    dataStepTwo.radioAnnouncementCondition
+  );
 
   useEffect(() => {
-    setDataStepTwo({ selectCategory, selectAnnouncementType });
+    setDataStepTwo({ selectCategory, radioAnnouncementType, radioAnnouncementCondition });
     return () => {
       // cleanup
     };
-  }, [selectCategory, selectAnnouncementType]);
+  }, [selectCategory, radioAnnouncementType, radioAnnouncementCondition]);
 
   return (
     <View style={[styles.container]}>
-      <SelectCategory selectCategory={selectCategory} setSelectCategory={setSelectCategory} />
+      <SelectCategory
+        selectCategory={selectCategory}
+        setSelectCategory={setSelectCategory}
+      />
       <View style={styles.typeTitle}>
         <Text style={styles.title}>Type d'annonce</Text>
         <RadioAnnouncementType
-          setSelectAnnouncementType={setSelectAnnouncementType}
-          selectAnnouncementType={selectAnnouncementType}
+          setRadioAnnouncementType={setRadioAnnouncementType}
+          radioAnnouncementType={radioAnnouncementType}
+        />
+      </View>
+      <View style={styles.typeTitle}>
+        <Text style={styles.title}>Condition de l'objet</Text>
+        <RadioAnnouncementCondition
+          setRadioAnnouncementCondition={setRadioAnnouncementCondition}
+          radioAnnouncementCondition={radioAnnouncementCondition}
         />
       </View>
     </View>

@@ -7,6 +7,7 @@ import { UploadedImageType } from "./../../Store/UploadedImages/types";
 import { addImage } from "./../../Store/UploadedImages/actions";
 import Four from "./Four";
 import { IconX, ICON_TYPE } from "../../Icons";
+import { setDataStepFourType, dataStepFourType } from "./Four/types";
 
 const deviceHeight = Dimensions.get("window").height;
 
@@ -19,13 +20,12 @@ const mapStateToProps = (state: RootState, ownProps) => ({
 });
 
 const connector = connect(mapStateToProps);
-type Props = any;
+type Props = {
+  setDataStepFour: setDataStepFourType;
+  dataStepFour: dataStepFourType;
+};
 
-const StepFour: React.FC<Props> = ({
-  setDataStepFour,
-  dataStepFour,
-  testProp,
-}) => {
+const StepFour: React.FC<Props> = ({ setDataStepFour, dataStepFour }) => {
   return (
     <View style={styles.wrapperSteps}>
       <View style={styles.titleView}>

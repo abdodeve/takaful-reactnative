@@ -2,19 +2,21 @@ import React, {Dispatch} from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Radio, RadioGroup } from "@ui-kitten/components";
 
-const RadioAnnouncementType = ({setRadioAnnouncementType, radioAnnouncementType}: {setRadioAnnouncementType: Dispatch<number>, radioAnnouncementType: number}) => {
+const RadioAnnouncementCondition = ({setRadioAnnouncementCondition, radioAnnouncementCondition}: {setRadioAnnouncementCondition: Dispatch<number>, radioAnnouncementCondition: number}) => {
 
   return (
     <View style={styles.container}>
       <RadioGroup
         style={styles.inlineRadioGroup}
-        selectedIndex={radioAnnouncementType}
+        selectedIndex={radioAnnouncementCondition}
         onChange={(index) => {
-          setRadioAnnouncementType(index);
+          setRadioAnnouncementCondition(index);
         }}
       >
-        <Radio>Don</Radio>
-        <Radio>Demande</Radio>
+        <Radio>Neuf</Radio>
+        <Radio>Bon</Radio>
+        <Radio>Moyen</Radio>
+        <Radio>À bricoler</Radio>
       </RadioGroup>
     </View>
   );
@@ -30,4 +32,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RadioAnnouncementType;
+export default RadioAnnouncementCondition;
