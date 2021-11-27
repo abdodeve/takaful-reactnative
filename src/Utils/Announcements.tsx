@@ -47,45 +47,27 @@ const getImagesOfAnnouncement = async (announcement_id, nbImg) => {
   }
 };
 /**
- * 
+ *
  * @TODO Upload images to the Server
  */
-const setImagesOfAnnouncement = async (uploadedImages) => {
+const setImagesOfAnnouncement = async (id_announcement, uploadedImages) => {
   try {
-    console.log("-------------setImagesOfAnnouncement-------------", uploadedImages);
     let storage = FirebaseHelper.FirebaseContext.storage();
 
-    
-    // Create a reference to 'mountains.jpg'
-    console.log("1111");
+    // let pathReference = storage.ref(`announcements/abdo111.jpg`);
+    // const blobFetched = await fetch(uploadedImages.uri);
+    // const blob = await blobFetched.blob();
+
+    // const res = await pathReference.put(blob);
+
+    for (let i = 1; i <= uploadedImages.length; i++) {
       let pathReference = storage.ref(
-        `announcements/abdo111.jpg`
+        `announcements/${id_announcement}/${i}.jpg`
       );
-      console.log("22222==>", uploadedImages.uri);
-
-      const blobFetched = await fetch(uploadedImages.uri);
+      const blobFetched = await fetch(uploadedImages[i - 1].uri);
       const blob = await blobFetched.blob();
-
-
-     const res = pathReference.put(blob);
-     console.log("3333");
-
-     res.then(res=>{
-      console.log("--------------Image saved--------------");
-     }).catch(err=>{
-      console.log("--------------Image ERROR--------------");
-     })
-     console.log("Upload res==>");
-
-    // const urls: string[] = [];
-    // for (let i = 1; i <= nbImg; i++) {
-    //   let pathReference = storage.ref(
-    //     `announcements/${announcement_id}/${i}.jpg`
-    //   );
-    //   const url: string = await pathReference.getDownloadURL();
-    //   urls.push(url);
-    // }
-    // return urls;
+      await pathReference.put(blob);
+    }
   } catch (error) {
     return false;
   }
@@ -199,5 +181,5 @@ export default {
   formatDate,
   normalizeAnnouncements,
   sanitizeType,
-  setImagesOfAnnouncement
+  setImagesOfAnnouncement,
 };

@@ -17,6 +17,7 @@ import { dataStepFourType } from "./../Components/Create/Four/types";
 import { UploadedImageType } from "./../Store/UploadedImages/types";
 import { userDataType } from "./../Store/UserData/types";
 import { User } from "./../Models/User";
+import Announcements from "./../Utils/Announcements";
 
 LogBox.ignoreLogs(["Setting a timer"]);
 
@@ -117,10 +118,6 @@ async function createAnnouncement(
     let announcementReference: firebase.firestore.CollectionReference =
       FirebaseHelper.FirebaseContext.firestore().collection("Announcements");
 
-      console.log("uploadedImages===>", uploadedImages);
-      return;
-
-
     let snapshot: firebase.firestore.QuerySnapshot;
     // snapshot = await announcementReference.orderBy("id", "desc").limit(1).get();
     snapshot = await announcementReference
@@ -140,6 +137,8 @@ async function createAnnouncement(
     }) as Announcement[];
 
     const nextId = String(Number(announcements[0].id) + 1);
+
+    await Announcements.setImagesOfAnnouncement(nextId, uploadedImages);
 
     var docData = {
       id: nextId,

@@ -18,7 +18,6 @@ import ImageBlock from "./ImageBlock";
 import { IconX, ICON_TYPE } from "../../../Icons";
 import { addImage } from "../../../Store/UploadedImages/actions";
 import { UploadedImageType } from "../../../Store/UploadedImages/types";
-import Announcements from "./../../../Utils/Announcements";
 
 const deviceHeight = Dimensions.get("window").height;
 
@@ -85,8 +84,6 @@ const Item: React.FC<Props> = ({ uri, index, addImage }: Props) => {
     });
 
     if (!result.cancelled) {
-      console.log("result===>", result);
-      Announcements.setImagesOfAnnouncement(result);
       result["index"] = index;
       const newImage = { uri: result["uri"] };
       addImage(newImage, index);
