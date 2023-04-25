@@ -40,7 +40,6 @@ const SelectCategory = ({
         placeholder="Default"
         selectedIndex={selectCategory.indexPath}
         onSelect={(index: Partial<IndexPath>) => {
-          console.log("index===>", index);
           setSelectCategory({
             indexPath: index as IndexPath,
             value: categories[index.section!].data[index.row!].name,

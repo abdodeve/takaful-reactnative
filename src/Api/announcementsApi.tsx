@@ -90,8 +90,6 @@ async function getAnnouncements({
     const announcementsNormalized: Announcement[] =
       await AnnouncementsUtil.normalizeAnnouncements(announcements);
 
-    console.log("announcementsNormalized==>", announcementsNormalized);
-
     return announcementsNormalized;
   } catch (error) {
     throw error;

@@ -16,6 +16,7 @@ import { ScreenProps } from "../Navigation/Routes";
 import { Colors } from "../Constants";
 import { UploadedImageType } from "../Store/UploadedImages/types";
 import { userDataType } from "../Store/UserData/types";
+import { Routes } from "../Navigation/Routes";
 import StepOne from "../Components/Create/StepOne";
 import StepTwo from "../Components/Create/StepTwo";
 import StepThree from "../Components/Create/StepThree";
@@ -167,7 +168,7 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
             {...ProgressStepPropsPrevious}
             {...ProgressStepPropsSubmit}
             onSubmit={async () => {
-              announcementsApi.createAnnouncement(
+              await announcementsApi.createAnnouncement(
                 {
                   uploadedImages,
                   dataStepTwo,
@@ -176,11 +177,7 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
                 },
                 userDataStore
               );
-              // console.log("Submit creation");
-              // console.log("Step 1==>", uploadedImages);
-              // console.log("Step 2==>", dataStepTwo);
-              // console.log("Step 3==>", dataStepThree);
-              // console.log("Step 4==>", dataStepFour);
+              navigation.navigate(Routes.HOME_SCREEN);
             }}
           >
             <StepFour

@@ -4,6 +4,27 @@ import { IconX, ICON_TYPE } from "../../Icons";
 import { TouchableOpacity } from "react-native";
 import cities from "./../../../dummy-data/cities";
 import { City } from "./../../Models";
+import { SearchFilters } from "../../Models/SearchFilters";
+import { setSearchFiltersAction } from "../../Store/search-filters/actions";
+import { SearchFiltersType } from "../../Store/search-filters/types";
+import { connect } from "react-redux";
+
+interface RootState {
+  SearchFiltersStore: SearchFilters;
+}
+
+const mapStateToProps = (state: RootState, ownProps) => ({
+  SearchFiltersStore: state.SearchFiltersStore,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setSearchFiltersAction: (searchFiltersData: SearchFiltersType) => {
+      dispatch(setSearchFiltersAction(searchFiltersData));
+    },
+  };
+};
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 const filter = (item, query) =>
   item.name.toLowerCase().includes(query.toLowerCase());
@@ -12,12 +33,16 @@ const StarIcon = (props) => (
   <IconX name="location" origin={ICON_TYPE.EVIL_ICONS} />
 );
 
-const InputCity = () => {
+type Props = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
+
+const InputCity = (props: Props) => {
   const [value, setValue] = React.useState<string | undefined>(undefined);
   const [data, setData] = React.useState<City[]>(cities);
 
   const onSelect = (index) => {
     setValue(data[index].name);
+    props.setSearchFiltersAction({ city: data[index].name });
   };
 
   const onChangeText = (query) => {
@@ -53,4 +78,4 @@ const InputCity = () => {
   );
 };
 
-export default InputCity;
+export default connector(InputCity);

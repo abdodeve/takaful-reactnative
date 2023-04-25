@@ -70,7 +70,6 @@ async function testFetching() {
       announcementsData: [],
       userData: { uid: "IPlBSh1okhT341lYwhRKYXlSUXx1" },
     });
-    // console.log("data===>", data);
   } catch (error) {
     throw error;
   }
@@ -88,7 +87,6 @@ async function getAnnouncementById() {
     let data: any = snapshot.docs;
 
     data.map((doc) => {
-      console.log("doc.data()===>", doc.data());
       return { id: doc.id, ...doc.data() };
     });
   } catch (error) {

@@ -64,7 +64,6 @@ const BottomBLock: React.FC<Props> = ({ userValues, setUserDataAction }) => {
           <BottomBtn
             title="ANNULER"
             onPress={() => {
-              console.log("ANNULER");
               navigation.navigate(Routes.DONATIONS_STACK);
             }}
             color={theme["color-basic-500"]}

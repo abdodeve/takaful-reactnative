@@ -3,14 +3,33 @@ import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, Input } from "@ui-kitten/components";
 
 import TitleHeader from "./../Shared/TitleHeader";
+import { SearchFilters } from "../../Models/SearchFilters";
+import { setSearchFiltersAction } from "../../Store/search-filters/actions";
+import { SearchFiltersType } from "../../Store/search-filters/types";
+import { connect } from "react-redux";
 
-const useInputState = (initialValue = "") => {
-  const [value, setValue] = React.useState(initialValue);
-  return { value, onChangeText: setValue };
+interface RootState {
+  SearchFiltersStore: SearchFilters;
+}
+
+const mapStateToProps = (state: RootState, ownProps) => ({
+  SearchFiltersStore: state.SearchFiltersStore,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setSearchFiltersAction: (searchFiltersData: SearchFiltersType) => {
+      dispatch(setSearchFiltersAction(searchFiltersData));
+    },
+  };
 };
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
-const SearchHeader = (props) => {
-  const primaryInputState = useInputState();
+type Props = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
+
+const SearchHeader = (props: Props) => {
+  const [value, setValue] = React.useState("");
 
   return (
     <View style={styles.header}>
@@ -34,7 +53,11 @@ const SearchHeader = (props) => {
             style={[styles.SearchInput]}
             status="primary"
             placeholder="Rechercher"
-            {...primaryInputState}
+            value={value}
+            onChangeText={(value) => {
+              setValue(value);
+              props.setSearchFiltersAction({ searchInput: value });
+            }}
           />
         </View>
       </View>
@@ -74,4 +97,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchHeader;
+export default connector(SearchHeader);
