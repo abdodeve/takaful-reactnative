@@ -15,7 +15,7 @@ import { connect } from "react-redux";
 import ANNOUNCEMENTS from "./../../../dummy-data/announcements";
 import ItemLeft from "./ItemLeft";
 import ItemRight from "./ItemRight";
-import { Announcement } from "../../Models";
+import { Announcement, SearchFilters, User } from "../../Models";
 import { TypeAnnouncement } from "../../Models/TypeAnnouncement";
 import { Routes, ScreenProps } from "../../Navigation/Routes";
 import announcementsApi from "./../../Api/announcementsApi";
@@ -37,10 +37,14 @@ const Item = ({ item, onPress, route, navigation }) => (
 
 interface RootState {
   AnnouncementStore: any;
+  userDataStore: User;
+  SearchFiltersStore: SearchFilters;
 }
 
 const mapStateToProps = (state: RootState, ownProps) => ({
+  SearchFiltersStore: state.SearchFiltersStore,
   AnnouncementStore: state.AnnouncementStore,
+  userDataStore: state.userDataStore,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -48,6 +52,11 @@ const mapDispatchToProps = (dispatch) => {
     getAnnouncementsAction: (AnnouncementStore, announcementType, refresh) => {
       dispatch(
         getAnnouncementsAction(AnnouncementStore, announcementType, refresh)
+      );
+    },
+    setAnnouncementsAction: (AnnouncementStore, announcementType, refresh) => {
+      dispatch(
+        setAnnouncementsAction(AnnouncementStore, announcementType, refresh)
       );
     },
   };
@@ -61,7 +70,10 @@ const AnnouncementsList: React.FC<ScreenProps & Props> = ({
   route,
   navigation,
   AnnouncementStore,
+  userDataStore,
+  SearchFiltersStore,
   getAnnouncementsAction,
+  setAnnouncementsAction,
 }: ScreenProps & Props) => {
   useEffect(() => {
     return () => {
@@ -107,31 +119,51 @@ const AnnouncementsList: React.FC<ScreenProps & Props> = ({
 
   return (
     <View>
-      {/* <Text>{JSON.stringify(AnnouncementStore)}</Text>
-      {/* <Text>
-        {currentAnnouncementsByScreen().map((res) => {
-          return (res as any).id + " , ";
-        })}
-      </Text> */}
       <FlatList
         data={currentAnnouncementsByScreen()}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         onEndReached={async () => {
-          getAnnouncementsAction(
-            currentAnnouncementsByScreen(),
+          const fetchedAnnouncement: Announcement[] =
+            await announcementsApi.getAnnouncements({
+              type: (route.params as any).announcementType,
+              announcementsData: currentAnnouncementsByScreen(),
+              userData: userDataStore,
+              searchFilters: SearchFiltersStore,
+            });
+          setAnnouncementsAction(
+            fetchedAnnouncement,
             (route.params as any).announcementType,
             false
           );
+
+          // getAnnouncementsAction(
+          //   currentAnnouncementsByScreen(),
+          //   (route.params as any).announcementType,
+          //   false
+          // );
         }}
-        onEndReachedThreshold={0.5}
+        onEndReachedThreshold={0.1}
         refreshing={false}
-        onRefresh={() => {
-          getAnnouncementsAction(
-            [],
+        onRefresh={async () => {
+          const fetchedAnnouncement: Announcement[] =
+            await announcementsApi.getAnnouncements({
+              type: (route.params as any).announcementType,
+              announcementsData: [],
+              userData: userDataStore,
+              searchFilters: SearchFiltersStore,
+            });
+          setAnnouncementsAction(
+            fetchedAnnouncement,
             (route.params as any).announcementType,
             true
           );
+
+          // getAnnouncementsAction(
+          //   [],
+          //   (route.params as any).announcementType,
+          //   true
+          // );
         }}
         ListFooterComponent={() => {
           return (

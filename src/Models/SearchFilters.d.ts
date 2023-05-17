@@ -3,10 +3,5 @@ export type SearchFilters = {
   city?: string;
   category?: string;
   announcementType?: string;
-  objectState?: {
-    new?: boolean;
-    good?: boolean;
-    medium?: boolean;
-    tinker?: boolean;
-  };
+  condition?: number[];
 };

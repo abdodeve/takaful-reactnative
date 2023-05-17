@@ -1,5 +1,6 @@
 import { SearchFilters } from "./../../Models/SearchFilters";
 export const SET_SEARCH_FILTERS = "SET_SEARCH_FILTERS";
+export const RESET_SEARCH_FILTERS = "RESET_SEARCH_FILTERS";
 
 export type SearchFiltersType = SearchFilters | boolean;
 
@@ -8,4 +9,10 @@ interface setSearchFiltersDataActionType {
   searchFiltersData: SearchFilters;
 }
 
-export type Actions = setSearchFiltersDataActionType;
+interface resetSearchFiltersDataActionType {
+  type: typeof RESET_SEARCH_FILTERS;
+}
+
+export type Actions =
+  | setSearchFiltersDataActionType
+  | resetSearchFiltersDataActionType;

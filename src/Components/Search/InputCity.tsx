@@ -1,7 +1,12 @@
-import React from "react";
-import { Autocomplete, AutocompleteItem, Icon } from "@ui-kitten/components";
+import React, { useEffect } from "react";
+import {
+  Autocomplete,
+  AutocompleteItem,
+  Icon,
+  Button,
+} from "@ui-kitten/components";
 import { IconX, ICON_TYPE } from "../../Icons";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import cities from "./../../../dummy-data/cities";
 import { City } from "./../../Models";
 import { SearchFilters } from "../../Models/SearchFilters";
@@ -40,6 +45,13 @@ const InputCity = (props: Props) => {
   const [value, setValue] = React.useState<string | undefined>(undefined);
   const [data, setData] = React.useState<City[]>(cities);
 
+  useEffect(() => {
+    if (!props.SearchFiltersStore.city) {
+      setValue("");
+      setData(cities);
+    }
+  }, [props.SearchFiltersStore.city]);
+
   const onSelect = (index) => {
     setValue(data[index].name);
     props.setSearchFiltersAction({ city: data[index].name });
@@ -51,6 +63,7 @@ const InputCity = (props: Props) => {
   };
 
   const clearInput = () => {
+    props.setSearchFiltersAction({ city: "" });
     setValue("");
     setData(cities);
   };
@@ -66,15 +79,17 @@ const InputCity = (props: Props) => {
   );
 
   return (
-    <Autocomplete
-      placeholder="Entrez le nom de la ville"
-      value={value}
-      accessoryRight={renderCloseIcon}
-      onChangeText={onChangeText}
-      onSelect={onSelect}
-    >
-      {data.map(renderOption)}
-    </Autocomplete>
+    <View>
+      <Autocomplete
+        placeholder="Entrez le nom de la ville"
+        value={value}
+        accessoryRight={renderCloseIcon}
+        onChangeText={onChangeText}
+        onSelect={onSelect}
+      >
+        {data.map(renderOption)}
+      </Autocomplete>
+    </View>
   );
 };
 

@@ -1,7 +1,7 @@
 import React, { Dispatch } from "react";
 import { IndexPath } from "@ui-kitten/components";
 
-export type selectCategoryType = { indexPath: IndexPath; displayValue: string };
+export type selectCategoryType = string;
 
 export type setDataStepTwoType = Dispatch<{
   selectCategory: selectCategoryType;

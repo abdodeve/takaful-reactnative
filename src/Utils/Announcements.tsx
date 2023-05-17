@@ -73,8 +73,8 @@ const setImagesOfAnnouncement = async (id_announcement, uploadedImages) => {
   }
 };
 
-const formatDate = (timestamp) => {
-  const dateString = moment.unix(timestamp);
+export const formatDate = (timestamp) => {
+  const dateString = new Date(Number(timestamp));
   let month = moment(dateString).locale("fr").format("MMMM");
   month = month.substring(0, 3);
   const day = moment(dateString).format("DD");
@@ -115,7 +115,7 @@ const normalizeAnnouncements = async (announcements: Announcement[]) => {
     const user: User = await usersApi.getUserById({ uid: value.user_id });
     const allImages = await getImagesOfAnnouncement(value.id, value.nbImg);
     const mainImgUrl = await getMainImage(value.id, value.nbImg);
-    const category = JSON.parse(value.category as any);
+    const category = value.category;
     const url = mainImgUrl
       ? { uri: mainImgUrl }
       : require("../../assets/announcements/2/1.jpg");

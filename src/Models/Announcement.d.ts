@@ -17,8 +17,5 @@ export type Announcement = {
   condition_formatted?: string;
   created_at: string;
   created_at_formatted?: string;
-  category?: {
-    indexPath: { row: number; section: number };
-    displayValue: string;
-  };
+  category?: string;
 };

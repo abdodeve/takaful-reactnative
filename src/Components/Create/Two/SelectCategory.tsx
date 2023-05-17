@@ -11,7 +11,6 @@ import { Colors } from "../../../Constants";
 import categories from "../../../../dummy-data/categories";
 import { selectCategoryType } from "./types";
 
-// export type PropsSelectCategory = {setSelectCategory: (category_id: number)=> any} ;
 export type PropsSelectCategory = { setSelectCategory: Dispatch<number> };
 
 const SelectCategory = ({
@@ -21,29 +20,20 @@ const SelectCategory = ({
   selectCategory: selectCategoryType;
   setSelectCategory: Dispatch<selectCategoryType>;
 }) => {
-  const [displayValue, setDisplayValue] = React.useState<string>(
-    categories[0].data[0].name
-  );
-
-  useEffect(() => {
-    setDisplayValue(() => {
-      return categories[selectCategory.indexPath.section!].data[
-        selectCategory.indexPath.row!
-      ].name;
-    });
-  }, [selectCategory]);
+  const [selectedIndex, setSelectedIndex] = React.useState<
+    IndexPath | IndexPath[]
+  >(new IndexPath(0, 1));
 
   return (
     <View>
       <Select
-        value={displayValue}
+        value={selectCategory}
         placeholder="Default"
-        selectedIndex={selectCategory.indexPath}
+        selectedIndex={selectedIndex}
         onSelect={(index: Partial<IndexPath>) => {
-          setSelectCategory({
-            indexPath: index as IndexPath,
-            value: categories[index.section!].data[index.row!].name,
-          });
+          const label = categories[index.section!].data[index.row!].name;
+          setSelectCategory(label);
+          setSelectedIndex(index as any);
         }}
       >
         {categories.map((categoryValue, categoryIndex) => {

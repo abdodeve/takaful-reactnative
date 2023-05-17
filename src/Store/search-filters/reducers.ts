@@ -1,22 +1,27 @@
-import { SearchFiltersType, SET_SEARCH_FILTERS, Actions } from "./types";
+import {
+  SearchFiltersType,
+  SET_SEARCH_FILTERS,
+  RESET_SEARCH_FILTERS,
+  Actions,
+} from "./types";
 
-const initialState = {
+export const initialStateSearchFilter = {
   searchInput: "",
   city: "",
   category: "",
   announcementType: "",
-  objectState: {
-    new: false,
-    good: false,
-    medium: false,
-    tinker: false,
-  },
+  condition: [],
 };
 
-export const SearchFiltersReducer = (state = initialState, action: Actions) => {
+export const SearchFiltersReducer = (
+  state = initialStateSearchFilter,
+  action: Actions
+) => {
   switch (action.type) {
     case SET_SEARCH_FILTERS:
       return { ...state, ...action.searchFiltersData };
+    case RESET_SEARCH_FILTERS:
+      return initialStateSearchFilter;
     default:
       return state;
   }

@@ -110,7 +110,7 @@ const MainContent: React.FC<Props> = ({ announcement }: Props) => {
         </View>
         <View>
           <Text style={styles.characteristicTextRight}>
-            {announcement?.category?.displayValue}
+            {announcement?.category}
           </Text>
         </View>
       </View>

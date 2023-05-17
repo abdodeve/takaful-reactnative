@@ -1,25 +1,47 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Text, Input } from "@ui-kitten/components";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import TitleHeader from "./../Shared/TitleHeader";
 import { SearchFilters } from "../../Models/SearchFilters";
-import { setSearchFiltersAction } from "../../Store/search-filters/actions";
+import {
+  setSearchFiltersAction,
+  resetSearchFiltersAction,
+} from "../../Store/search-filters/actions";
+import {
+  getAnnouncementsAction,
+  setAnnouncementsAction,
+} from "../../Store/Announcement/actions";
 import { SearchFiltersType } from "../../Store/search-filters/types";
 import { connect } from "react-redux";
+import { Announcement } from "../../Models/Announcement";
+import announcementsApi from "../../Api/announcementsApi";
+import { User } from "../../Models";
+import { initialStateSearchFilter } from "../../Store/search-filters/reducers";
 
 interface RootState {
   SearchFiltersStore: SearchFilters;
+  userDataStore: User;
 }
 
 const mapStateToProps = (state: RootState, ownProps) => ({
   SearchFiltersStore: state.SearchFiltersStore,
+  userDataStore: state.userDataStore,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     setSearchFiltersAction: (searchFiltersData: SearchFiltersType) => {
       dispatch(setSearchFiltersAction(searchFiltersData));
+    },
+    resetSearchFiltersAction: () => {
+      dispatch(resetSearchFiltersAction());
+    },
+    setAnnouncementsAction: (AnnouncementStore, announcementType, refresh) => {
+      dispatch(
+        setAnnouncementsAction(AnnouncementStore, announcementType, refresh)
+      );
     },
   };
 };
@@ -30,6 +52,7 @@ type Props = ReturnType<typeof mapStateToProps> &
 
 const SearchHeader = (props: Props) => {
   const [value, setValue] = React.useState("");
+  const navigation = useNavigation();
 
   return (
     <View style={styles.header}>
@@ -39,15 +62,28 @@ const SearchHeader = (props: Props) => {
         </View>
         <View>
           <TouchableOpacity
-            onPress={() => {
-              console.log("Réinitialiser");
+            onPress={async () => {
+              props.resetSearchFiltersAction();
+              let fetchedAnnouncement: Announcement[] =
+                await announcementsApi.getAnnouncements({
+                  type: "DONATION",
+                  announcementsData: [],
+                  userData: props.userDataStore,
+                  searchFilters: initialStateSearchFilter,
+                });
+              props.setAnnouncementsAction(
+                fetchedAnnouncement,
+                "DONATION",
+                true
+              );
+              navigation.goBack();
             }}
           >
             <Text>Réinitialiser</Text>
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.searchInputView}>
+      {/* <View style={styles.searchInputView}>
         <View>
           <Input
             style={[styles.SearchInput]}
@@ -60,7 +96,7 @@ const SearchHeader = (props: Props) => {
             }}
           />
         </View>
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -71,7 +107,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: "#fff",
-    height: 100,
+    height: 55,
   },
   topRow: {
     flexDirection: "row",

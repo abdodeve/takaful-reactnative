@@ -43,7 +43,12 @@ const SelectCategory = (props: Props) => {
     categories[0].data[0].name
   );
 
-  useEffect(() => {});
+  useEffect(() => {
+    if (!props.SearchFiltersStore.category) {
+      setSelectedIndex(new IndexPath(0, 0));
+      setDisplayValue(categories[0].data[0].name);
+    }
+  }, [props.SearchFiltersStore.category]);
 
   return (
     <View>
@@ -56,6 +61,12 @@ const SelectCategory = (props: Props) => {
           setDisplayValue(() => {
             return categories[index.section!].data[index.row!].name;
           });
+
+          if (index.section === 0 && index.row === 0) {
+            return props.setSearchFiltersAction({
+              category: "",
+            });
+          }
           props.setSearchFiltersAction({
             category: categories[index.section!].data[index.row!].name,
           });

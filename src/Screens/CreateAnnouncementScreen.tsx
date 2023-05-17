@@ -31,6 +31,7 @@ import {
 } from "./../Components/Create/Four/types";
 import announcementsApi from "./../Api/announcementsApi";
 import { dataStepTwoType } from "../Components/Create/Two/types";
+import categories from "../../dummy-data/categories";
 
 const deviceHeight = Dimensions.get("window").height;
 
@@ -62,7 +63,7 @@ const CreateAnnouncementScreen: React.FC<Props> = ({
   const [isSubmitted, setIsSubmitted] = React.useState(true);
 
   const [dataStepTwo, setDataStepTwo] = React.useState<dataStepTwoType>({
-    selectCategory: { indexPath: new IndexPath(0, 0), displayValue: "" },
+    selectCategory: categories[0].data[0].name,
     radioAnnouncementType: 0,
     radioAnnouncementCondition: 0,
   });

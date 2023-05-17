@@ -56,18 +56,21 @@ const Two: React.FC<Props> = ({
   setDataStepTwo,
   dataStepTwo,
 }: Props) => {
-  const [selectCategory, setSelectCategory] = useState<selectCategoryType>(
+  const [selectCategory, setSelectCategory] = useState<string>(
     dataStepTwo.selectCategory
   );
   const [radioAnnouncementType, setRadioAnnouncementType] = useState<number>(
     dataStepTwo.radioAnnouncementType
   );
-  const [radioAnnouncementCondition, setRadioAnnouncementCondition] = useState<number>(
-    dataStepTwo.radioAnnouncementCondition
-  );
+  const [radioAnnouncementCondition, setRadioAnnouncementCondition] =
+    useState<number>(dataStepTwo.radioAnnouncementCondition);
 
   useEffect(() => {
-    setDataStepTwo({ selectCategory, radioAnnouncementType, radioAnnouncementCondition });
+    setDataStepTwo({
+      selectCategory,
+      radioAnnouncementType,
+      radioAnnouncementCondition,
+    });
     return () => {
       // cleanup
     };

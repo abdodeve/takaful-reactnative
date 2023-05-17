@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { CheckBox, Layout } from "@ui-kitten/components";
+import { CheckBox, Layout, Button } from "@ui-kitten/components";
 import { connect } from "react-redux";
 
 const useCheckboxState = (initialCheck = false) => {
@@ -43,6 +43,40 @@ const CheckboxObjectState = (props: Props) => {
   const [mediumCheckboxState, setMediumCheckboxState] = React.useState(false);
   const [tinkerCheckboxState, setTinkerCheckboxState] = React.useState(false);
 
+  const statesToArray = () => {
+    const states: number[] = [];
+    if (newCheckboxState) states.push(0);
+    if (goodCheckboxState) states.push(1);
+    if (mediumCheckboxState) states.push(2);
+    if (tinkerCheckboxState) states.push(3);
+    return states;
+  };
+
+  useEffect(() => {
+    const states = statesToArray();
+    props.setSearchFiltersAction({
+      condition: states,
+    });
+    return () => {};
+  }, [
+    newCheckboxState,
+    goodCheckboxState,
+    mediumCheckboxState,
+    tinkerCheckboxState,
+  ]);
+
+  useEffect(() => {
+    if (
+      !props.SearchFiltersStore?.condition ||
+      props.SearchFiltersStore?.condition?.length === 0
+    ) {
+      setNewCheckboxState(false);
+      setGoodCheckboxState(false);
+      setMediumCheckboxState(false);
+      setTinkerCheckboxState(false);
+    }
+  }, [props.SearchFiltersStore.condition]);
+
   return (
     <View style={styles.container}>
       <CheckBox
@@ -51,12 +85,6 @@ const CheckboxObjectState = (props: Props) => {
         checked={newCheckboxState}
         onChange={(checked) => {
           setNewCheckboxState(checked);
-          props.setSearchFiltersAction({
-            objectState: {
-              ...props.SearchFiltersStore.objectState,
-              ...{ new: checked },
-            },
-          });
         }}
       >
         Comme neuf
@@ -67,12 +95,6 @@ const CheckboxObjectState = (props: Props) => {
         checked={goodCheckboxState}
         onChange={(checked) => {
           setGoodCheckboxState(checked);
-          props.setSearchFiltersAction({
-            objectState: {
-              ...props.SearchFiltersStore.objectState,
-              ...{ good: checked },
-            },
-          });
         }}
       >
         Bon état
@@ -83,12 +105,6 @@ const CheckboxObjectState = (props: Props) => {
         checked={mediumCheckboxState}
         onChange={(checked) => {
           setMediumCheckboxState(checked);
-          props.setSearchFiltersAction({
-            objectState: {
-              ...props.SearchFiltersStore.objectState,
-              ...{ medium: checked },
-            },
-          });
         }}
       >
         Moyen
@@ -99,12 +115,6 @@ const CheckboxObjectState = (props: Props) => {
         checked={tinkerCheckboxState}
         onChange={(checked) => {
           setTinkerCheckboxState(checked);
-          props.setSearchFiltersAction({
-            objectState: {
-              ...props.SearchFiltersStore.objectState,
-              ...{ tinker: checked },
-            },
-          });
         }}
       >
         À bricoler

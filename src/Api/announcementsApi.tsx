@@ -5,7 +5,7 @@ import "firebase/firestore";
 import { LogBox } from "react-native";
 import moment from "moment";
 import "moment/locale/fr";
-import { Announcement } from "./../Models";
+import { Announcement, SearchFilters } from "./../Models";
 import { TypeAnnouncement } from "./../Models/TypeAnnouncement";
 
 import { ANDROID_CLIENT_ID } from "./../Config";
@@ -26,11 +26,13 @@ async function getAnnouncements({
   subType,
   announcementsData,
   userData,
+  searchFilters,
 }: {
   type: any;
   subType?: any;
   announcementsData: any;
   userData?: any;
+  searchFilters?: SearchFilters;
 }) {
   try {
     const field = "id";
@@ -43,6 +45,7 @@ async function getAnnouncements({
       firebase.firestore.FieldPath.documentId(),
       "desc"
     );
+
     const typeSanitized = AnnouncementsUtil.sanitizeType(type);
     query = query.where("type", "==", typeSanitized);
 
@@ -66,6 +69,20 @@ async function getAnnouncements({
       query = query.where("user_id", "==", userData.id);
     }
     query = query.limit(pageSize);
+
+    console.log("searchFilters========>", searchFilters);
+
+    // Filter by category
+    if (searchFilters?.category)
+      query = query.where("category", "==", searchFilters.category);
+
+    // Filter by City
+    if (searchFilters?.city)
+      query = query.where("city", "==", searchFilters.city);
+
+    // Filter by condition
+    if (searchFilters?.condition && searchFilters?.condition?.length > 0)
+      query = query.where("condition", "in", searchFilters?.condition);
 
     // Paginate to the next page
     if (announcementsData.length > 0) {
